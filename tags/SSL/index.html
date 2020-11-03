@@ -21,7 +21,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>分类：Install - Schenk - Blog</title>
+  <title>标签：SSL - Schenk - Blog</title>
   
 
   
@@ -312,28 +312,34 @@
   
     
     <h2 class="article-title" >
-      <a href="/2020/11/03/Hexo-Volantis%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/">
-        Hexo+Volantis个人博客部署
+      <a href="/2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/">
+        Internet安全协议与分析Notes
       </a>
     </h2>
   
   <div class='md'>
     
       
-        配置部署Hexo
-配置流程
+        IPSec
+
+通信保护协议
+AH
+
+通信提供数据源认证、抗抵赖性、数据完整性和反重播保证，但不提供机密性保护
+
+AH传输模式
 
 
-参考链接
+源IP地址、目的IP地址是不能修改的，否则会被检测出来，因此AH在传输模式下和NAT冲突
 
-安装npm
-安装git
-其中配置npm源
-
-123456# 获取npm源npm get registry# 修改为淘宝源npm config set registry http://registry.npm.taobao.org/# 重置# npm config set registry https://registry.npmjs.org/
+AH隧道模式
 
 
-...
+AH验证的范围也是整个IP包，因此AH和NAT的冲突在隧道模式下也存在
+
+ESP
+
+为IP提供机密性、数据源认证、抗重播以及数据完整性等安全服务，但不提供...
       
     
   </div>
@@ -341,15 +347,15 @@
     <div class='meta-v3' line_style='solid'>
       <div>
         
-        <time>2020-11-03</time>
+        <time>2020-11-02</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/Install/">Install</a>
+          <a class="category-link" href="/categories/Course-Notes/">Course Notes</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/2020/11/03/Hexo-Volantis%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/'>
+          <a class='readmore' href='/2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/'>
             阅读全文
           </a>
         </div>
