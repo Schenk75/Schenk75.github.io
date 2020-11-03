@@ -4,6 +4,35 @@
   
     
     <entry>
+      <title>Hexo+Volantis个人博客部署</title>
+      <link href="2020/11/03/Hexo-Volantis%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/"/>
+      <url>2020/11/03/Hexo-Volantis%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/</url>
+      
+        <content type="html"><![CDATA[<h2 id="配置部署Hexo">配置部署Hexo</h2><h3 id="配置流程">配置流程</h3><ul><li><p><a href="https://blog.csdn.net/sinat_37781304/article/details/82729029">参考链接</a></p><ul><li>安装<a href="https://www.cnblogs.com/lgx5/p/10732016.html">npm</a></li><li>安装<a href="https://blog.csdn.net/sinat_20177327/article/details/76062030">git</a></li><li>其中配置npm源</li></ul><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 获取npm源</span></span><br><span class="line">npm get registry</span><br><span class="line"><span class="comment"># 修改为淘宝源</span></span><br><span class="line">npm config <span class="built_in">set</span> registry http://registry.npm.taobao.org/</span><br><span class="line"><span class="comment"># 重置</span></span><br><span class="line"><span class="comment"># npm config set registry https://registry.npmjs.org/</span></span><br></pre></td></tr></table></figure></li></ul><h3 id="常用命令">常用命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 上传至github</span></span><br><span class="line">hexo g &amp;&amp; hexo d</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 本地运行</span></span><br><span class="line">hexo g &amp;&amp; hexo s</span><br></pre></td></tr></table></figure><h3 id="Markdown公式显示问题">Markdown公式显示问题</h3><p>使用<a href="https://www.jianshu.com/p/588ab3d22eb8">hexo-renderer-markdown-it</a>插件</p><h2 id="处理Markdown图片问题">处理Markdown图片问题</h2><p>在最开始的尝试中遇到以下问题：</p><ul><li>直接将图片保存到github，在hexo编译生成的html网页中通过相对路径访问<strong>速度太慢</strong></li><li>将博客部署到gitee上，由于服务器在国内，图片加载速度确实比github快很多，但是问题在于部署在gitee上的博客会有各种奇怪<strong>显示问题</strong>，所以也放弃</li></ul><p>最终的解决办法：</p><ul><li>先在github新建一个仓库Source，专门用来存放博客文章用到的图片</li><li>使用jsdelivr提供的cdn加速<ul><li>在本地编写好markdown后，将图片文件夹复制到Source目录下并push到github仓库</li><li>在markdown文档中通过<code>ctrl+f</code>将所有图片的路径前缀改为<code>https://cdn.jsdelivr.net/gh/&lt;github用户名&gt;/Source@latest/&lt;文件夹名&gt;</code></li></ul></li></ul><h2 id="Volantis主题配置">Volantis主题配置</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> Install </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> git </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> cdn </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Internet安全协议与分析Notes</title>
       <link href="2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/"/>
       <url>2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/</url>

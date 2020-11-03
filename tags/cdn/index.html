@@ -21,7 +21,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2020/11 - Schenk - Blog</title>
+  <title>标签：cdn - Schenk - Blog</title>
   
 
   
@@ -58,7 +58,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -213,7 +213,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper  dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
           
@@ -288,16 +288,14 @@
       <div class='body-wrapper' id="pjax-container">
         
 
+
 <div class='l_main'>
-	
-		
+  
+    
+      
   <section class="post-list">
     
       
-        
-          
-        
-          
         
           
         
@@ -364,112 +362,6 @@
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/">
-        Internet安全协议与分析Notes
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        IPSec
-
-通信保护协议
-AH
-
-通信提供数据源认证、抗抵赖性、数据完整性和反重播保证，但不提供机密性保护
-
-AH传输模式
-
-
-源IP地址、目的IP地址是不能修改的，否则会被检测出来，因此AH在传输模式下和NAT冲突
-
-AH隧道模式
-
-
-AH验证的范围也是整个IP包，因此AH和NAT的冲突在隧道模式下也存在
-
-ESP
-
-为IP提供机密性、数据源认证、抗重播以及数据完整性等安全服务，但不提供...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-02</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/01/hello-world/">
-        Hello World
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-01</time>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/01/hello-world/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -477,7 +369,8 @@ Qu...
   
 
 
-	
+    
+  
 </div>
 <aside class='l_side'>
   
@@ -621,7 +514,7 @@ Qu...
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
