@@ -60,7 +60,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur floatable " style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -115,6 +115,54 @@
                     id="categories"
                   >
                   <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
                 </a>
                 
               </li>
@@ -190,6 +238,54 @@
               
             
               <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
                 <a class="menuitem flat-box faa-parent animated-hover" href=/about/
                   
                   
@@ -217,14 +313,16 @@
     
         <div id="full" class='cover-wrapper  dock' style="display: ;">
           
-            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg"></div>
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
           <div class='cover-body'>
   <div class='top'>
     
     
-      <p class="title">Volantis</p>
+      <p class="title">Schenk - Blog</p>
     
+    
+      <p class="subtitle">SJTUer | Cuber</p>
     
   </div>
   <div class='bottom'>
@@ -232,46 +330,39 @@
       <div class='list-h'>
         
           
-            <a href="/v4/getting-started/"
+            <a href="/categories/"
               
               
-              id="v4getting-started">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>文档</p>
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
             </a>
           
-            <a href="/faqs/"
+            <a href="/tags/"
               
               
-              id="faqs">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>帮助</p>
-            </a>
-          
-            <a href="/examples/"
-              
-              
-              id="examples">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>示例</p>
-            </a>
-          
-            <a href="/contributors/"
-              
-              
-              id="contributors">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>社区</p>
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
             </a>
           
             <a href="/archives/"
               
               
               id="archives">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>博客</p>
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
             </a>
           
-            <a target="_blank" rel="noopener" href="https://github.com/volantis-x/hexo-theme-volantis/"
+            <a href="/friends/"
               
               
-              id="https:githubcomvolantis-xhexo-theme-volantis">
-              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>源码</p>
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
             </a>
           
         
@@ -311,7 +402,7 @@
       
         
           <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+            <div class="post post-v3 white-box reveal shadow floatable">
   
   
   
@@ -325,22 +416,7 @@
   
   <div class='md'>
     
-      
-        配置部署Hexo
-配置流程
-
-
-参考链接
-
-安装npm
-安装git
-其中配置npm源
-
-123456# 获取npm源npm get registry# 修改为淘宝源npm config set registry http://registry.npm.taobao.org/# 重置# npm config set registry https://registry.npmjs.org/
-
-
-...
-      
+      个人博客配置心得
     
   </div>
   
@@ -370,7 +446,7 @@
       
         
           <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+            <div class="post post-v3 white-box reveal shadow floatable">
   
   
   
@@ -384,28 +460,7 @@
   
   <div class='md'>
     
-      
-        IPSec
-
-通信保护协议
-AH
-
-通信提供数据源认证、抗抵赖性、数据完整性和反重播保证，但不提供机密性保护
-
-AH传输模式
-
-
-源IP地址、目的IP地址是不能修改的，否则会被检测出来，因此AH在传输模式下和NAT冲突
-
-AH隧道模式
-
-
-AH验证的范围也是整个IP包，因此AH和NAT的冲突在隧道模式下也存在
-
-ESP
-
-为IP提供机密性、数据源认证、抗重播以及数据完整性等安全服务，但不提供...
-      
+      Internet安全协议与分析期末复习
     
   </div>
   
@@ -435,7 +490,7 @@ ESP
       
         
           <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+            <div class="post post-v3 white-box reveal shadow floatable">
   
   
   
@@ -449,10 +504,7 @@ ESP
   
   <div class='md'>
     
-      
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...
-      
+      Hello World
     
   </div>
   
@@ -491,22 +543,21 @@ Qu...
     
     
 
-<section class="widget blogger shadow desktop mobile">
+<section class="widget blogger shadow floatable desktop mobile">
   <div class='content'>
     
       
-        <a class='avatar flat-box rectangle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/blog/Logo-NavBar@3x.png'/>
+        <a class='avatar flat-box circle' href='/about/'>
+          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
         </a>
       
     
     
       <div class='text'>
         
+          <h2>Schenk</h2>
         
         
-          <p><span id="jinrishici-sentence">Schenk - Blog</span></p>
-          <script src="https://sdk.jinrishici.com/v2/browser/jinrishici.js" charset="utf-8"></script>
         
       </div>
     
@@ -514,37 +565,34 @@ Qu...
       <div class="social-wrapper">
         
           
-            <a href="/atom.xml"
-              class="social fas fa-rss flat-btn"
+            <a href="https://github.com/Schenk75"
+              class="social  flat-btn"
               target="_blank"
               rel="external nofollow noopener noreferrer">
               
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/volantis-x/"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
+                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
               
             </a>
           
         
           
             <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
+              class="social  flat-btn"
               target="_blank"
               rel="external nofollow noopener noreferrer">
+              
+                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
+              
+            </a>
+          
+        
+          
+            <a href="https://cubingchina.com/results/person/2018SHEN04"
+              class="social  flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
               
             </a>
           
@@ -561,7 +609,7 @@ Qu...
     
   
 
-  <section class="widget category shadow desktop">
+  <section class="widget category shadow floatable desktop">
     
   <header>
     
@@ -595,7 +643,7 @@ Qu...
     
   
 
-  <section class="widget tagcloud shadow desktop mobile">
+  <section class="widget tagcloud shadow floatable desktop mobile">
     
   <header>
     
@@ -611,6 +659,132 @@ Qu...
 
 
   
+
+  
+    
+    
+
+<section class="widget shadow floatable desktop">
+  
+  <header>
+    
+      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
+    
+  </header>
+
+
+  <div class='content'>
+    <div class="webinfo">
+      
+        <div class="webinfo-item">
+          <div>文章数目：</div>
+          <div>3 篇</div>
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>已运行时间：</div>
+          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
+        </div>
+        <script>
+          var BirthDay = new Date(new Date('2020/11/02'));
+          var today = new Date();
+          var timeold = (today.getTime() - BirthDay.getTime());
+          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
+          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
+        </script>
+      
+
+
+      
+        <div class="webinfo-item">
+          <div>本站总字数：</div>
+          <div>2.6k 字</div>
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>本站访客数：</div>
+          
+          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
+          
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>本站总访问量：</div>
+          
+          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
+          
+        </div>
+      
+
+      
+        <div class="webinfo-item">
+          <div>最后活动时间：</div>
+          
+            <div id="last-update" style="display: none;">Wed Nov 04 2020 09:57:25 GMT+0800 (中国标准时间)</div>
+            <div id="last-update-show">2020-11-04 日</div>
+          
+        </div>
+        
+        <script>
+          function timeago(dateTimeStamp) {
+              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
+              var hour = minute * 60;
+              var day = hour * 24;
+              var week = day * 7;
+              var month = day * 30;
+              var now = new Date().getTime(); //获取当前时间毫秒
+              var diffValue = now - dateTimeStamp; //时间差
+              if (diffValue < 0) {
+                  return;
+              }
+              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
+              var hourC = diffValue / hour;
+              var dayC = diffValue / day;
+              var weekC = diffValue / week;
+              var monthC = diffValue / month;
+              if (monthC >= 1 && monthC <= 3) {
+                  result = " " + parseInt(monthC) + " 月前"
+              } else if (weekC >= 1 && weekC <= 3) {
+                  result = " " + parseInt(weekC) + " 周前"
+              } else if (dayC >= 1 && dayC <= 6) {
+                  result = " " + parseInt(dayC) + " 天前"
+              } else if (hourC >= 1 && hourC <= 23) {
+                  result = " " + parseInt(hourC) + " 小时前"
+              } else if (minC >= 1 && minC <= 59) {
+                  result = " " + parseInt(minC) + " 分钟前"
+              } else if (diffValue >= 0 && diffValue <= minute) {
+                  result = "刚刚"
+              } else {
+                  var datetime = new Date();
+                  datetime.setTime(dateTimeStamp);
+                  var Nyear = datetime.getFullYear();
+                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
+                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
+                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
+                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
+                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
+                  result = Nyear + "-" + Nmonth + "-" + Ndate
+              }
+              return result;
+          }
+          var lastUpDate = document.getElementById('last-update').innerHTML;
+          try {
+            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
+          } catch (error) {
+            document.getElementById('last-update-show').innerHTML = '2020-11-04 日';
+          }
+        </script>
+        
+      
+    </div>
+  </div>
+</section>
 
   
 
@@ -666,26 +840,8 @@ Qu...
       
     
       
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
-</div>
-      
-    
-      
-        
-          <div><p><span id="lc-sv">本站总访问量为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 次</span> <span id="lc-uv">访客数为 <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span> 人</span></p>
-</div>
-        
-      
-    
-      
-        本站使用
-        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5" target="_blank" class="codename">Volantis</a>
-        作为主题
-      
-    
-      
         <div class='copyright'>
-        <p><a href="/">Copyright © 2017-2020 XXX</a></p>
+        <p><a href="/">Copyright © 2020 Schenk</a></p>
 
         </div>
       
@@ -886,88 +1042,70 @@ var loadCSS = function( href, before, media, attributes ){
 
 
 
-
-
-
-
-
-
-  
-  
-<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/valine.min.js"></script>
-
-
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 <script>
-  var GUEST_INFO = ['nick', 'mail', 'link'];
-  var meta = 'nick,mail,link'.split(',').filter(function (item) {
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick', 'mail', 'link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function (item) {
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-
-  function emoji(path, idx, ext) {
-    return path + "/" + path + "-" + idx + "." + ext;
-  }
-
-  var emojiMaps = {};
-  for (var i = 1; i <= 54; i++) {
-    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
-  }
-  for (var i = 1; i <= 101; i++) {
-    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
-  }
-  for (var i = 1; i <= 116; i++) {
-    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
-  }
-  for (var i = 1; i <= 125; i++) {
-    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
-  }
-  for (var i = 1; i <= 4; i++) {
-    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
-  }
-
-  function pjax_valine() {
-    if(!document.querySelectorAll("#valine_container")[0])return;
-
-    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
-
-    let path = pdata.commentPath;
-    if (path.length == 0) {
-      let defaultPath = '';
-      path = defaultPath || decodeURI(window.location.pathname);
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
     }
-
-    var valine = new Valine();
-    valine.init({
-      el: '#valine_container',
-      meta: meta,
-      placeholder: pagePlaceholder,
-      path: path,
-      appId: "",
-      appKey: "",
-      pageSize: '10',
-      avatar: 'robohash',
-      lang: 'zh-cn',
-      visitor: 'true',
-      highlight: 'true',
-      mathJax: 'false',
-      enableQQ: 'true',
-      recordIP: 'false',
-      requiredFields: requiredFields,
-      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
-      emojiMaps: emojiMaps
-    })
-  }
-
-  $(function () {
-    pjax_valine();
-  });
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
 </script>
 
 
 
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
 
 
   
@@ -1395,8 +1533,8 @@ document.addEventListener("pjax:success", listennSidebarTOC);
         
         
         
+          pjax_initCopyCode();
         
-          pjax_valine();
         
         
         
