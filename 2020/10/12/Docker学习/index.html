@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：IPSec - Schenk - Blog</title>
+  <title>Docker - Learn - Schenk - Blog</title>
+  
+    <meta name="keywords" content="docker">
   
 
+  
+    <meta name="description" content="Docker学习记录">
   
 
   <!-- feed -->
@@ -309,7 +311,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -379,74 +381,221 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        Docker - Learn
+      </h1>
+      <div class='new-meta-box'>
         
           
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/">
-        Internet安全协议与分析Notes
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Internet安全协议与分析期末复习
-    
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Docker/">Docker</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-11-02</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年10月12日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Course-Notes/">Course Notes</a>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：1.1k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：4分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Docker - Learn" data-path="/2020/10/12/Docker%E5%AD%A6%E4%B9%A0/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <h2 id="底层原理">底层原理</h2>
+<p><strong>Docker是怎么工作的？</strong></p>
+<p>Docker是一个C-S结构的系统，Docker的守护进程运行在服务主机上，通过Socket从客户端访问。</p>
+<p>DockerServer接收到DockerClient的指令就会执行这个命令。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Docker-Notes/image-20201013120921063.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Docker-Notes/image-20201013120921063.png" srcset="data:image/png;base64,666" alt="image-20201013120921063"></p>
+<p><strong>Docker为什么比VM快？</strong></p>
+<ol>
+<li>Docker有着比虚拟机更少的抽象层</li>
+<li>Docker利用的是宿主机的内核，VM需要有Guest OS。所以新建一个容器的时候，docker不需要像VM一样重新加载一个操作系统内核，避免引导</li>
+</ol>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Docker-Notes/image-20201013120834703.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Docker-Notes/image-20201013120834703.png" srcset="data:image/png;base64,666" alt="image-20201013120834703"></p>
+<h2 id="Docker常用命令">Docker常用命令</h2>
+<h3 id="docker的默认工作路径">docker的默认工作路径</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/var/lib/docker</span><br></pre></td></tr></table></figure>
+<h3 id="帮助命令">帮助命令</h3>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker version			# 显示docker的版本信息</span><br><span class="line">docker info				# 显示docker的系统信息，包括镜像和容器的数量</span><br><span class="line">docker &lt;命令&gt; --help	   # 查看帮助命令</span><br></pre></td></tr></table></figure>
+<h3 id="镜像命令">镜像命令</h3>
+<p><strong>docker images</strong> 查看所有本地的主机上的镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">hello-world         latest              bf756fb1ae65        9 months ago        13.3kB</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 解释</span></span><br><span class="line">REPOSITORY		镜像的仓库源</span><br><span class="line">TAG				镜像的标签</span><br><span class="line">IMAGE ID		镜像的ID</span><br><span class="line">CREATED			镜像的创建时间</span><br><span class="line">SIZE 			镜像的大小</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 命令可选项</span></span><br><span class="line">-a, --all		列出所有镜像</span><br><span class="line">-q, --quiet		只显示镜像的id</span><br></pre></td></tr></table></figure>
+<p><strong>docker search <image></strong> 搜索镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker search mysql</span><br><span class="line">NAME       DESCRIPTION                                     STARS     OFFICIAL   AUTOMATED</span><br><span class="line">mysql      MySQL is a widely used, open-source relation…   10046     [OK]                </span><br><span class="line">mariadb    MariaDB is a community-developed fork of MyS…   3680      [OK]                </span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 可选项，通过收藏数过滤</span></span><br><span class="line">--filter=STAR=3000		搜索出来的镜像是STARS大于3000的</span><br></pre></td></tr></table></figure>
+<p><strong>docker pull <image>[:tag]</strong> 下载镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost ~]# docker pull mysql</span><br><span class="line">Using default tag: latest				# 如果不写tag，默认是latest</span><br><span class="line">latest: Pulling from library/mysql</span><br><span class="line">d121f8d1c412: Pull complete 			# 分层下载，docker镜像的核心 联合文件系统</span><br><span class="line">f3cebc0b4691: Pull complete </span><br><span class="line">1862755a0b37: Pull complete </span><br><span class="line">489b44f3dbb4: Pull complete </span><br><span class="line">690874f836db: Pull complete </span><br><span class="line">baa8be383ffb: Pull complete </span><br><span class="line">55356608b4ac: Pull complete </span><br><span class="line">dd35ceccb6eb: Pull complete </span><br><span class="line">429b35712b19: Pull complete </span><br><span class="line">162d8291095c: Pull complete </span><br><span class="line">5e500ef7181b: Pull complete </span><br><span class="line">af7528e958b6: Pull complete </span><br><span class="line">Digest: sha256:e1bfe11693ed2052cb3b4e5fa356c65381129e87e38551c6cd6ec532ebe0e808</span><br><span class="line">Status: Downloaded newer image for mysql:latest</span><br><span class="line">docker.io/library/mysql:latest			# 真实地址</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 下载指定版本，共用的层会复用，不用重复下载</span></span><br><span class="line">[root@localhost ~]# docker pull mysql:5.7</span><br><span class="line">5.7: Pulling from library/mysql</span><br><span class="line">d121f8d1c412: Already exists </span><br><span class="line">f3cebc0b4691: Already exists </span><br><span class="line">1862755a0b37: Already exists </span><br><span class="line">489b44f3dbb4: Already exists </span><br><span class="line">690874f836db: Already exists </span><br><span class="line">baa8be383ffb: Already exists </span><br><span class="line">55356608b4ac: Already exists </span><br><span class="line">277d8f888368: Pull complete </span><br><span class="line">21f2da6feb67: Pull complete </span><br><span class="line">2c98f818bcb9: Pull complete </span><br><span class="line">031b0a770162: Pull complete </span><br><span class="line">Digest: sha256:14fd47ec8724954b63d1a236d2299b8da25c9bbb8eacc739bb88038d82da4919</span><br><span class="line">Status: Downloaded newer image for mysql:5.7</span><br><span class="line">docker.io/library/mysql:5.7</span><br></pre></td></tr></table></figure>
+<p><strong>docker rmi</strong> 删除镜像</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker rmi -f &lt;镜像id&gt; [&lt;镜像id&gt; &lt;镜像id&gt;]		# 删除指定的镜像</span><br><span class="line">docker rmi -f $(docker images -aq)				# 删除所有镜像</span><br></pre></td></tr></table></figure>
+<h3 id="容器命令">容器命令</h3>
+<p>**注：**有了镜像才可以创建容器，以centos镜像为例</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull centos</span><br></pre></td></tr></table></figure>
+<p><strong>docker run [可选参数] <image></strong>  新建并启动容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 参数说明</span></span><br><span class="line">--name=&quot;&lt;Name&gt;&quot;		容器名字，自定义，用来区分容器</span><br><span class="line">-d 					后台方式运行</span><br><span class="line">-it					使用交互方式运行，进入容器查看内容</span><br><span class="line">-p					指定容器的端口，配置端口转发</span><br><span class="line">	-p ip:主机端口:容器端口</span><br><span class="line">	-p 主机端口:容器端口（常用）</span><br><span class="line">	-p 容器端口</span><br><span class="line">-P					随机指定端口</span><br><span class="line"></span><br><span class="line">例：</span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动并进入容器</span></span><br><span class="line">[root@localhost ~]# docker run -it centos /bin/bash</span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出容器并关闭容器</span></span><br><span class="line">[root@bebbdced119e /]# exit</span><br><span class="line"><span class="meta">#</span><span class="bash"> 退出容器但不关闭容器</span></span><br><span class="line">Ctrl + p + q</span><br></pre></td></tr></table></figure>
+<p><strong>docker ps [可选参数]</strong> 列出运行的容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 参数说明</span></span><br><span class="line">-a			列出所有运行过的容器</span><br><span class="line">-n=&lt;n&gt;		列出最近创建的n个容器</span><br><span class="line">-q			只显示容器编号</span><br></pre></td></tr></table></figure>
+<p>**docker rm 删除容器</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker rm &lt;容器id&gt;				删除指定容器，不能删除正在运行的容器，若要强制删除加参数-f</span><br><span class="line">docker rm -f $(docker ps -aq) 	 删除所有的容器</span><br><span class="line">docker ps -a -q|xargs docker rm  删除所有的容器</span><br></pre></td></tr></table></figure>
+<p><strong>启动和停止容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker start &lt;容器id&gt;			启动容器</span><br><span class="line">docker restart &lt;容器id&gt;		重启容器</span><br><span class="line">docker stop &lt;容器id&gt;			停止容器</span><br><span class="line">docker kill &lt;容器id&gt;			强制停止容器</span><br></pre></td></tr></table></figure>
+<h3 id="常用其他命令">常用其他命令</h3>
+<p><strong>后台启动容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d centos</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 问题：docker ps发现centos停止了</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 常见的坑：docker容器使用后台运行，就必须要有一个前台进程，docker发现没有应用，就会自动停止</span></span><br></pre></td></tr></table></figure>
+<p><strong>查看日志</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker logs -ft &lt;容器id&gt;				# 查看所有日志</span><br><span class="line">docker logs -ft --tail &lt;n&gt; &lt;容器id&gt;	# 查看最新的n条日志</span><br></pre></td></tr></table></figure>
+<p>**查看容器中的进程信息 **</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker top &lt;容器id&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>查看容器的元数据</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker inspect &lt;容器id&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>进入正在后台运行的容器</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 方法1</span></span><br><span class="line">docker exec -it &lt;容器id&gt; &lt;bashshell&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入容器后开启一个新的终端，可以在里面操作（常用）</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 方法2</span></span><br><span class="line">docker attach &lt;容器id&gt;</span><br><span class="line"><span class="meta">#</span><span class="bash"> 进入容器正在执行的终端，不会启动新的进程</span></span><br></pre></td></tr></table></figure>
+<p><strong>从容器内拷贝文件</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker cp &lt;容器id&gt;:&lt;容器内路径&gt; &lt;目的主机路径&gt;</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/11/02/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-04T12:20:38+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年11月4日</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
-    
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/docker/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>docker</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/10/13/Git%E5%AD%A6%E4%B9%A0/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Git - Learn</p>
+          <p class='content'>版本控制
+1. 本地版本控制
+记录文件每次的更新，可以对每个版本做一个快照，或是记录补丁文件，适合个人用，如RCS
+
+2. 集中版本控制
+所有的版本数据都存在服务器上，协同开发者从服务器上同步更...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/09/11/Linux%E5%AD%A6%E4%B9%A0/'>
+          <p class='title'>Linux - Learn<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>了解系统信息
+硬盘大小
+123fdisk -l&#x2F;dev&#x2F;sda 操作系统中第一块硬盘的名称以及所在路径Linux操作系统一切皆文件 （文件名） sd (硬盘类型) a（第一块...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -454,268 +603,28 @@
     
     
 
-<section class="widget blogger shadow floatable desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Schenk</h2>
-        
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://github.com/Schenk75"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="https://cubingchina.com/results/person/2018SHEN04"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow floatable desktop">
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/blog/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/Course-Notes/" href="/categories/Course-Notes/"
-            id="categoriesCourse-Notes"
-            ><div class='name'>Course Notes</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Docker/" href="/categories/Docker/"
-            id="categoriesDocker"
-            ><div class='name'>Docker</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Git/" href="/categories/Git/"
-            id="categoriesGit"
-            ><div class='name'>Git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Install/" href="/categories/Install/"
-            id="categoriesInstall"
-            ><div class='name'>Install</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%95%E5%B1%82%E5%8E%9F%E7%90%86"><span class="toc-text">底层原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">Docker常用命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#docker%E7%9A%84%E9%BB%98%E8%AE%A4%E5%B7%A5%E4%BD%9C%E8%B7%AF%E5%BE%84"><span class="toc-text">docker的默认工作路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%AE%E5%8A%A9%E5%91%BD%E4%BB%A4"><span class="toc-text">帮助命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%95%9C%E5%83%8F%E5%91%BD%E4%BB%A4"><span class="toc-text">镜像命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%B9%E5%99%A8%E5%91%BD%E4%BB%A4"><span class="toc-text">容器命令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E5%85%B6%E4%BB%96%E5%91%BD%E4%BB%A4"><span class="toc-text">常用其他命令</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow floatable desktop mobile">
-    
-  <header>
-    
-      <a href='/blog/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/BAN/" style="font-size: 14px; color: #999">BAN</a> <a href="/tags/IPSec/" style="font-size: 14px; color: #999">IPSec</a> <a href="/tags/Kerberos/" style="font-size: 14px; color: #999">Kerberos</a> <a href="/tags/PGP/" style="font-size: 14px; color: #999">PGP</a> <a href="/tags/SET/" style="font-size: 14px; color: #999">SET</a> <a href="/tags/SSL/" style="font-size: 14px; color: #999">SSL</a> <a href="/tags/cdn/" style="font-size: 14px; color: #999">cdn</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 24px; color: #555">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/linux/" style="font-size: 14px; color: #999">linux</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow floatable desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>6 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/11/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>10.1k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Wed Nov 04 2020 16:28:28 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2020-11-04 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2020-11-04 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
         
@@ -725,8 +634,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Docker - Learn";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
