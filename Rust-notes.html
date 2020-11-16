@@ -19,13 +19,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Rust - Learn - Schenk - Blog</title>
-  
-    <meta name="keywords" content="rust">
+  <title>Schenk - Blog</title>
   
 
-  
-    <meta name="description" content="Rust基础学习笔记">
   
 
   <!-- feed -->
@@ -311,7 +307,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper post dock' style="display: none;">
+        <div id="full" class='cover-wrapper page dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -382,7 +378,7 @@
         
 
 <div class='l_main'>
-  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  <article class="article post white-box reveal md shadow floatable article-type-page" id="page" itemscope itemprop="blogPost">
   
 
 
@@ -390,80 +386,6 @@
   <div class="article-meta" id="top">
     
     
-    
-      <h1 class="title">
-        Rust - Learn
-      </h1>
-      <div class='new-meta-box'>
-        
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
-    <p>Schenk</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Rust/">Rust</a>
-    </a>
-  </div>
-
-
-          
-        
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年11月13日</p>
-  </a>
-</div>
-
-          
-        
-          
-            
-  <div class="new-meta-item wordcount">
-    <a class='notlink'>
-      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：16.9k字</p>
-    </a>
-  </div>
-  <div class="new-meta-item readtime">
-    <a class='notlink'>
-      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：72分钟</p>
-    </a>
-  </div>
-
-
-          
-        
-          
-            
-  <div class="new-meta-item browse leancloud">
-    <a class='notlink'>
-      
-      <div id="lc-pv" data-title="Rust - Learn" data-path="/2020/11/13/Rust-notes/">
-        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
-        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
-        次浏览
-      </div>
-    </a>
-  </div>
-
-
-          
-        
-      </div>
     
   </div>
 
@@ -796,7 +718,7 @@
 <h4 id="4-1-5-存储在堆上的变量">4.1.5 存储在堆上的变量</h4>
 <h5 id="1-移动">1. 移动</h5>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> s2 = s1;</span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Rust-notes/image-20201110234252508.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Rust-notes/image-20201110234252508.png" srcset="data:image/png;base64,666" alt="image-20201110234252508"></p>
+<p><img src=".Rust-notes/image-20201110234252508.png" class="lazyload" data-srcset=".Rust-notes/image-20201110234252508.png" srcset="data:image/png;base64,666" alt="image-20201110234252508"></p>
 <p><code>String</code> 由三部分组成，如上图所示：一个指向存放字符串内容内存的指针，一个长度，和一个容量。</p>
 <p>当 <code>s2</code> 和 <code>s1</code> 离开作用域，他们都会尝试释放相同的内存。这是一个叫做<strong>二次释放</strong>的错误，两次释放（相同）内存会导致内存污染，它可能会导致潜在的安全漏洞。</p>
 <p>在Rust中，经过以上语句，会认为s1不再有效，即<code>s1</code> 被<strong>移动</strong>到了 <code>s2</code> 中，因此当<code>s1</code>离开作用域时不会释放内存。</p>
@@ -811,7 +733,7 @@
 <h3 id="4-2-引用与借用">4.2 引用与借用</h3>
 <p>当<code>String</code>类型的变量传入函数中时，如何以引用的方式传入而不是将所有权交给函数？</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> s1 = <span class="built_in">String</span>::from(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line">    <span class="keyword">let</span> len = calculate_length(&amp;s1);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;The length of &#x27;&#123;&#125;&#x27; is &#123;&#125;.&quot;</span>, s1, len);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">calculate_length</span></span>(s: &amp;<span class="built_in">String</span>) -&gt; <span class="built_in">usize</span> &#123;</span><br><span class="line">    s.len()</span><br><span class="line">&#125;  <span class="comment">// 这里，s 离开了作用域。但因为它并不拥有引用值的所有权，</span></span><br><span class="line">   <span class="comment">// 所以什么也不会发生</span></span><br></pre></td></tr></table></figure>
-<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Rust-notes/image-20201110234314662.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Rust-notes/image-20201110234314662.png" srcset="data:image/png;base64,666" alt="image-20201110234314662"></p>
+<p><img src=".Rust-notes/image-20201110234314662.png" class="lazyload" data-srcset=".Rust-notes/image-20201110234314662.png" srcset="data:image/png;base64,666" alt="image-20201110234314662"></p>
 <ul>
 <li>
 <p><code>&amp;s1</code>语法让我们创建一个<strong>指向</strong>值<code>s1</code>的引用，但是并不拥有它</p>
@@ -1663,7 +1585,7 @@
 </ul>
 <h4 id="15-4-1-使用-Rc-T-共享数据">15.4.1 使用 Rc&lt;T&gt; 共享数据</h4>
 <p>使用 <code>Box&lt;T&gt;</code> 定义的 cons list 的两个列表 <code>b</code> 和 <code>c</code>, 共享第三个列表 <code>a</code> 的所有权</p>
-<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Rust-notes/image-20201112210915469.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/Rust-notes/image-20201112210915469.png" srcset="data:image/png;base64,666" alt="image-20201112210915469"></p>
+<p><img src=".Rust-notes/image-20201112210915469.png" class="lazyload" data-srcset=".Rust-notes/image-20201112210915469.png" srcset="data:image/png;base64,666" alt="image-20201112210915469"></p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">List</span></span> &#123;</span><br><span class="line">    Cons(<span class="built_in">i32</span>, Rc&lt;List&gt;),</span><br><span class="line">    Nil,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> crate::List::&#123;Cons, Nil&#125;;</span><br><span class="line"><span class="keyword">use</span> std::rc::Rc;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a = Rc::new(Cons(<span class="number">5</span>, Rc::new(Cons(<span class="number">10</span>, Rc::new(Nil)))));</span><br><span class="line">    <span class="keyword">let</span> b = Cons(<span class="number">3</span>, Rc::clone(&amp;a));</span><br><span class="line">    <span class="keyword">let</span> c = Cons(<span class="number">4</span>, Rc::clone(&amp;a));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <ul>
 <li><code>Rc::clone</code> 只会增加引用计数，而不会深拷贝</li>
@@ -1848,14 +1770,6 @@
 
   
   
-    
-    <div class='footer'>
-      
-      
-      
-      
-    </div>
-  
   
     
 
@@ -1864,7 +1778,7 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-16T15:49:22+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-16T10:23:31+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2020年11月16日</p>
@@ -1875,9 +1789,6 @@
       
         
           
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/rust/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>rust</p></a></div>
-
 
         
       
@@ -1888,29 +1799,6 @@
   
   
 
-  
-    <div class="prev-next">
-      
-        <a class='prev' href='/2020/11/14/SGX-overview/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>SGX - Overview</p>
-          <p class='content'></p>
-        </a>
-      
-      
-        <a class='next' href='/2020/11/11/C%E5%92%8C%E6%8C%87%E9%92%88notes/'>
-          <p class='title'>Pointers on C - Learn<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>Ch2 基本概念
-2.1 环境
-2.1.1 翻译环境
-
-
-翻译过程：各源文件通过编译过程分别转为目标代码 -&gt; 各目标代码文件由链接器捆绑为单一完整的可执行程序
-
-
-编译过程：预处理器处理...</p>
-        </a>
-      
-    </div>
   
 </article>
 
@@ -1962,8 +1850,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="Rust - Learn";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
