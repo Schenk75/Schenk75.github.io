@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-23T11:06:52+08:00">
   <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年11月16日</p>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年11月23日</p>
   </a>
 </div>
 
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：4.7k字</p>
+      <p>字数：6.2k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：16分钟</p>
+      <p>时长：22分钟</p>
     </a>
   </div>
 
@@ -701,7 +701,57 @@
 <p>Intel recommends that enclave writers use the KEYID field of the KEYREQUEST structure passed into the EGETKEY instruction to pass an enclave instance specific nonce. This will provide a different key even when the same enclave is in a different virtual machine.</p>
 </blockquote>
 <h2 id="处理器特征">处理器特征</h2>
+<p>在enclave中可以执行大部分Ring3软件能执行的指令</p>
 <h2 id="程序性能">程序性能</h2>
+<h3 id="Enclave创建">Enclave创建</h3>
+<p>enclave的大小很大程度上影响了创建enclave的时间，主要是由于在enclave的度量（measurement）过程中，需要进行一系列操作以保证所有的代码加载到enclave中是可信的。</p>
+<p>在enclave的创建过程中，一系列的EADD和EEXTEND指令将被运行，主要用于加载和度量enclave的页面。</p>
+<ul>
+<li>EADD每次加载4k字节的数据。</li>
+<li>EEXTEND每次度量256字节的数据。这意味着对于EADD添加的4KB的数据，需要发起16次的EEXTEND调用。</li>
+</ul>
+<p>相关的性能优化建议：</p>
+<ul>
+<li>减小enclave的大小。仔细检查在enclave中每段代码和数据元素，如有必要，将其移除。（使用工具：Intel VTune Amplifier）。例如，将即将静态链接的.o 文件先转换为诶.a文件。</li>
+<li>Intel SGX 允许enclave通过 Enclave Dynamic Memory Management（EDMM）的方式去进行扩展。当你的OS支持EDMM，那么可以先创建一个比较小的enclave，然后扩展它。</li>
+<li>通过在application中添加加载条的方式来获取用户的注意力，借此隐藏应用的加载时间。</li>
+<li>避免频繁的enclave创建和重新加载，进而最小化重复的加载性能损耗。</li>
+</ul>
+<h3 id="Enclave切换">Enclave切换</h3>
+<p>在enclave之间的频繁转变需要在上下文之间切换非常多次。当一个EENTER指令触发进入enclave时，为了保证enclave可以正常运行，属于不可信运行时的注册状态（register state）和其它信息被存储，enclave中的线程状态和其它属于可信状态的信息被加载，这部分工作主要是由SDK生成的代码执行。一个相反的过程发生在从enclave中退出（被EEXIT指令触发）：可信线程状态信息被保存，不可信的注册状态和其它信息被还原，在这个过程中同样执行着安全检查，这部分工作也主要由SDK生成的代码自动执行。这些行为构成了在应用和enclave之间控制权切换所带来的固定负载。</p>
+<p>然而，这个转变中有一些可变变量影响着损耗，即传递参数的大小。参数在从不可信应用部分到可信enclave传递的过程中被序列化，并且返回值被反序列化。在可信enclave中，来自不可信应用的参数被反序列化，并且将返回值序列化。如果应用传递大量的参数，将会有显著的性能损耗。</p>
+<p>如果在enclave和应用之间的控制权的转变很大程度地冲击着性能，考虑通过通过以下的方式降低影响：</p>
+<ul>
+<li>减小传递参数的总大小。（使用工具：Intel VTunte Amplifier）</li>
+<li>当确实有大量数据需要进行传递的时候，考虑使用指针的方式。<strong>需要说明的是，使用指针会带来一部分安全风险，为此你必须自己去实现指针检查器，如果使用这种方式的话。</strong></li>
+</ul>
+<h3 id="过多缓存未命中">过多缓存未命中</h3>
+<p>encalve所存储的内存内容在处理器cache之外的部分都是加密受保护的。这种类型的保护在从内存中获取cache lines带来了相应的负载。这种负载和Intel SGX实现方式有直接关系。</p>
+<p>Intel SGX架构中在缓存未命中的情况下，相对于其他传统的负载，新增了两种类型的负载：</p>
+<ul>
+<li>对于不在处理器cache中的每一条cache line所执行的完成check/anti-replay 检查，以及在系统内存中更新相应的数据结构（如果必要的话）。这种类型的负载依赖于内存访问模式。</li>
+<li>在cache和内存中加载和移除数据所带来的加解密。</li>
+</ul>
+<p>如果你的系统受到大量的缓存未命中而相关的性能损耗的冲击，可以考虑下面的步骤：</p>
+<ul>
+<li>减小enclave中的数据的大小。观察数据，以保证只有必要的数据才能装载进入enclave中。更少的数据意味着更少的加减密和更少的数据结构检查，在Intel SGX内存控制/保护机制下。可以使用Intel VTune Amplifier来观察应用中的cache行为。</li>
+<li>可以查看下面的文档去创建一个更加“缓存友好”的应用：<a target="_blank" rel="noopener" href="https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf">PDF地址</a></li>
+</ul>
+<h3 id="过多的页写入">过多的页写入</h3>
+<p>需要考虑Intel SGX应用频繁大量的页面切换对性能的影响，并且如何最小化这方面的后果：</p>
+<p>Intel SGX使用安全存储 EPC 来存储enclave中的内容。Enclave页面大小为4KB。当enclave比EPC总可用的内存要大的话，enclave分页机制可能会被某些特权软件来使用。当OS尝试交换enclave页面时，CPU使用EWB指令执行以下的步骤：</p>
+<ul>
+<li>读取要替换出去的Intel SGX页面（移出）</li>
+<li>加密页面中的内容</li>
+<li>将加密的页面写到未收到保护的系统内存中</li>
+</ul>
+<p>由于这个过程有着固定的负载，因此越多的页面被替换出去，越多的性能损耗发生。为了阻止应用频繁经历这种页面的交换，尽可能确保enclave的大小小于EPC。尽可能只将秘密数据和在这之上的操作放入enclave中，从而最小化页面交换的可能性。可以使用Intel VTune Amplifier工具来观察应用中页面替换的行为，来保证做出正确的决定</p>
+<h3 id="多线程下的性能">多线程下的性能</h3>
+<p>如果应用是多线程的，从数据同步，锁，线程模型和内存分配算法上去寻找改善性能的方法。</p>
+<ul>
+<li>Intel SGX SDK 的一些关于同步和锁的原语已经被优化。</li>
+<li>对于较重的多线程应用，推荐选择更好的内存分配算法。Intel SGX SDK针对linux提供了TCMalloc内存分配算法，相对于默认的dlmalloc内存分配算法，有着更好的性能表现。</li>
+</ul>
 
   
   
@@ -721,10 +771,10 @@
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-22T22:41:21+08:00">
+          <div class="new-meta-item date">
   <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年11月22日</p>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年11月16日</p>
   </a>
 </div>
 
@@ -791,7 +841,7 @@
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E5%90%8D%E8%AF%8D"><span class="toc-text">专业名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave-%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-text">Enclave 编程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%BC%80%E5%8F%91%E5%8E%9F%E5%88%99"><span class="toc-text">Enclave开发原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-text">Enclave文件格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%8F%AF%E4%BF%A1%E8%AE%A1%E7%AE%97%E5%9F%BA"><span class="toc-text">Enclave可信计算基</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave-Interface-%E5%87%BD%E6%95%B0-ECalls"><span class="toc-text">Enclave Interface 函数 (ECalls)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E7%9A%84%E8%BE%93%E5%85%A5"><span class="toc-text">Enclave的输入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%9A%84%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="toc-text">通过引用传递的输入参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8Enclave%E8%B0%83%E7%94%A8-OCalls"><span class="toc-text">外部Enclave调用 (OCalls)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E7%AD%BE%E5%90%8D"><span class="toc-text">Enclave签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E8%AE%A4%E8%AF%81"><span class="toc-text">Enclave认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="toc-text">本地认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">本地认证过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B-%E8%B7%A8%E5%B9%B3%E5%8F%B0-%E8%AE%A4%E8%AF%81"><span class="toc-text">远程 (跨平台) 认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EPID"><span class="toc-text">EPID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QE"><span class="toc-text">QE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">远程认证过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84Enclave%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B"><span class="toc-text">区分不同的Enclave运行实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E5%AF%86%E5%B0%81"><span class="toc-text">Enclave密封</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%AF%86%E5%B0%81%E6%8A%80%E6%9C%AF"><span class="toc-text">软件密封技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84enclave%EF%BC%88%E4%BE%9D%E7%85%A7%E4%BA%8Eenclave%E5%BA%A6%E9%87%8F%EF%BC%89"><span class="toc-text">密封到当前的enclave（依照于enclave度量）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%88%B0enclave%E5%BD%93%E5%89%8D%E7%9A%84%E6%89%80%E6%9C%89%E8%80%85"><span class="toc-text">密封到enclave当前的所有者</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%92%8C%E8%A7%A3%E5%B0%81%E8%BF%87%E7%A8%8B"><span class="toc-text">密封和解封过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84Enclave%E5%AE%9E%E4%BE%8B"><span class="toc-text">区分不同的Enclave实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E7%89%B9%E5%BE%81"><span class="toc-text">处理器特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD"><span class="toc-text">程序性能</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E5%90%8D%E8%AF%8D"><span class="toc-text">专业名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave-%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-text">Enclave 编程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%BC%80%E5%8F%91%E5%8E%9F%E5%88%99"><span class="toc-text">Enclave开发原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-text">Enclave文件格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%8F%AF%E4%BF%A1%E8%AE%A1%E7%AE%97%E5%9F%BA"><span class="toc-text">Enclave可信计算基</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave-Interface-%E5%87%BD%E6%95%B0-ECalls"><span class="toc-text">Enclave Interface 函数 (ECalls)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E7%9A%84%E8%BE%93%E5%85%A5"><span class="toc-text">Enclave的输入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%9A%84%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="toc-text">通过引用传递的输入参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8Enclave%E8%B0%83%E7%94%A8-OCalls"><span class="toc-text">外部Enclave调用 (OCalls)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E7%AD%BE%E5%90%8D"><span class="toc-text">Enclave签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E8%AE%A4%E8%AF%81"><span class="toc-text">Enclave认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="toc-text">本地认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">本地认证过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B-%E8%B7%A8%E5%B9%B3%E5%8F%B0-%E8%AE%A4%E8%AF%81"><span class="toc-text">远程 (跨平台) 认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EPID"><span class="toc-text">EPID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QE"><span class="toc-text">QE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">远程认证过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84Enclave%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B"><span class="toc-text">区分不同的Enclave运行实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E5%AF%86%E5%B0%81"><span class="toc-text">Enclave密封</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%AF%86%E5%B0%81%E6%8A%80%E6%9C%AF"><span class="toc-text">软件密封技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84enclave%EF%BC%88%E4%BE%9D%E7%85%A7%E4%BA%8Eenclave%E5%BA%A6%E9%87%8F%EF%BC%89"><span class="toc-text">密封到当前的enclave（依照于enclave度量）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%88%B0enclave%E5%BD%93%E5%89%8D%E7%9A%84%E6%89%80%E6%9C%89%E8%80%85"><span class="toc-text">密封到enclave当前的所有者</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%92%8C%E8%A7%A3%E5%B0%81%E8%BF%87%E7%A8%8B"><span class="toc-text">密封和解封过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84Enclave%E5%AE%9E%E4%BE%8B"><span class="toc-text">区分不同的Enclave实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E7%89%B9%E5%BE%81"><span class="toc-text">处理器特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD"><span class="toc-text">程序性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%88%9B%E5%BB%BA"><span class="toc-text">Enclave创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%88%87%E6%8D%A2"><span class="toc-text">Enclave切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E5%A4%9A%E7%BC%93%E5%AD%98%E6%9C%AA%E5%91%BD%E4%B8%AD"><span class="toc-text">过多缓存未命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E5%A4%9A%E7%9A%84%E9%A1%B5%E5%86%99%E5%85%A5"><span class="toc-text">过多的页写入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E7%9A%84%E6%80%A7%E8%83%BD"><span class="toc-text">多线程下的性能</span></a></li></ol></li></ol>
     </div>
   </section>
 
