@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>分类：Linux - Schenk - Blog</title>
+  <title>SGX程序基础 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="sgx">
   
 
+  
+    <meta name="description" content="Intel SGX程序SampleCode Notes">
   
 
   <!-- feed -->
@@ -309,7 +311,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -379,120 +381,191 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        SGX程序基础
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
           
         
           
-        
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/23/ubuntu-show-application/">
-        Ubuntu将安装的应用固定到桌面
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Ubuntu20.04将国内版本的firefox固定到桌面
-    
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/SGX/">SGX</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-11-23</time>
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-11-24T15:29:19+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2020年11月24日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：527字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：2分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="SGX程序基础" data-path="/2020/11/24/sgx-programming/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <h2 id="项目目录结构">项目目录结构</h2>
+<p>以<code>SampleEnclave</code>为例，目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── App</span><br><span class="line">│   ├── App.cpp</span><br><span class="line">│   ├── App.h</span><br><span class="line">│   ├── Edger8rSyntax</span><br><span class="line">│   │   ├── Arrays.cpp</span><br><span class="line">│   │   ├── Functions.cpp</span><br><span class="line">│   │   ├── Pointers.cpp</span><br><span class="line">│   │   └── Types.cpp</span><br><span class="line">│   └── TrustedLibrary</span><br><span class="line">│       ├── Libc.cpp</span><br><span class="line">│       ├── Libcxx.cpp</span><br><span class="line">│       └── Thread.cpp</span><br><span class="line">├── Enclave</span><br><span class="line">│   ├── Edger8rSyntax</span><br><span class="line">│   │   ├── Arrays.cpp</span><br><span class="line">│   │   ├── Arrays.edl</span><br><span class="line">│   │   ├── Functions.cpp</span><br><span class="line">│   │   ├── Functions.edl</span><br><span class="line">│   │   ├── Pointers.cpp</span><br><span class="line">│   │   ├── Pointers.edl</span><br><span class="line">│   │   ├── Types.cpp</span><br><span class="line">│   │   └── Types.edl</span><br><span class="line">│   ├── Enclave.config.xml</span><br><span class="line">│   ├── Enclave.cpp</span><br><span class="line">│   ├── Enclave.edl</span><br><span class="line">│   ├── Enclave.h</span><br><span class="line">│   ├── Enclave.lds</span><br><span class="line">│   ├── Enclave_private_test.pem</span><br><span class="line">│   └── TrustedLibrary</span><br><span class="line">│       ├── Libc.cpp</span><br><span class="line">│       ├── Libc.edl</span><br><span class="line">│       ├── Libcxx.cpp</span><br><span class="line">│       ├── Libcxx.edl</span><br><span class="line">│       ├── Thread.cpp</span><br><span class="line">│       └── Thread.edl</span><br><span class="line">├── Include</span><br><span class="line">│   └── user_types.h</span><br><span class="line">├── Makefile</span><br><span class="line">└── README.txt</span><br></pre></td></tr></table></figure>
+<ul>
+<li>App目录：存放应用程序中的不可信代码部分
+<ul>
+<li>App.cpp文件：应用程序中的不可信部分代码，其中包括了创建Enclave及销毁Enclave的代码，也定义了一些相关的返回码供使用者查看Enclave程序的执行状态。其中的main函数是整个项目的入口函数。</li>
+<li>App.h文件：应用程序中的不可信部分代码的头文件，定义了一些宏常量和函数声明。</li>
+<li>Edger8rSyntax文件夹：提供了一些工具。</li>
+<li>TrustedLibrary文件夹：提供了一些函数库。</li>
+</ul>
+</li>
+<li>Enclave目录：存放应用程序中的可信代码部分和可信与不可信代码接口文件
+<ul>
+<li>Enclave.config.xml文件：Enclave的配置文件，定义了Enclave的元数据信息。</li>
+<li>Enclave.cpp文件：应用程序中的可信部分代码，包括了可信函数的实现。</li>
+<li>Enclave.h文件：应用程序中的可信部分代码的头文件，定义了一些宏常量和函数声明。</li>
+<li>Enclave.edl文件：Enclave的接口定义文件，定义了不可信代码调用可信代码的ECALL函数接口和可信代码调用不可信代码的OCALL函数接口，trusted{}中定义了ECALL函数接口，untrusted{}中定义了OCALL函数接口。</li>
+<li>Enclave.lds文件：定义了一些Enclave可执行文件信息。</li>
+<li>Enclave_private_test.pem文件：SGX生成的私钥。</li>
+<li>Edger8rSyntax文件夹：提供了一些工具。</li>
+<li>TrustedLibrary文件夹：提供了一些函数库。</li>
+</ul>
+</li>
+<li>Include目录：存放被Enclave接口定义文件Enclave.edl使用的头文件，包括一些宏定义
+<ul>
+<li>user_types.h文件：定义了用户自定义的类型</li>
+</ul>
+</li>
+<li>Makefile文件：项目的编译文件，定义了项目的编译信息</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/11/23/ubuntu-show-application/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年11月24日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/09/11/Linux%E5%AD%A6%E4%B9%A0/">
-        Linux - Learn
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Linux学习记录
-    
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sgx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sgx</p></a></div>
+
+
+        
+      
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-09-11</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2020/09/11/Linux%E5%AD%A6%E4%B9%A0/'>
-            阅读全文
-          </a>
-        </div>
+      
+        <a class='next' href='/2020/11/23/ubuntu-show-application/'>
+          <p class='title'>Ubuntu将安装的应用固定到桌面<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>升级了一下ubuntu，从18.04升到了20.04，发现自动安装了国际版的firefox，之前安装的国内版firefox目录还在/opt下，但是桌面显示的firefox是国际版的，且启动栏也没...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-    
-  </section>
   
-    
+
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -500,288 +573,28 @@
     
     
 
-<section class="widget blogger shadow floatable desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Schenk</h2>
-        
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://github.com/Schenk75"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="https://cubingchina.com/results/person/2018SHEN04"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow floatable desktop">
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/C/" href="/categories/C/"
-            id="categoriesC"
-            ><div class='name'>C</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Course-Notes/" href="/categories/Course-Notes/"
-            id="categoriesCourse-Notes"
-            ><div class='name'>Course Notes</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Cube/" href="/categories/Cube/"
-            id="categoriesCube"
-            ><div class='name'>Cube</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Docker/" href="/categories/Docker/"
-            id="categoriesDocker"
-            ><div class='name'>Docker</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Git/" href="/categories/Git/"
-            id="categoriesGit"
-            ><div class='name'>Git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Install/" href="/categories/Install/"
-            id="categoriesInstall"
-            ><div class='name'>Install</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Rust/" href="/categories/Rust/"
-            id="categoriesRust"
-            ><div class='name'>Rust</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SGX/" href="/categories/SGX/"
-            id="categoriesSGX"
-            ><div class='name'>SGX</div><div class='badge'>(2)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text">项目目录结构</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow floatable desktop mobile">
-    
-  <header>
-    
-      <a href='tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/BAN/" style="font-size: 14px; color: #999">BAN</a> <a href="/tags/IPSec/" style="font-size: 14px; color: #999">IPSec</a> <a href="/tags/Kerberos/" style="font-size: 14px; color: #999">Kerberos</a> <a href="/tags/PGP/" style="font-size: 14px; color: #999">PGP</a> <a href="/tags/SET/" style="font-size: 14px; color: #999">SET</a> <a href="/tags/SSL/" style="font-size: 14px; color: #999">SSL</a> <a href="/tags/c/" style="font-size: 14px; color: #999">c</a> <a href="/tags/cdn/" style="font-size: 14px; color: #999">cdn</a> <a href="/tags/cube/" style="font-size: 14px; color: #999">cube</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 24px; color: #555">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/linux/" style="font-size: 24px; color: #555">linux</a> <a href="/tags/rust/" style="font-size: 14px; color: #999">rust</a> <a href="/tags/sgx/" style="font-size: 24px; color: #555">sgx</a> <a href="/tags/sq1/" style="font-size: 14px; color: #999">sq1</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow floatable desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>12 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/11/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>42.7k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Tue Nov 24 2020 15:29:56 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2020-11-24 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2020-11-24 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
         
@@ -791,8 +604,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="SGX程序基础";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

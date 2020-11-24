@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>SGX程序基础</title>
+      <link href="2020/11/24/sgx-programming/"/>
+      <url>2020/11/24/sgx-programming/</url>
+      
+        <content type="html"><![CDATA[<h2 id="项目目录结构">项目目录结构</h2><p>以<code>SampleEnclave</code>为例，目录结构如下：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── App</span><br><span class="line">│   ├── App.cpp</span><br><span class="line">│   ├── App.h</span><br><span class="line">│   ├── Edger8rSyntax</span><br><span class="line">│   │   ├── Arrays.cpp</span><br><span class="line">│   │   ├── Functions.cpp</span><br><span class="line">│   │   ├── Pointers.cpp</span><br><span class="line">│   │   └── Types.cpp</span><br><span class="line">│   └── TrustedLibrary</span><br><span class="line">│       ├── Libc.cpp</span><br><span class="line">│       ├── Libcxx.cpp</span><br><span class="line">│       └── Thread.cpp</span><br><span class="line">├── Enclave</span><br><span class="line">│   ├── Edger8rSyntax</span><br><span class="line">│   │   ├── Arrays.cpp</span><br><span class="line">│   │   ├── Arrays.edl</span><br><span class="line">│   │   ├── Functions.cpp</span><br><span class="line">│   │   ├── Functions.edl</span><br><span class="line">│   │   ├── Pointers.cpp</span><br><span class="line">│   │   ├── Pointers.edl</span><br><span class="line">│   │   ├── Types.cpp</span><br><span class="line">│   │   └── Types.edl</span><br><span class="line">│   ├── Enclave.config.xml</span><br><span class="line">│   ├── Enclave.cpp</span><br><span class="line">│   ├── Enclave.edl</span><br><span class="line">│   ├── Enclave.h</span><br><span class="line">│   ├── Enclave.lds</span><br><span class="line">│   ├── Enclave_private_test.pem</span><br><span class="line">│   └── TrustedLibrary</span><br><span class="line">│       ├── Libc.cpp</span><br><span class="line">│       ├── Libc.edl</span><br><span class="line">│       ├── Libcxx.cpp</span><br><span class="line">│       ├── Libcxx.edl</span><br><span class="line">│       ├── Thread.cpp</span><br><span class="line">│       └── Thread.edl</span><br><span class="line">├── Include</span><br><span class="line">│   └── user_types.h</span><br><span class="line">├── Makefile</span><br><span class="line">└── README.txt</span><br></pre></td></tr></table></figure><ul><li>App目录：存放应用程序中的不可信代码部分<ul><li>App.cpp文件：应用程序中的不可信部分代码，其中包括了创建Enclave及销毁Enclave的代码，也定义了一些相关的返回码供使用者查看Enclave程序的执行状态。其中的main函数是整个项目的入口函数。</li><li>App.h文件：应用程序中的不可信部分代码的头文件，定义了一些宏常量和函数声明。</li><li>Edger8rSyntax文件夹：提供了一些工具。</li><li>TrustedLibrary文件夹：提供了一些函数库。</li></ul></li><li>Enclave目录：存放应用程序中的可信代码部分和可信与不可信代码接口文件<ul><li>Enclave.config.xml文件：Enclave的配置文件，定义了Enclave的元数据信息。</li><li>Enclave.cpp文件：应用程序中的可信部分代码，包括了可信函数的实现。</li><li>Enclave.h文件：应用程序中的可信部分代码的头文件，定义了一些宏常量和函数声明。</li><li>Enclave.edl文件：Enclave的接口定义文件，定义了不可信代码调用可信代码的ECALL函数接口和可信代码调用不可信代码的OCALL函数接口，trusted{}中定义了ECALL函数接口，untrusted{}中定义了OCALL函数接口。</li><li>Enclave.lds文件：定义了一些Enclave可执行文件信息。</li><li>Enclave_private_test.pem文件：SGX生成的私钥。</li><li>Edger8rSyntax文件夹：提供了一些工具。</li><li>TrustedLibrary文件夹：提供了一些函数库。</li></ul></li><li>Include目录：存放被Enclave接口定义文件Enclave.edl使用的头文件，包括一些宏定义<ul><li>user_types.h文件：定义了用户自定义的类型</li></ul></li><li>Makefile文件：项目的编译文件，定义了项目的编译信息</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> SGX </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> sgx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ubuntu将安装的应用固定到桌面</title>
       <link href="2020/11/23/ubuntu-show-application/"/>
       <url>2020/11/23/ubuntu-show-application/</url>
