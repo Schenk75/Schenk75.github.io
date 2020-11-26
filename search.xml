@@ -40,6 +40,8 @@
           
           <category> SGX </category>
           
+          <category> Paper Reading </category>
+          
       </categories>
       
       
@@ -222,9 +224,9 @@
       
         <tags>
             
-            <tag> hexo </tag>
-            
             <tag> git </tag>
+            
+            <tag> hexo </tag>
             
             <tag> cdn </tag>
             
