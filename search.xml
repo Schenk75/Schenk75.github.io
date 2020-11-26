@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>CSDN博客保存为PDF</title>
+      <link href="2020/11/26/csdn-pdf/"/>
+      <url>2020/11/26/csdn-pdf/</url>
+      
+        <content type="html"><![CDATA[<p>F12打开开发者工具，在Console输入以下js代码：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> articleBox = $(<span class="string">&quot;div.article_content&quot;</span>);</span><br><span class="line">articleBox.removeAttr(<span class="string">&quot;style&quot;</span>);</span><br><span class="line">$(<span class="string">&quot;#btn-readmore&quot;</span>).parent().remove();</span><br><span class="line">$(<span class="string">&quot;#side&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;#comment_title, #comment_list, #comment_bar, #comment_form, .announce, #ad_cen, #ad_bot&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;.nav_top_2011, #header, #navigator&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;.csdn-side-toolbar,.template-box,.reward-user-box,.blog-footer-bottom&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;.p4course_target, .comment-box, .recommend-box, #csdn-toolbar, #tool-box,#dmp_ad_58, .more-toolbox, .article-info-box, .btn-readmore, .pub-footer-new&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;aside&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;.tool-box&quot;</span>).remove();</span><br><span class="line">$(<span class="string">&quot;main&quot;</span>).css(<span class="string">&#x27;display&#x27;</span>,<span class="string">&#x27;content&#x27;</span>); </span><br><span class="line">$(<span class="string">&quot;main&quot;</span>).css(<span class="string">&#x27;float&#x27;</span>,<span class="string">&#x27;left&#x27;</span>); </span><br><span class="line">$(<span class="string">&quot;#mainBox&quot;</span>).width(<span class="string">&quot;100%&quot;</span>);</span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;body&#x27;</span>)[<span class="number">0</span>].style.zoom=<span class="number">0.8</span>;</span><br><span class="line"><span class="built_in">window</span>.print();</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure><p>或者：</p><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span> <span class="title">doPrint</span>(<span class="params"></span>)</span>&#123;      </span><br><span class="line"><span class="meta">&#x27;use strict&#x27;</span>;</span><br><span class="line"><span class="keyword">var</span> articleBox = $(<span class="string">&quot;div.article_content&quot;</span>);</span><br><span class="line">articleBox.removeAttr(<span class="string">&quot;style&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> head_str = <span class="string">&quot;&quot;</span>;       </span><br><span class="line"><span class="keyword">var</span> foot_str = <span class="string">&quot;&quot;</span>;   </span><br><span class="line"><span class="keyword">var</span> older = <span class="built_in">document</span>.body.innerHTML;       </span><br><span class="line"><span class="keyword">var</span> title= <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;article-title-box&#x27;</span>)[<span class="number">0</span>].innerHTML; </span><br><span class="line"><span class="keyword">var</span> main_body = <span class="built_in">document</span>.getElementsByClassName(<span class="string">&#x27;article_content&#x27;</span>)[<span class="number">0</span>].innerHTML;</span><br><span class="line"><span class="built_in">document</span>.body.innerHTML = head_str + title + main_body + foot_str;</span><br><span class="line">$(<span class="string">&quot;#mainBox&quot;</span>).width(<span class="string">&quot;100%&quot;</span>);</span><br><span class="line"><span class="built_in">document</span>.getElementsByTagName(<span class="string">&#x27;body&#x27;</span>)[<span class="number">0</span>].style.zoom=<span class="number">0.8</span>;     </span><br><span class="line"><span class="built_in">window</span>.print();</span><br><span class="line"><span class="built_in">document</span>.body.innerHTML = older;</span><br><span class="line"><span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;)();</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Useful skills </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 转载 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>现代密码学 Notes</title>
       <link href="2020/11/25/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/"/>
       <url>2020/11/25/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/</url>
@@ -89,6 +114,8 @@
       
       
       <categories>
+          
+          <category> Install </category>
           
           <category> Linux </category>
           
