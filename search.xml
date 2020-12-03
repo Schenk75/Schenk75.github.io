@@ -29,6 +29,33 @@
     
     
     <entry>
+      <title>解决 Blocking waiting for file lock on package cache</title>
+      <link href="2020/12/03/rust-cargo-block/"/>
+      <url>2020/12/03/rust-cargo-block/</url>
+      
+        <content type="html"><![CDATA[<p>删除 <code>home/.cargo/.package-cache</code> 文件再重新编译即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+            <tag> cargo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>翻译-SGX Analysis</title>
       <link href="2020/11/29/translation-sgx-analysis/"/>
       <url>2020/11/29/translation-sgx-analysis/</url>
