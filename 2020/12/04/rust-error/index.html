@@ -19,13 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>Vscode快捷键 - Schenk - Blog</title>
+  <title>Rust错误处理 - Schenk - Blog</title>
   
-    <meta name="keywords" content="vscode">
+    <meta name="keywords" content="rust">
   
 
   
-    <meta name="description" content="记录一些好用的vscode快捷键">
+    <meta name="description" content="Rust中的错误处理方法整理">
   
 
   <!-- feed -->
@@ -392,7 +392,7 @@
     
     
       <h1 class="title">
-        Vscode快捷键
+        Rust错误处理
       </h1>
       <div class='new-meta-box'>
         
@@ -412,7 +412,7 @@
   <div class='new-meta-item category'>
     <a class='notlink'>
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/Useful-Skills/">Useful Skills</a>
+      <a class="category-link" href="/categories/Rust/">Rust</a>
     </a>
   </div>
 
@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-03T14:45:52+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-04T02:04:46+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年12月3日</p>
+    <p>更新于：2020年12月4日</p>
   </a>
 </div>
 
@@ -434,7 +434,7 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：55字</p>
+      <p>字数：102字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -452,7 +452,7 @@
   <div class="new-meta-item browse leancloud">
     <a class='notlink'>
       
-      <div id="lc-pv" data-title="Vscode快捷键" data-path="/2020/12/03/Vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+      <div id="lc-pv" data-title="Rust错误处理" data-path="/2020/12/04/rust-error/">
         <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
         <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
         次浏览
@@ -469,11 +469,21 @@
 
 
   
-  <p><code>Ctrl+J</code> : 隐藏(显示)底下的控制台/终端面板</p>
-<p><code>Ctrl+Shift+P</code> : 调出搜索设置</p>
-<p><code>Ctrl+Shift+C</code> : 在当前目录调出外部终端</p>
-<p><code>Home</code> ：光标移动到行首</p>
-<p><code>End</code> ：光标移动到行尾</p>
+  <ul>
+<li>
+<p>对于 <code>Result</code>、<code>Option</code>等类型，如果使用 <code>unwrap</code>、<code>expect</code>等方法，会直接导致panic</p>
+</li>
+<li>
+<p>对于 <code>Result</code> 类型，如果遇到错误只需要返回 <code>None</code>，那么可以使用如下简单的语法来替代 <code>match</code> :</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> some_var = something_that_returns_result().ok()?;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>Result::ok()</code> 函数将 <code>Result</code> 转换为 <code>Option</code>：</p>
+<ul>
+<li>对于 <code>Ok(val)</code>，返回 <code>Some(val)</code>；</li>
+<li>对于 <code>Err(some_error)</code>，返回 <code>None</code></li>
+</ul>
+<p><code>?</code> 提取 <code>Option</code> 中的内容，如果为 <code>None</code>，则返回 <code>None</code></p>
+</li>
+</ul>
 
   
   
@@ -496,7 +506,7 @@
           <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年12月3日</p>
+    <p>发布于：2020年12月4日</p>
   </a>
 </div>
 
@@ -505,7 +515,7 @@
         
           
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/vscode/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>vscode</p></a></div>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/rust/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>rust</p></a></div>
 
 
         
@@ -520,21 +530,14 @@
   
     <div class="prev-next">
       
-        <a class='prev' href='/2020/12/04/rust-error/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Rust错误处理</p>
-          <p class='content'>
-
-对于 Result、Option等类型，如果使用 unwrap、expect等方法，会直接导致panic
-
-
-对于 Result 类型，如果遇到错误只需要返回 None，那么可以使用如下简单...</p>
-        </a>
       
-      
-        <a class='next' href='/2020/12/03/rust-cargo-block/'>
-          <p class='title'>解决 Blocking waiting for file lock on package cache<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>删除 home/.cargo/.package-cache 文件再重新编译即可
-</p>
+        <a class='next' href='/2020/12/03/Vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/'>
+          <p class='title'>Vscode快捷键<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Ctrl+J : 隐藏(显示)底下的控制台/终端面板
+Ctrl+Shift+P : 调出搜索设置
+Ctrl+Shift+C : 在当前目录调出外部终端
+Home ：光标移动到行首
+End ：光标...</p>
         </a>
       
     </div>
@@ -576,7 +579,7 @@
 <script>
   window.pdata={}
   pdata.ispage=true;
-  pdata.postTitle="Vscode快捷键";
+  pdata.postTitle="Rust错误处理";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 

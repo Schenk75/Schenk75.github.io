@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Rust错误处理</title>
+      <link href="2020/12/04/rust-error/"/>
+      <url>2020/12/04/rust-error/</url>
+      
+        <content type="html"><![CDATA[<ul><li><p>对于 <code>Result</code>、<code>Option</code>等类型，如果使用 <code>unwrap</code>、<code>expect</code>等方法，会直接导致panic</p></li><li><p>对于 <code>Result</code> 类型，如果遇到错误只需要返回 <code>None</code>，那么可以使用如下简单的语法来替代 <code>match</code> :</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> some_var = something_that_returns_result().ok()?;</span><br></pre></td></tr></table></figure><p>其中，<code>Result::ok()</code> 函数将 <code>Result</code> 转换为 <code>Option</code>：</p><ul><li>对于 <code>Ok(val)</code>，返回 <code>Some(val)</code>；</li><li>对于 <code>Err(some_error)</code>，返回 <code>None</code></li></ul><p><code>?</code> 提取 <code>Option</code> 中的内容，如果为 <code>None</code>，则返回 <code>None</code></p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Vscode快捷键</title>
       <link href="2020/12/03/Vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
       <url>2020/12/03/Vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
