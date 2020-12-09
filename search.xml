@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Ubuntu设置终端只显示当前所在目录</title>
+      <link href="2020/12/09/ubuntu-terminal-path/"/>
+      <url>2020/12/09/ubuntu-terminal-path/</url>
+      
+        <content type="html"><![CDATA[<p>修改~/.bashrc文件：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ <span class="string">&quot;<span class="variable">$color_prompt</span>&quot;</span> = yes ]; <span class="keyword">then</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ &#x27;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    PS1=<span class="string">&#x27;$&#123;debian_chroot:+($debian_chroot)&#125;\u@\h:\w\$ &#x27;</span></span><br></pre></td></tr></table></figure><p>将上面语句中的 <code>w</code> 改为大写的 <code>W</code></p><p>若要查看绝对路径，使用命令 <code>pwd</code> 即可</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Linux </category>
+          
+          <category> Useful Skills </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Rust错误处理</title>
       <link href="2020/12/04/rust-error/"/>
       <url>2020/12/04/rust-error/</url>
