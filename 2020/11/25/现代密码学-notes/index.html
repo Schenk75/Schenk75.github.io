@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-11T09:02:40+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-12-23T16:36:12+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年12月11日</p>
+    <p>更新于：2020年12月23日</p>
   </a>
 </div>
 
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：4.5k字</p>
+      <p>字数：7.1k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：16分钟</p>
+      <p>时长：26分钟</p>
     </a>
   </div>
 
@@ -1013,6 +1013,412 @@ Y = IP<sup>-1</sup>(R<sub>16</sub>L<sub>16</sub>)</li>
 <li>素数p, q要求足够大</li>
 <li>通常选择小的加密指数E，可以对所有用户都相同</li>
 </ul>
+<h4 id="RSA快速实现">RSA快速实现</h4>
+<ul>
+<li>加密快，指数小；解密慢，指数大</li>
+<li>利用中国剩余定理CRT快速实现RSA解密(M=C<sup>D</sup> mod N)：
+<ul>
+<li>M<sub>1</sub> = M mod p = (C mod p)<sup>dmod(p-1)</sup></li>
+<li>M<sub>2</sub> = M mod q = (C mod q)<sup>dmod(q-1)</sup></li>
+<li>解方程：M = M<sub>1</sub> mod p 和 M = M<sub>2</sub> mod q</li>
+<li>具有唯一解(利用CRT)：M = (p<sub>u</sub>M<sub>1</sub> + q<sub>u’</sub>M<sub>2</sub>) mod N，其中p<sub>u</sub> mod q =1，q<sub>u’</sub> mod p = 1</li>
+</ul>
+</li>
+</ul>
+<h4 id="RABIN公钥密码体制">RABIN公钥密码体制</h4>
+<ul>
+<li>基于二次剩余问题和模n平方根问题</li>
+<li>加密密钥为2，安全性等价于对n的引述分解；解密更为困难</li>
+<li>不能抵抗选择密文攻击</li>
+</ul>
+<h3 id="EI-Gamal公钥加密">EI Gamal公钥加密</h3>
+<ul>
+<li>
+<p>D-H算法的变形，用于安全交换密钥</p>
+</li>
+<li>
+<p>安全性基于离散对数</p>
+</li>
+<li>
+<p>缺点：增加消息长度（2倍）</p>
+</li>
+</ul>
+<img src="D:\Source\notes\现代密码学-notes\image-20201216105037750.png" class="lazyload" data-srcset="D:\Source\notes\现代密码学-notes\image-20201216105037750.png" srcset="data:image/png;base64,666" alt="image-20201216105037750" style="zoom:80%;" />
+<h2 id="认证和哈希函数">认证和哈希函数</h2>
+<ul>
+<li>认证的主要目的：
+<ul>
+<li>实体认证(发送者非冒充)</li>
+<li>消息认证(验证信息的完整性)</li>
+</ul>
+</li>
+<li>三类产生认证符的函数：
+<ul>
+<li>消息加密</li>
+<li>消息认证码(MAC)</li>
+<li>哈希函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="消息加密">消息加密</h3>
+<ul>
+<li>对称加密：提供保密与一定程度的认证，不提供签名</li>
+<li>公钥加密：(A -&gt; B)
+<ul>
+<li>E(KU<sub>b</sub>, M) =&gt; 提供保密，不提供认证</li>
+<li>E(KR<sub>a</sub>, M) =&gt; 提供认证和签名</li>
+<li>E(KU<sub>b</sub>, E(KR<sub>a</sub>, M)) =&gt; 提供保密、认证和签名</li>
+</ul>
+</li>
+</ul>
+<h3 id="消息认证码-MAC">消息认证码(MAC)</h3>
+<p>对选定消息使用一个密钥产生一个短小的定长数据分组，附加在消息中提供认证功能 (MAC = C<sub>k</sub>(M))</p>
+<ul>
+<li>
+<p>基本用法：</p>
+<ul>
+<li>M || C<sub>k</sub>(M) =&gt; 提供认证</li>
+<li>E<sub>k2</sub>(M || C<sub>k1</sub>(M)) =&gt; 提供认证(K1)和保密(K2)</li>
+<li>E<sub>k2</sub>(M) || C<sub>k1</sub>(E<sub>k2</sub>(M)) =&gt; 提供认证(K1)和保密(K2)</li>
+</ul>
+</li>
+<li>
+<p>适用于消息广播、比消息加密的工作量小、认证与保密分离、延长消息的保护期限</p>
+</li>
+<li>
+<p>不可逆，且不提供数字签名</p>
+</li>
+</ul>
+<h3 id="哈希函数">哈希函数</h3>
+<ul>
+<li>基本用法：
+<ul>
+<li>E<sub>k</sub>(M || H(M)) =&gt; 提供保密和鉴别</li>
+<li>M || E<sub>k</sub>(H(M)) =&gt; 提供鉴别</li>
+<li>M || E<sub>KRa</sub>(H(M)) =&gt; 提供鉴别和数字签名</li>
+<li>E<sub>k</sub>(M || E<sub>KRa</sub>(H(M))) =&gt; 提供鉴别、数字签名以及保密</li>
+<li>M || H(M || S) =&gt; 提供鉴别(S是通信双方共享的一个秘密值)</li>
+<li>E<sub>k</sub>(M || H(M || S)) =&gt; 提供鉴别和保密</li>
+</ul>
+</li>
+<li>哈希函数要求：
+<ul>
+<li>消息长度任意，输出定长</li>
+<li>易于计算</li>
+<li>单向性</li>
+<li>弱抗碰撞性：任意给定分组x，寻求不等于x的y，使得H(y)= H(x)在计算上不可行</li>
+<li>强抗碰撞性：寻求对任何的(x,y)对使得H(x)=H(y)在计算上不可行</li>
+</ul>
+</li>
+</ul>
+<h4 id="简单的异或哈希函数">简单的异或哈希函数</h4>
+<p>每个n比特长度分组按比特异或，得到长度为n的哈希码</p>
+<ul>
+<li>改进：(使得输入数据完全随机化，掩盖输入的数据格式)
+<ul>
+<li>先将n比特的哈希值设置为0</li>
+<li>当前的哈希值循环左移一位</li>
+<li>数据分组与哈希值异或形成新的哈希值</li>
+</ul>
+</li>
+<li>Merkle-Damgard结构：</li>
+</ul>
+<img src="D:\Source\notes\现代密码学-notes\image-20201216193951310.png" class="lazyload" data-srcset="D:\Source\notes\现代密码学-notes\image-20201216193951310.png" srcset="data:image/png;base64,666" alt="image-20201216193951310" style="zoom:75%;" />
+<h4 id="MD5">MD5</h4>
+<p>输入任意长度报文，输出128比特的摘要；输入分组长度为512比特；符合Merkle-Damgard结构</p>
+<h5 id="算法流程">算法流程</h5>
+<ol>
+<li>
+<p>在消息的最后添加填充位（一个1和若干个0），使得数据的长度满足length = 448 mod 512，填充完后，信息的长度为N*512+448(bit)</p>
+</li>
+<li>
+<p>记录信息长度，用64位来存储填充前信息长度，如果信息长度超过2<sup>64</sup>位，则只保留低64位。这64位加在第一步结果的后面，这样信息长度就变为(N+1)*512(bit)</p>
+</li>
+<li>
+<p>初始化MD缓存，使用一个128位缓存存放哈希的中间和最后结果，缓存表示为4个32位的缓存器（A,B,C,D），初始化格式为低位字节存放在高地址字节</p>
+</li>
+<li>
+<p>四轮循环处理512bit分组</p>
+<ul>
+<li>
+<p>输入：当前处理的512位分组Y<sub>q</sub>与上一轮输出CV<sub>q</sub></p>
+</li>
+<li>
+<p>循环：4轮循环依次记为F，G，H，I；借助列表T[1,…,64]（T[i]=2<sup>32</sup> * |sin(i)|的整数部分），列表提供随机化的32位模板以消除输入的规律</p>
+<ul>
+<li>
+<p>每个循环包括16步操作，每一步的基本形式：<br>
+$$<br>
+b \leftarrow b + ((a + g(b, c, d) + X[k] + T[i]) &lt;&lt;&lt; s)<br>
+$$</p>
+<ul>
+<li>+：模2<sup>32</sup>加</li>
+<li>a, b, c, d：MD缓存中的4个字，一开始被初始化，之后每一步操作结果都会替换其中一个字</li>
+<li>&lt;&lt;&lt; s：循环左移s位</li>
+<li>T[i]：矩阵T中的第i个32比特字，i = 1,…,16</li>
+<li>g：循环函数F、G、H、I</li>
+<li>X[k]：当前分组的第k个字</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223105753560.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223105753560.png" srcset="data:image/png;base64,666" alt="image-20201223105753560" style="zoom:60%;" />
+</li>
+<li>
+<p>输出：第4次循环输出加到第1轮循环的输入上产生CV<sub>q+1</sub>，相加是缓存中的4个字分别与CV<sub>q</sub>中对应的4个字以模2<sup>32</sup>相加</p>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223110415662.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223110415662.png" srcset="data:image/png;base64,666" alt="image-20201223110415662" style="zoom:67%;" />
+</li>
+</ol>
+<h5 id="MD5应用">MD5应用</h5>
+<ul>
+<li>对明文消息生成消息摘要</li>
+<li>用于数字签名（UNIX、Linux等操作系统保护用户口令）</li>
+</ul>
+<h5 id="MD5口令逆向">MD5口令逆向</h5>
+<h4 id="SHA-1">SHA-1</h4>
+<p>输入最大长度为2<sup>64</sup>位的消息，输出160比特 ，分组为512比特</p>
+<h5 id="算法流程-v2">算法流程</h5>
+<ol>
+<li>
+<p>在消息的最后添加填充位（一个1和若干个0），使得数据的长度满足length = 448 mod 512，填充完后，信息的长度为N*512+448(bit)</p>
+</li>
+<li>
+<p>记录信息长度，用64位来存储填充前信息长度，如果信息长度超过2<sup>64</sup>位，则只保留低64位。这64位加在第一步结果的后面，这样信息长度就变为(N+1)*512(bit)</p>
+</li>
+<li>
+<p>初始化MD缓冲区，使用160位MD缓冲区来保存中间和最终哈希结果，表示为5个32位寄存器（A,B,C,D,E），存储为低位字节放在低地址字节上</p>
+</li>
+<li>
+<p>以512位数据块为单位处理消息，4轮，每轮20步，每次循环分别使用一个额外的常数K<sub>t</sub></p>
+<ul>
+<li>
+<p>每一步的基本形式：</p>
+<p>$$<br>
+A,B,C,D,E\leftarrow (E+f_t(B,C,D)+S<sup>5(A)+W_i+K_t),A,S</sup>{30}(B),C,D<br>
+$$</p>
+<ul>
+<li>
+<p>+：模2<sup>32</sup>加法</p>
+</li>
+<li>
+<p>f<sub>t</sub>：逻辑函数，每轮循环不同</p>
+</li>
+<li>
+<p>S<sup>i</sup>：32位常数循环左移i位</p>
+</li>
+<li>
+<p>K<sub>t</sub>：额外的常数</p>
+</li>
+<li>
+<p>W<sub>i</sub>：当前512位数据导出的一个32位字；共80个</p>
+<ul>
+<li>
+<p>前16个直接来自当前分组的16个字</p>
+</li>
+<li>
+<p>其余：<br>
+$$<br>
+W_t=S^1(W_{t-16}\bigoplus W_{t-14}\bigoplus W_{t-8}\bigoplus W_{t-3})<br>
+$$</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121458851.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121458851.png" srcset="data:image/png;base64,666" alt="image-20201223121458851" style="zoom: 67%;" />
+<ol start="5">
+<li>第4次循环输出加到CV<sub>q</sub>，得到160位CV<sub>q+1</sub>（模2<sup>32</sup>加）</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121515315.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121515315.png" srcset="data:image/png;base64,666" alt="image-20201223121515315" style="zoom:67%;" />
+<h4 id="哈希函数对比">哈希函数对比</h4>
+<ul>
+<li>SHA = MD4 ＋ 扩展变换 ＋ 外加一轮 ＋ 更好的雪崩</li>
+<li>MD5 = MD4 ＋ 改进的比特杂凑 ＋ 外加一轮 ＋ 更好的雪崩</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223122213539.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223122213539.png" srcset="data:image/png;base64,666" alt="image-20201223122213539" style="zoom: 67%;" />
+<h2 id="数字签名算法">数字签名算法</h2>
+<p>只对消息的哈希签名，否则交换信息长度增加一倍；数字签名可以提供消息的不可否认性</p>
+<h3 id="RSA-v2">RSA</h3>
+<p>给定(e, R), (d, p, q)</p>
+<ul>
+<li>计算明文M的哈希h，S = h<sup>d</sup>(mod R)，发送(M, S)</li>
+<li>接收方同样计算哈希h，S<sup>e</sup> mod R = h’ mod R，对比h和h’</li>
+<li>若先加密后签名，签名可能被替换</li>
+</ul>
+<h3 id="EI-Gamal">EI Gamal</h3>
+<ul>
+<li>加密算法不可交换——需要专门的签名算法</li>
+<li>安全性基于离散对数的计算困难性</li>
+<li>公钥：(y, g, p)，私钥(x)</li>
+<li>签名方案:
+<ul>
+<li>随机数k，与p-1互素</li>
+<li>计算K = g<sup>k</sup> mod p</li>
+<li>计算S = k<sup>−1</sup>(M − Kx) mod (p−1)</li>
+<li>发送签名(M, K, S)，销毁k</li>
+<li>验证y<sup>K</sup>K<sup>S</sup> mod p=g<sup>M</sup> mod p</li>
+</ul>
+</li>
+<li>签名长度为消息的两倍</li>
+</ul>
+<h3 id="DSA">DSA</h3>
+<ul>
+<li>El Gamal的变形，生成320位签名</li>
+<li>安全性基于离散对数的计算困难性</li>
+<li>密钥生成
+<ul>
+<li>公开参数 (p, q, g)
+<ul>
+<li>p：大素数，2<sup>L</sup>，L为512到1024位且为64的倍数</li>
+<li>q：160位（p-1）的素因子</li>
+<li>g：h<sup>(p−1)/q</sup>,   h &lt; p−1 且 h<sup>(p−1)/q</sup>(mod p) &gt; 1</li>
+</ul>
+</li>
+<li>选择私钥x，计算y = g<sup>x</sup> mod p，公钥为 (p, q, g, y)</li>
+</ul>
+</li>
+<li>签名生成（SHA：哈希函数）
+<ul>
+<li>r = (g<sup>k</sup> mod p) mod q</li>
+<li>s = k<sup>−1</sup>(SHA(M) + (xr mod q))</li>
+<li>发送 (M, r, s)</li>
+</ul>
+</li>
+<li>签名验证
+<ul>
+<li>w = s<sup>−1</sup> mod q</li>
+<li>u1 = SHA(M)w mod q</li>
+<li>u2 = rw mod q</li>
+<li>v = (g<sup>u1</sup>y<sup>u2</sup> mod p) mod q</li>
+<li>验证 v = r</li>
+</ul>
+</li>
+</ul>
+<h3 id="HMAC">HMAC</h3>
+<ul>
+<li>以上为需要私钥的认证方案，计算量大</li>
+<li>密钥与消息同时参加运算：KeyedHash = Hash(Key | Message)或Hash(Key1 | Hash(Key2 | Message))</li>
+<li>HMAC：使用带密钥hash函数的结果
+<ul>
+<li>HMAC<sub>K</sub> = Hash((K′ ⨁ opad) || Hash((K′ ⨁ ipad) || M))</li>
+<li>K’：经过填充的密钥</li>
+<li>opad、ipad：特殊的填充值</li>
+</ul>
+</li>
+<li>安全性基于原始的hash</li>
+</ul>
+<h2 id="信息隐藏与隐写分析">信息隐藏与隐写分析</h2>
+<h3 id="信息隐藏的基本概念">信息隐藏的基本概念</h3>
+<p>信息隐藏是将信息秘密嵌入在数字图像、声音、文档、视频等数字产品中，用以隐蔽通信、隐蔽标识，或识别所有者、完整性、发源地、使用权、序列号等。</p>
+<h4 id="信息隐藏技术的主要分支">信息隐藏技术的主要分支</h4>
+<ul>
+<li>隐蔽信道：系统存在的一些安全漏洞，通过某些非正常的访问控制操作，能形成隐秘数据流，而基于正常安全机制的软硬件不能觉察和有效控制</li>
+<li>匿名通信
+<ul>
+<li>源重写技术：采用路由转发策略，发送者匿名</li>
+</ul>
+</li>
+<li>隐写术</li>
+<li>版权标志</li>
+</ul>
+<h4 id="水印的分类">水印的分类</h4>
+<p>根据应用分类：</p>
+<ul>
+<li>隐蔽通信</li>
+<li>版权保护</li>
+<li>认证和完整性</li>
+<li>内容标注</li>
+</ul>
+<p>根据嵌入域分类：</p>
+<ul>
+<li>空域，如LSB</li>
+<li>变换域，如DFT、DCT、DWT等</li>
+</ul>
+<p>根据是否可见分类</p>
+<ul>
+<li>可见水印</li>
+<li>不可见水印</li>
+</ul>
+<p>根据密钥分类</p>
+<ul>
+<li>密钥水印</li>
+<li>公钥水印</li>
+</ul>
+<p>根据原始数据分类</p>
+<ul>
+<li>私有水印：检测时需要原始数据</li>
+<li>盲水印：检测时不需要原始数据</li>
+</ul>
+<p>根据载体恢复分类</p>
+<ul>
+<li>可逆水印</li>
+<li>不可逆水印</li>
+</ul>
+<p>根据鲁棒性分类</p>
+<ul>
+<li>鲁棒水印：用于认证、版权保护</li>
+<li>半易碎水印</li>
+<li>易碎水印：对恶意改动敏感，用于完整性判定</li>
+</ul>
+<h4 id="鲁棒水印特性">鲁棒水印特性</h4>
+<ul>
+<li>不可见性</li>
+<li>安全可靠性</li>
+<li>鲁棒性</li>
+<li>复杂性</li>
+<li>容量</li>
+</ul>
+<h3 id="信息隐藏的一般过程">信息隐藏的一般过程</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223160600413.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223160600413.png" srcset="data:image/png;base64,666" alt="image-20201223160600413" style="zoom:70%;" />
+<h4 id="水印生成">水印生成</h4>
+<p>类似噪声，具有不可预测的随机性</p>
+<ul>
+<li>Arnold置乱技术：置乱96次回到原图</li>
+<li>扩频技术
+<ul>
+<li>基于片率</li>
+<li>基于伪随机序列</li>
+</ul>
+</li>
+</ul>
+<h4 id="水印嵌入">水印嵌入</h4>
+<ul>
+<li>加法嵌入：X<sub>w</sub>(k) = X<sub>0</sub>(k) + a(k)w(k)</li>
+<li>乘法嵌入：X<sub>w</sub>(k) = X<sub>0</sub>(k)(1 + a(k)w(k))</li>
+</ul>
+<h3 id="信息隐藏的常见算法">信息隐藏的常见算法</h3>
+<h4 id="空域信息隐藏算法">空域信息隐藏算法</h4>
+<p>通过直接修改像素值实现信息嵌入</p>
+<ul>
+<li>优点：简单、快速、容量大</li>
+<li>缺点：鲁棒性差</li>
+</ul>
+<p>图像位平面特性：</p>
+<ul>
+<li>位平面越高，对灰度值的贡献越大，相邻比特的相关也越强</li>
+<li>最低位平面类似随机噪声</li>
+</ul>
+<h5 id="LSB算法">LSB算法</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162221552.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162221552.png" srcset="data:image/png;base64,666" alt="image-20201223162221552" style="zoom:60%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162248435.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162248435.png" srcset="data:image/png;base64,666" alt="image-20201223162248435" style="zoom:60%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162326057.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162326057.png" srcset="data:image/png;base64,666" alt="image-20201223162326057" style="zoom:60%;" />
+<h5 id="Patchwork算法">Patchwork算法</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162458268.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162458268.png" srcset="data:image/png;base64,666" alt="image-20201223162458268" style="zoom:80%;" />
+<h5 id="Checksum算法">Checksum算法</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162614060.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162614060.png" srcset="data:image/png;base64,666" alt="image-20201223162614060" style="zoom:80%;" />
+<h4 id="频域水印算法">频域水印算法</h4>
+<p>通过修改频域空间的系数实现水印嵌入</p>
+<ul>
+<li>离散傅里叶变换（DFT）</li>
+<li>离散余弦变换（DCT）</li>
+<li>离散小波变换（DWT）</li>
+</ul>
+<p>优点：鲁棒性好</p>
+<p>缺点：复杂度高</p>
 <h2 id="附录">附录</h2>
 <h3 id="DES算法相关表">DES算法相关表</h3>
 <h4 id="初始置换IP-对明文输入进行次序打乱">初始置换IP (对明文输入进行次序打乱)</h4>
@@ -1127,7 +1533,7 @@ enclave建立时必须分配其所需的所有内存，并且难以根据工作�
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A4%E5%85%B8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">古典替换密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%BA%E6%92%92%E5%AF%86%E7%A0%81"><span class="toc-text">恺撒密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E5%8D%95%E8%A1%A8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">混合单表替换密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8D%95%E8%A1%A8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">简单的单表替换密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%AD%97%E6%AF%8D%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">多字母替换密码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A4%E5%85%B8%E7%BD%AE%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">古典置换密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81"><span class="toc-text">分组密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E8%BF%90%E7%AE%97-S-boxes"><span class="toc-text">替换运算 S-boxes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2%E8%BF%90%E7%AE%97-P-boxes"><span class="toc-text">置换运算 P-boxes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%AA%E5%B4%A9%E6%95%88%E5%BA%94"><span class="toc-text">雪崩效应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E5%A4%87%E6%80%A7%E6%95%88%E5%BA%94"><span class="toc-text">完备性效应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feistel%E5%AF%86%E7%A0%81"><span class="toc-text">Feistel密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Feistel%E5%AF%86%E7%A0%81%E8%AE%BE%E8%AE%A1"><span class="toc-text">Feistel密码设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lucifer"><span class="toc-text">Lucifer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">现代分组加密算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8C%96%E7%9A%84DES-S-DES"><span class="toc-text">简化的DES (S-DES)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-text">加解密流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86DES"><span class="toc-text">数据加密标准DES</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E5%8A%A0%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-text">DES加密流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E4%B8%80%E8%BD%AE%E5%8A%A0%E5%AF%86"><span class="toc-text">DES一轮加密</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AE%E5%87%BD%E6%95%B0F"><span class="toc-text">轮函数F</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E9%92%A5K%E8%AE%A1%E7%AE%97%E5%AD%90%E5%AF%86%E9%92%A5"><span class="toc-text">密钥K计算子密钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E7%9A%84S%E7%9B%92"><span class="toc-text">DES的S盒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E9%87%8DDES"><span class="toc-text">双重DES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E9%87%8DDES"><span class="toc-text">三重DES</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDEA"><span class="toc-text">IDEA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E5%8A%A0%E5%AF%86%E6%80%BB%E4%BD%93%E6%96%B9%E6%A1%88"><span class="toc-text">IDEA加密总体方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E5%8A%A0%E5%AF%86%E5%85%B7%E4%BD%93%E8%BF%87%E7%A8%8B"><span class="toc-text">IDEA加密具体过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E7%9A%84%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="toc-text">IDEA的密钥生成</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES-Rijndael"><span class="toc-text">AES-Rijndael</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E6%A1%86%E6%9E%B6"><span class="toc-text">AES框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E8%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-text">AES轮函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2-Byte-Sub"><span class="toc-text">字节替换(Byte Sub)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%8C%E7%A7%BB%E4%BD%8D-Shift-Row"><span class="toc-text">行移位(Shift Row)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E6%B7%B7%E5%90%88-Mix-Column"><span class="toc-text">列混合(Mix Column)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AE%E5%AF%86%E9%92%A5%E5%8A%A0-Add-Round-Key"><span class="toc-text">轮密钥加(Add Round Key)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E5%AD%90%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="toc-text">AES子密钥生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">AES解密过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">分组密码工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ECB-%E7%94%B5%E7%A0%81%E6%9C%AC%E6%A8%A1%E5%BC%8F"><span class="toc-text">ECB 电码本模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CBC-%E5%AF%86%E7%A0%81%E5%88%86%E7%BB%84%E9%93%BE%E6%8E%A5%E6%A8%A1%E5%BC%8F"><span class="toc-text">CBC 密码分组链接模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CFB-%E5%AF%86%E7%A0%81%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">CFB 密码反馈模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OFB-%E8%BE%93%E5%87%BA%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">OFB 输出反馈模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CTR-%E8%AE%A1%E7%AE%97%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">CTR 计算器模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">对称密码算法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81%E7%AE%80%E5%8D%95%E7%BB%93%E6%9E%84"><span class="toc-text">流密码简单结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81%E4%B8%8E%E8%87%AA%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">同步流密码与自同步流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">同步流密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">自同步流密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%8D%E9%A6%88%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8-LFSR"><span class="toc-text">线性反馈移位寄存器 LFSR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LFSR%E7%9A%84%E5%91%A8%E6%9C%9F%E4%B8%8Em%E5%BA%8F%E5%88%97"><span class="toc-text">LFSR的周期与m序列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97"><span class="toc-text">伪随机序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Golomb%E9%9A%8F%E6%9C%BA%E6%80%A7%E5%81%87%E8%AE%BE"><span class="toc-text">Golomb随机性假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#m%E5%BA%8F%E5%88%97%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7"><span class="toc-text">m序列的伪随机性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">线性复杂度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E5%AF%86%E9%92%A5%E6%B5%81"><span class="toc-text">安全的密钥流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ELFSR%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">基于LFSR的伪随机序列生成器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">滤波生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">组合生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%92%9F%E6%8E%A7%E5%88%B6%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">钟控制生成器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">实用流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E7%90%83%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9FGSM%E4%B8%AD%E7%9A%84A5%E7%AE%97%E6%B3%95"><span class="toc-text">全球移动通信系统GSM中的A5算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RC4"><span class="toc-text">RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">密钥调度算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="toc-text">伪随机生成算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81"><span class="toc-text">公钥密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">对称密码体制的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-text">公钥算法分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diffie-Hellman%E5%AF%86%E9%92%A5%E5%88%86%E9%85%8D"><span class="toc-text">Diffie-Hellman密钥分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA"><span class="toc-text">RSA</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8"><span class="toc-text">DES算法相关表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%BD%AE%E6%8D%A2IP-%E5%AF%B9%E6%98%8E%E6%96%87%E8%BE%93%E5%85%A5%E8%BF%9B%E8%A1%8C%E6%AC%A1%E5%BA%8F%E6%89%93%E4%B9%B1"><span class="toc-text">初始置换IP (对明文输入进行次序打乱)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%BD%AE%E6%8D%A2%E7%9A%84%E9%80%86%E7%BD%AE%E6%8D%A2IP-1"><span class="toc-text">初始置换的逆置换IP-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E7%BD%AE%E6%8D%A2E-32-bit%E5%88%B048-bit"><span class="toc-text">扩展置换E (32-bit到48-bit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2%E5%87%BD%E6%95%B0P"><span class="toc-text">置换函数P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC1"><span class="toc-text">PC1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC2"><span class="toc-text">PC2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#S-box-%E4%BE%8B%E5%AD%90"><span class="toc-text">S-box 例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8"><span class="toc-text">AES算法相关表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2%E8%A1%A8"><span class="toc-text">字节替换表</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A4%E5%85%B8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">古典替换密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%BA%E6%92%92%E5%AF%86%E7%A0%81"><span class="toc-text">恺撒密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E5%8D%95%E8%A1%A8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">混合单表替换密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8D%95%E8%A1%A8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">简单的单表替换密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%AD%97%E6%AF%8D%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">多字母替换密码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A4%E5%85%B8%E7%BD%AE%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">古典置换密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81"><span class="toc-text">分组密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E8%BF%90%E7%AE%97-S-boxes"><span class="toc-text">替换运算 S-boxes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2%E8%BF%90%E7%AE%97-P-boxes"><span class="toc-text">置换运算 P-boxes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%AA%E5%B4%A9%E6%95%88%E5%BA%94"><span class="toc-text">雪崩效应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E5%A4%87%E6%80%A7%E6%95%88%E5%BA%94"><span class="toc-text">完备性效应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feistel%E5%AF%86%E7%A0%81"><span class="toc-text">Feistel密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Feistel%E5%AF%86%E7%A0%81%E8%AE%BE%E8%AE%A1"><span class="toc-text">Feistel密码设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lucifer"><span class="toc-text">Lucifer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">现代分组加密算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8C%96%E7%9A%84DES-S-DES"><span class="toc-text">简化的DES (S-DES)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-text">加解密流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86DES"><span class="toc-text">数据加密标准DES</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E5%8A%A0%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-text">DES加密流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E4%B8%80%E8%BD%AE%E5%8A%A0%E5%AF%86"><span class="toc-text">DES一轮加密</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AE%E5%87%BD%E6%95%B0F"><span class="toc-text">轮函数F</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E9%92%A5K%E8%AE%A1%E7%AE%97%E5%AD%90%E5%AF%86%E9%92%A5"><span class="toc-text">密钥K计算子密钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E7%9A%84S%E7%9B%92"><span class="toc-text">DES的S盒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E9%87%8DDES"><span class="toc-text">双重DES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E9%87%8DDES"><span class="toc-text">三重DES</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDEA"><span class="toc-text">IDEA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E5%8A%A0%E5%AF%86%E6%80%BB%E4%BD%93%E6%96%B9%E6%A1%88"><span class="toc-text">IDEA加密总体方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E5%8A%A0%E5%AF%86%E5%85%B7%E4%BD%93%E8%BF%87%E7%A8%8B"><span class="toc-text">IDEA加密具体过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E7%9A%84%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="toc-text">IDEA的密钥生成</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES-Rijndael"><span class="toc-text">AES-Rijndael</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E6%A1%86%E6%9E%B6"><span class="toc-text">AES框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E8%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-text">AES轮函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2-Byte-Sub"><span class="toc-text">字节替换(Byte Sub)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%8C%E7%A7%BB%E4%BD%8D-Shift-Row"><span class="toc-text">行移位(Shift Row)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E6%B7%B7%E5%90%88-Mix-Column"><span class="toc-text">列混合(Mix Column)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AE%E5%AF%86%E9%92%A5%E5%8A%A0-Add-Round-Key"><span class="toc-text">轮密钥加(Add Round Key)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E5%AD%90%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="toc-text">AES子密钥生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">AES解密过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">分组密码工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ECB-%E7%94%B5%E7%A0%81%E6%9C%AC%E6%A8%A1%E5%BC%8F"><span class="toc-text">ECB 电码本模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CBC-%E5%AF%86%E7%A0%81%E5%88%86%E7%BB%84%E9%93%BE%E6%8E%A5%E6%A8%A1%E5%BC%8F"><span class="toc-text">CBC 密码分组链接模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CFB-%E5%AF%86%E7%A0%81%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">CFB 密码反馈模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OFB-%E8%BE%93%E5%87%BA%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">OFB 输出反馈模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CTR-%E8%AE%A1%E7%AE%97%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">CTR 计算器模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">对称密码算法分析</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81%E7%AE%80%E5%8D%95%E7%BB%93%E6%9E%84"><span class="toc-text">流密码简单结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81%E4%B8%8E%E8%87%AA%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">同步流密码与自同步流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">同步流密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">自同步流密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%8D%E9%A6%88%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8-LFSR"><span class="toc-text">线性反馈移位寄存器 LFSR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LFSR%E7%9A%84%E5%91%A8%E6%9C%9F%E4%B8%8Em%E5%BA%8F%E5%88%97"><span class="toc-text">LFSR的周期与m序列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97"><span class="toc-text">伪随机序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Golomb%E9%9A%8F%E6%9C%BA%E6%80%A7%E5%81%87%E8%AE%BE"><span class="toc-text">Golomb随机性假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#m%E5%BA%8F%E5%88%97%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7"><span class="toc-text">m序列的伪随机性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">线性复杂度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E5%AF%86%E9%92%A5%E6%B5%81"><span class="toc-text">安全的密钥流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ELFSR%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">基于LFSR的伪随机序列生成器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">滤波生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">组合生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%92%9F%E6%8E%A7%E5%88%B6%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">钟控制生成器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">实用流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E7%90%83%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9FGSM%E4%B8%AD%E7%9A%84A5%E7%AE%97%E6%B3%95"><span class="toc-text">全球移动通信系统GSM中的A5算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RC4"><span class="toc-text">RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">密钥调度算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="toc-text">伪随机生成算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81"><span class="toc-text">公钥密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">对称密码体制的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-text">公钥算法分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diffie-Hellman%E5%AF%86%E9%92%A5%E5%88%86%E9%85%8D"><span class="toc-text">Diffie-Hellman密钥分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA"><span class="toc-text">RSA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RSA%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">RSA快速实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RABIN%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6"><span class="toc-text">RABIN公钥密码体制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EI-Gamal%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86"><span class="toc-text">EI Gamal公钥加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E8%AF%81%E5%92%8C%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">认证和哈希函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86"><span class="toc-text">消息加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E7%A0%81-MAC"><span class="toc-text">消息认证码(MAC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">哈希函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E6%88%96%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">简单的异或哈希函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5"><span class="toc-text">MD5</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MD5%E5%BA%94%E7%94%A8"><span class="toc-text">MD5应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MD5%E5%8F%A3%E4%BB%A4%E9%80%86%E5%90%91"><span class="toc-text">MD5口令逆向</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SHA-1"><span class="toc-text">SHA-1</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-v2"><span class="toc-text">算法流程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E5%AF%B9%E6%AF%94"><span class="toc-text">哈希函数对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95"><span class="toc-text">数字签名算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA-v2"><span class="toc-text">RSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EI-Gamal"><span class="toc-text">EI Gamal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DSA"><span class="toc-text">DSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HMAC"><span class="toc-text">HMAC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E4%B8%8E%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90"><span class="toc-text">信息隐藏与隐写分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">信息隐藏的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E6%8A%80%E6%9C%AF%E7%9A%84%E4%B8%BB%E8%A6%81%E5%88%86%E6%94%AF"><span class="toc-text">信息隐藏技术的主要分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B4%E5%8D%B0%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">水印的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%B2%81%E6%A3%92%E6%B0%B4%E5%8D%B0%E7%89%B9%E6%80%A7"><span class="toc-text">鲁棒水印特性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%9A%84%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B"><span class="toc-text">信息隐藏的一般过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B4%E5%8D%B0%E7%94%9F%E6%88%90"><span class="toc-text">水印生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B4%E5%8D%B0%E5%B5%8C%E5%85%A5"><span class="toc-text">水印嵌入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%9A%84%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95"><span class="toc-text">信息隐藏的常见算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E5%9F%9F%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%AE%97%E6%B3%95"><span class="toc-text">空域信息隐藏算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#LSB%E7%AE%97%E6%B3%95"><span class="toc-text">LSB算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Patchwork%E7%AE%97%E6%B3%95"><span class="toc-text">Patchwork算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Checksum%E7%AE%97%E6%B3%95"><span class="toc-text">Checksum算法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%91%E5%9F%9F%E6%B0%B4%E5%8D%B0%E7%AE%97%E6%B3%95"><span class="toc-text">频域水印算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8"><span class="toc-text">DES算法相关表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%BD%AE%E6%8D%A2IP-%E5%AF%B9%E6%98%8E%E6%96%87%E8%BE%93%E5%85%A5%E8%BF%9B%E8%A1%8C%E6%AC%A1%E5%BA%8F%E6%89%93%E4%B9%B1"><span class="toc-text">初始置换IP (对明文输入进行次序打乱)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%BD%AE%E6%8D%A2%E7%9A%84%E9%80%86%E7%BD%AE%E6%8D%A2IP-1"><span class="toc-text">初始置换的逆置换IP-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E7%BD%AE%E6%8D%A2E-32-bit%E5%88%B048-bit"><span class="toc-text">扩展置换E (32-bit到48-bit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2%E5%87%BD%E6%95%B0P"><span class="toc-text">置换函数P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC1"><span class="toc-text">PC1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC2"><span class="toc-text">PC2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#S-box-%E4%BE%8B%E5%AD%90"><span class="toc-text">S-box 例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8"><span class="toc-text">AES算法相关表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2%E8%A1%A8"><span class="toc-text">字节替换表</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
