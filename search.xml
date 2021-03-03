@@ -4,6 +4,68 @@
   
     
     <entry>
+      <title>Rust更换项目编译的Channel</title>
+      <link href="2021/03/03/rustup-channel/"/>
+      <url>2021/03/03/rustup-channel/</url>
+      
+        <content type="html"><![CDATA[<p>查看可用的Channel：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rustup toolchain list</span><br></pre></td></tr></table></figure><p>在项目根目录输入命令修改本项目的编译环境：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rustup override <span class="built_in">set</span> nightly</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Install </category>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Rust-SGX环境配置</title>
+      <link href="2020/12/10/sgx-rust-install/"/>
+      <url>2020/12/10/sgx-rust-install/</url>
+      
+        <content type="html"><![CDATA[<h3 id="安装Intel-SGX">安装Intel SGX</h3><ul><li><p>SGX Driver：根据<a href="https://github.com/intel/linux-sgx-driver">官方github</a>安装</p></li><li><p>SGX PSW：根据<a href="https://download.01.org/intel-sgx/latest/linux-latest/docs/Intel_SGX_Installation_Guide_Linux_2.12_Open_Source.pdf">安装手册</a>安装</p></li><li><p>SGX SDK：下载<a href="https://download.01.org/intel-sgx/latest/linux-latest/distro/ubuntu20.04-server/sgx_linux_x64_sdk_2.12.100.3.bin">sgx_linux_x64_sdk_2.12.100.3.bin</a>，根据<a href="https://download.01.org/intel-sgx/latest/linux-latest/docs/Intel_SGX_Installation_Guide_Linux_2.12_Open_Source.pdf">安装手册</a>安装</p></li></ul><h3 id="下载Rust-SGX-SDK">下载Rust-SGX-SDK</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth 1 https://github.com/apache/incubator-teaclave-sgx-sdk.git ~/sgx/sgx-rust-sdk</span><br></pre></td></tr></table></figure><h3 id="添加环境变量">添加环境变量</h3><p>在~/.bashrc文件最后添加：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SGX_SDK_RUST=<span class="variable">$HOME</span>/sgx/sgx-rust-sdk</span><br><span class="line"><span class="built_in">export</span> SGX_SDK=/opt/intel/sgxsdk</span><br></pre></td></tr></table></figure><p>再在终端执行 <code>source ~/.bashrc</code></p><h3 id="解决：Enclave代码运行出错（Invalid-SGX-Driver）">解决：Enclave代码运行出错（Invalid SGX Driver）</h3><p>不清楚什么原因，反正重装一遍SGX Driver就好了</p><p>卸载：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /sbin/modprobe -r isgx</span><br><span class="line">$ sudo rm -rf <span class="string">&quot;/lib/modules/&quot;</span>`uname -r`<span class="string">&quot;/kernel/drivers/intel/sgx&quot;</span></span><br><span class="line">$ sudo /sbin/depmod</span><br><span class="line">$ sudo /bin/sed -i <span class="string">&#x27;/^isgx$/d&#x27;</span> /etc/modules</span><br></pre></td></tr></table></figure><p>cd到 <code>/opt/intel/linux-sgx-driver</code>：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make clean</span><br><span class="line">$ sudo make</span><br><span class="line">$ sudo mkdir -p <span class="string">&quot;/lib/modules/&quot;</span>`uname -r`<span class="string">&quot;/kernel/drivers/intel/sgx&quot;</span>    </span><br><span class="line">$ sudo cp isgx.ko <span class="string">&quot;/lib/modules/&quot;</span>`uname -r`<span class="string">&quot;/kernel/drivers/intel/sgx&quot;</span>    </span><br><span class="line">$ sudo sh -c <span class="string">&quot;cat /etc/modules | grep -Fxq isgx || echo isgx &gt;&gt; /etc/modules&quot;</span>    </span><br><span class="line">$ sudo /sbin/depmod</span><br><span class="line">$ sudo /sbin/modprobe isgx</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Install </category>
+          
+          <category> Linux </category>
+          
+          <category> SGX </category>
+          
+          <category> Rust </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> sgx </tag>
+            
+            <tag> rust </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ubuntu设置终端只显示当前所在目录</title>
       <link href="2020/12/09/ubuntu-terminal-path/"/>
       <url>2020/12/09/ubuntu-terminal-path/</url>

@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>标签：sgx - Schenk - Blog</title>
+  <title>Rust-SGX环境配置 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="linux,sgx,rust">
   
 
+  
+    <meta name="description" content="Rust-SGX-SDK的移植使用">
   
 
   <!-- feed -->
@@ -309,7 +311,7 @@
     <div id="l_cover">
   
     
-        <div id="full" class='cover-wrapper  dock' style="display: none;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -379,304 +381,194 @@
       <div class='body-wrapper' id="pjax-container">
         
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
   
-    
-      
-  <section class="post-list">
-    
-      
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
     
-    <h2 class="article-title" >
-      <a href="/2020/12/10/sgx-rust-install/">
+      <h1 class="title">
         Rust-SGX环境配置
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Rust-SGX-SDK的移植使用
-    
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Install/">Install</a><span class="sep"></span><a class="category-link" href="/categories/Linux/">Linux</a><span class="sep"></span><a class="category-link" href="/categories/Rust/">Rust</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-12-10</time>
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-02-15T02:29:26+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年2月15日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Install/">Install</a><span class="sep"></span><a class="category-link" href="/categories/Linux/">Linux</a><span class="sep"></span><a class="category-link" href="/categories/Rust/">Rust</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：229字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：1分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Rust-SGX环境配置" data-path="/2020/12/10/sgx-rust-install/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <h3 id="安装Intel-SGX">安装Intel SGX</h3>
+<ul>
+<li>
+<p>SGX Driver：根据<a target="_blank" rel="noopener" href="https://github.com/intel/linux-sgx-driver">官方github</a>安装</p>
+</li>
+<li>
+<p>SGX PSW：根据<a target="_blank" rel="noopener" href="https://download.01.org/intel-sgx/latest/linux-latest/docs/Intel_SGX_Installation_Guide_Linux_2.12_Open_Source.pdf">安装手册</a>安装</p>
+</li>
+<li>
+<p>SGX SDK：下载<a target="_blank" rel="noopener" href="https://download.01.org/intel-sgx/latest/linux-latest/distro/ubuntu20.04-server/sgx_linux_x64_sdk_2.12.100.3.bin">sgx_linux_x64_sdk_2.12.100.3.bin</a>，根据<a target="_blank" rel="noopener" href="https://download.01.org/intel-sgx/latest/linux-latest/docs/Intel_SGX_Installation_Guide_Linux_2.12_Open_Source.pdf">安装手册</a>安装</p>
+</li>
+</ul>
+<h3 id="下载Rust-SGX-SDK">下载Rust-SGX-SDK</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> --depth 1 https://github.com/apache/incubator-teaclave-sgx-sdk.git ~/sgx/sgx-rust-sdk</span><br></pre></td></tr></table></figure>
+<h3 id="添加环境变量">添加环境变量</h3>
+<p>在~/.bashrc文件最后添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> SGX_SDK_RUST=<span class="variable">$HOME</span>/sgx/sgx-rust-sdk</span><br><span class="line"><span class="built_in">export</span> SGX_SDK=/opt/intel/sgxsdk</span><br></pre></td></tr></table></figure>
+<p>再在终端执行 <code>source ~/.bashrc</code></p>
+<h3 id="解决：Enclave代码运行出错（Invalid-SGX-Driver）">解决：Enclave代码运行出错（Invalid SGX Driver）</h3>
+<p>不清楚什么原因，反正重装一遍SGX Driver就好了</p>
+<p>卸载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ sudo /sbin/modprobe -r isgx</span><br><span class="line">$ sudo rm -rf <span class="string">&quot;/lib/modules/&quot;</span>`uname -r`<span class="string">&quot;/kernel/drivers/intel/sgx&quot;</span></span><br><span class="line">$ sudo /sbin/depmod</span><br><span class="line">$ sudo /bin/sed -i <span class="string">&#x27;/^isgx$/d&#x27;</span> /etc/modules</span><br></pre></td></tr></table></figure>
+<p>cd到 <code>/opt/intel/linux-sgx-driver</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ sudo make clean</span><br><span class="line">$ sudo make</span><br><span class="line">$ sudo mkdir -p <span class="string">&quot;/lib/modules/&quot;</span>`uname -r`<span class="string">&quot;/kernel/drivers/intel/sgx&quot;</span>    </span><br><span class="line">$ sudo cp isgx.ko <span class="string">&quot;/lib/modules/&quot;</span>`uname -r`<span class="string">&quot;/kernel/drivers/intel/sgx&quot;</span>    </span><br><span class="line">$ sudo sh -c <span class="string">&quot;cat /etc/modules | grep -Fxq isgx || echo isgx &gt;&gt; /etc/modules&quot;</span>    </span><br><span class="line">$ sudo /sbin/depmod</span><br><span class="line">$ sudo /sbin/modprobe isgx</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/12/10/sgx-rust-install/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年12月10日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/29/translation-sgx-analysis/">
-        翻译-SGX Analysis
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      论文Intel SGX Explained中的SGX Analysis部分翻译
-    
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sgx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sgx</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/rust/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>rust</p></a></div>
+
+
+        
+      
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-29</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/SGX/">SGX</a><span class="sep"></span><a class="category-link" href="/categories/Translation/">Translation</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2020/11/29/translation-sgx-analysis/'>
-            阅读全文
-          </a>
-        </div>
+        <a class='prev' href='/2021/03/03/rustup-channel/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Rust更换项目编译的Channel</p>
+          <p class='content'>查看可用的Channel：
+1rustup toolchain list
+在项目根目录输入命令修改本项目的编译环境：
+1rustup override set nightly
+</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/12/09/ubuntu-terminal-path/'>
+          <p class='title'>Ubuntu设置终端只显示当前所在目录<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>修改~/.bashrc文件：
+1234if [ &quot;$color_prompt&quot; = yes ]; then    PS1=&#x27;$&#123;debian_chroot...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/28/translation-sgx-programming-model/">
-        翻译-SGX Programming Model
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      论文Intel SGX Explained中的SGX Programming Model部分翻译
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-28</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/SGX/">SGX</a><span class="sep"></span><a class="category-link" href="/categories/Translation/">Translation</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/28/translation-sgx-programming-model/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/25/paper-sgx-support-for-dynamic-memory-management-inside-an-enclave/">
-        论文阅读-SGX Support for Dynamic Memory Management Inside an Enclave
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      论文SGX Support for Dynamic Memory Management Inside an Enclave阅读笔记
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-25</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Paper-Reading/">Paper Reading</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/25/paper-sgx-support-for-dynamic-memory-management-inside-an-enclave/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/24/sgx-programming/">
-        SGX程序基础
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Intel SGX程序SampleCode Notes
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-24</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/SGX/">SGX</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/24/sgx-programming/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/16/SGX-Developer-Guide-Notes/">
-        SGX Developer Guide - Reading Notes
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Intel SGX Developer Guide 学习笔记
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/SGX/">SGX</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/16/SGX-Developer-Guide-Notes/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
   
 
 
-    
-  
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -684,303 +576,28 @@
     
     
 
-<section class="widget blogger shadow floatable desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Schenk</h2>
-        
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://github.com/Schenk75"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="https://cubingchina.com/results/person/2018SHEN04"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow floatable desktop">
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/C/" href="/categories/C/"
-            id="categoriesC"
-            ><div class='name'>C</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Course-Notes/" href="/categories/Course-Notes/"
-            id="categoriesCourse-Notes"
-            ><div class='name'>Course Notes</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Cube/" href="/categories/Cube/"
-            id="categoriesCube"
-            ><div class='name'>Cube</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Docker/" href="/categories/Docker/"
-            id="categoriesDocker"
-            ><div class='name'>Docker</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Git/" href="/categories/Git/"
-            id="categoriesGit"
-            ><div class='name'>Git</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Install/" href="/categories/Install/"
-            id="categoriesInstall"
-            ><div class='name'>Install</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Paper-Reading/" href="/categories/Paper-Reading/"
-            id="categoriesPaper-Reading"
-            ><div class='name'>Paper Reading</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Rust/" href="/categories/Rust/"
-            id="categoriesRust"
-            ><div class='name'>Rust</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SGX/" href="/categories/SGX/"
-            id="categoriesSGX"
-            ><div class='name'>SGX</div><div class='badge'>(6)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Translation/" href="/categories/Translation/"
-            id="categoriesTranslation"
-            ><div class='name'>Translation</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Useful-Skills/" href="/categories/Useful-Skills/"
-            id="categoriesUseful-Skills"
-            ><div class='name'>Useful Skills</div><div class='badge'>(3)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Intel-SGX"><span class="toc-text">安装Intel SGX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDRust-SGX-SDK"><span class="toc-text">下载Rust-SGX-SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%EF%BC%9AEnclave%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E5%87%BA%E9%94%99%EF%BC%88Invalid-SGX-Driver%EF%BC%89"><span class="toc-text">解决：Enclave代码运行出错（Invalid SGX Driver）</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow floatable desktop mobile">
-    
-  <header>
-    
-      <a href='tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/c/" style="font-size: 14px; color: #999">c</a> <a href="/tags/cargo/" style="font-size: 14px; color: #999">cargo</a> <a href="/tags/cdn/" style="font-size: 14px; color: #999">cdn</a> <a href="/tags/cube/" style="font-size: 14px; color: #999">cube</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/git/" style="font-size: 16.5px; color: #888">git</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/linux/" style="font-size: 19px; color: #777">linux</a> <a href="/tags/rust/" style="font-size: 21.5px; color: #666">rust</a> <a href="/tags/sgx/" style="font-size: 24px; color: #555">sgx</a> <a href="/tags/sq1/" style="font-size: 14px; color: #999">sq1</a> <a href="/tags/vscode/" style="font-size: 14px; color: #999">vscode</a> <a href="/tags/%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AE/" style="font-size: 14px; color: #999">安全协议</a> <a href="/tags/%E5%AF%86%E7%A0%81%E5%AD%A6/" style="font-size: 14px; color: #999">密码学</a> <a href="/tags/%E7%BF%BB%E8%AF%91/" style="font-size: 16.5px; color: #888">翻译</a> <a href="/tags/%E8%BD%AC%E8%BD%BD/" style="font-size: 14px; color: #999">转载</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow floatable desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>23 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/11/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>73.9k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Wed Mar 03 2021 15:27:52 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2021-03-03 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2021-03-03 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
         
@@ -990,8 +607,8 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Rust-SGX环境配置";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
