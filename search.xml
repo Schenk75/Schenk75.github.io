@@ -4,6 +4,58 @@
   
     
     <entry>
+      <title>frp配置</title>
+      <link href="2021/09/22/frp-setup/"/>
+      <url>2021/09/22/frp-setup/</url>
+      
+        <content type="html"><![CDATA[<h4 id="frp安装">frp安装</h4><ul><li>下载：<a href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></li><li>免费服务器：<a href="http://freefrp.wlphp.com/">http://freefrp.wlphp.com/</a></li></ul><h4 id="frp配置">frp配置</h4><ul><li><p>提供服务的内网机器 <code>frpc.ini</code></p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = vip.frp.wlphp.com</span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">905507</span></span><br><span class="line"></span><br><span class="line"><span class="section">[secret_ssh]</span></span><br><span class="line"><span class="attr">type</span> = stcp</span><br><span class="line"><span class="attr">sk</span> = schenk</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br></pre></td></tr></table></figure></li><li><p>访问服务的机器 <code>frpc.ini</code></p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = vip.frp.wlphp.com</span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">905507</span></span><br><span class="line"></span><br><span class="line"><span class="section">[secret_ssh_visitor]</span></span><br><span class="line"><span class="attr">type</span> = stcp</span><br><span class="line"><span class="attr">role</span> = visitor</span><br><span class="line"><span class="attr">server_name</span> = secret_ssh</span><br><span class="line"><span class="attr">sk</span> = schenk</span><br><span class="line"><span class="attr">bind_addr</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">6000</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="访问内网机器">访问内网机器</h4><ul><li><p>内网机器 Ubuntu</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c frpc.ini</span><br></pre></td></tr></table></figure></li><li><p>访问Ubuntu的机器 Windows</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frpc.exe -c frpc.ini</span><br></pre></td></tr></table></figure></li><li><p>在Windows上使用ssh连接</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -oPort=6000 schenk@127.0.0.1</span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Install </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> frp </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>论文阅读-Secure Multiparty Computation from SGX</title>
+      <link href="2021/08/16/paper-secure-mpc/"/>
+      <url>2021/08/16/paper-secure-mpc/</url>
+      
+        <content type="html"><![CDATA[<h2 id="1-Introduction">1.Introduction</h2><p>使用可信硬件实现MPC协议需要克服：</p><ol><li>用户和远程机器之间缺乏专用通道</li><li>在异步通信以及仅有TEE介入的条件下对计算进行身份验证/达成一致</li><li>确保“正确”的各方参与计算</li><li>处理共存于同一TEE、共享内存空间的代码之间的交互，每段代码可能对应不同的用户</li><li>确保TEE内部运行的代码不会向外部泄露敏感信息</li></ol><h3 id="1-1-贡献">1.1 贡献</h3><h4 id="通用安全多方计算">通用安全多方计算</h4><p>一个高效的安全多方计算协议（非交互式）</p><p>加载进TEE的代码先执行密钥交换，再通过秘密信道执行任意函数 $F$</p><h4 id="标记验证计算LAC">标记验证计算LAC</h4><p>经过验证的输出为计算序列提供完整性保护，输出的完整性可以进行公开验证</p><ul><li>为输入添加标签，并将对应于特定标签的输入和输出绑定</li><li>对LAC进行正式建模，通过LAC原语将任意程序部署到TEE</li><li>LAC可用于更多的依赖TEE的安全协议的模块化分析</li></ul><h4 id="实现和实验">实现和实验</h4><p>两个实现：</p><ul><li><p><code>sgx-mpc-mbed</code> ：依赖TLS库，使用RSA进行密钥交换</p></li><li><p><code>sgx-mpc-nacl</code> ：依赖NaCl密码学库，使用椭圆曲线密码进行密钥交换和数字签名</p></li></ul><h2 id="3-TEE程序与机器">3.TEE程序与机器</h2><h3 id="TEE程序">TEE程序</h3><blockquote><p>抽象为编程语言 $L$ ，包含TEE系统调用</p></blockquote><p>TEE中的系统调用结果只能依赖于:</p><ul><li>程序加载时定义的初始共享状态</li><li>显式传递的输入</li><li>新鲜的随机硬币</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> SGX </category>
+          
+          <category> Paper Reading </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> sgx </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>论文阅读-Ekiden. A Platform for Confidentiality-Preserving, Trustworthy, and Performant Smart Contracts</title>
       <link href="2021/06/13/paper-Ekiden/"/>
       <url>2021/06/13/paper-Ekiden/</url>
