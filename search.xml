@@ -31,31 +31,6 @@
     
     
     <entry>
-      <title>frp配置</title>
-      <link href="2021/09/22/frp-setup/"/>
-      <url>2021/09/22/frp-setup/</url>
-      
-        <content type="html"><![CDATA[<h4 id="frp安装">frp安装</h4><ul><li>下载：<a href="https://github.com/fatedier/frp/releases">https://github.com/fatedier/frp/releases</a></li><li>免费服务器：<a href="http://freefrp.wlphp.com/">http://freefrp.wlphp.com/</a></li></ul><h4 id="frp配置">frp配置</h4><ul><li><p>提供服务的内网机器 <code>frpc.ini</code></p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = vip.frp.wlphp.com</span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">905507</span></span><br><span class="line"></span><br><span class="line"><span class="section">[secret_ssh]</span></span><br><span class="line"><span class="attr">type</span> = stcp</span><br><span class="line"><span class="attr">sk</span> = schenk</span><br><span class="line"><span class="attr">local_ip</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">local_port</span> = <span class="number">22</span></span><br></pre></td></tr></table></figure></li><li><p>访问服务的机器 <code>frpc.ini</code></p><figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[common]</span></span><br><span class="line"><span class="attr">server_addr</span> = vip.frp.wlphp.com</span><br><span class="line"><span class="attr">server_port</span> = <span class="number">7000</span></span><br><span class="line"><span class="attr">token</span> = <span class="number">905507</span></span><br><span class="line"></span><br><span class="line"><span class="section">[secret_ssh_visitor]</span></span><br><span class="line"><span class="attr">type</span> = stcp</span><br><span class="line"><span class="attr">role</span> = visitor</span><br><span class="line"><span class="attr">server_name</span> = secret_ssh</span><br><span class="line"><span class="attr">sk</span> = schenk</span><br><span class="line"><span class="attr">bind_addr</span> = <span class="number">127.0</span>.<span class="number">0.1</span></span><br><span class="line"><span class="attr">bind_port</span> = <span class="number">6000</span></span><br></pre></td></tr></table></figure></li></ul><h4 id="访问内网机器">访问内网机器</h4><ul><li><p>内网机器 Ubuntu</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./frpc -c frpc.ini</span><br></pre></td></tr></table></figure></li><li><p>访问Ubuntu的机器 Windows</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frpc.exe -c frpc.ini</span><br></pre></td></tr></table></figure></li><li><p>在Windows上使用ssh连接</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -oPort=6000 schenk@127.0.0.1</span><br></pre></td></tr></table></figure></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Install </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> frp </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>论文阅读-Secure Multiparty Computation from SGX</title>
       <link href="2021/08/16/paper-secure-mpc/"/>
       <url>2021/08/16/paper-secure-mpc/</url>
