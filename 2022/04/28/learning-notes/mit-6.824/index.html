@@ -420,7 +420,7 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:33:19+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T21:11:57+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
     <p>更新于：2022年4月28日</p>
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：5k字</p>
+      <p>字数：6k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：17分钟</p>
+      <p>时长：21分钟</p>
     </a>
   </div>
 
@@ -803,6 +803,69 @@
 </li>
 <li>对于读请求，线性一致系统只能返回最近一次完成的写请求写入的值</li>
 </ul>
+<h4 id="Client交互">Client交互</h4>
+<p>源自Raft作者<a target="_blank" rel="noopener" href="https://web.stanford.edu/~ouster/cgi-bin/papers/OngaroPhD.pdf">博士论文Ch6</a></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/mit-6824/119603839-900e0180-be20-11eb-9f74-8b39705bc35e.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/mit-6824/119603839-900e0180-be20-11eb-9f74-8b39705bc35e.png" srcset="data:image/png;base64,666" alt="img"></p>
+<p><strong>寻找Leader</strong></p>
+<ul>
+<li>Client发送请求到随机节点，节点有两种处理方式：
+<ol>
+<li>节点可能通过Leader的AppendEntries RPC知道了LeaderId，从而可以将此信息传递给client；</li>
+<li>节点作为代理，将请求转发给Leader。</li>
+</ol>
+</li>
+<li>Raft必须防止过期的Leadership信息
+<ul>
+<li>Leader：某个节点处于Leader的状态，但不是当前整个集群的Leader，若client将请求发送给此节点，将永远得不到回复，因为该节点不能得到大部分节点的同意。<strong>解决方案：</strong> 若Leader没有收到集群中大部分节点的心跳回复，则会自动退位，使得client能请求其他节点</li>
+<li>Follower：当Follower开启一轮选举或任期改变时，不能回复client的请求，防止几个节点相互redirect</li>
+<li>Client：若client与节点失去连接，需要随机请求另一个节点</li>
+</ul>
+</li>
+</ul>
+<p><strong>实现线性一致</strong></p>
+<ul>
+<li>Raft中，复制状态机可能会apply一条命令多次，为了实现线性一致，不能允许重复执行</li>
+<li>节点保存client操作的结果，当client重发相同请求时，直接回复结果而不执行请求</li>
+<li>给与每个client一个唯一标识，client为每条命令分配一个唯一序号</li>
+<li>每个节点的状态机为每个client维护一个session，来跟踪client的最新命令序号以及响应的回复</li>
+<li>当节点收到同一个client相同序号的命令时，直接回复session中的结果</li>
+<li>在并发环境下，节点维护的session应该包含多个序号-回复pair，client在每个请求中包含其还未收到回复的最小的序号，节点根据此来丢弃更小的序号-回复pair</li>
+<li>由于存储空间有限，在client session越来越多之后，节点必须丢弃一些client session
+<ul>
+<li>所有节点必须对丢弃的session达成共识，因此session丢弃必须是确定性的，可选方案：
+<ul>
+<li>设置session数量上限，根据LRU (Least Recently Used) 策略丢弃session</li>
+<li>基于时间共识来丢弃session</li>
+</ul>
+</li>
+<li>处理在session过期后仍不断发送请求的client，可选方案：
+<ul>
+<li>为该client重新分配一个新的session，但这有命令重复执行的风险（在该client上一个session中可能已经执行过该命令）</li>
+<li>节点区分新client和session过期的client：新client发送RegisterClient RPC来请求一个session，若节点收到的命令请求中包含过期的session，则返回error</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>更高效地执行只读请求</strong></p>
+<ul>
+<li>
+<p>只读请求可以直接进行而不记录log (防止对磁盘的同步写) ，但是需要一些额外处理，否则可能回复过时数据</p>
+<ol>
+<li>若Leader还没将自己任期的log条目标记为committed，则等待标记完成。由于Leader刚上任时不知道自己的哪些log已经commit了，所以他需要在自己任期开始时往自己的log中添加一条空的 <em>no-op</em> 条目，当该条目commit之后，Leader的 <code>commitIndex</code> 至少和其他节点一样大；</li>
+<li>Leader保存一个本地变量 <code>readIndex</code> 来记录当前的 <code>commitIndex</code> ，这将被用作是请求操作的状态的最低版本</li>
+<li>Leader需要确保自己没有被更新的Leader取代，为此他发起一轮新的心跳消息，并等待大部分节点的确认，若得到大部分的确认，则Leader知道此时的 <code>readIndex</code> 是所有节点中最大的 <code>commitIndex</code></li>
+<li>Leader等待其状态机执行到至少 <code>readIndex</code> ，至此所有操作都是线性一致的</li>
+<li>最后，Leader直接查询状态机来获得client只读请求的结果，而不需要记录log</li>
+</ol>
+</li>
+<li>
+<p>进一步优化：Leader可以积累一定数量的只读请求，然后通过一轮心跳消息来同时执行</p>
+</li>
+<li>
+<p>进进一步优化：Follower也可以处理只读请求，首先向Leader发送请求来获取 <code>readIndex</code> ，然后Leader执行1-3步并回复Follower，最后Follower执行4-5步</p>
+</li>
+</ul>
 
   
   
@@ -895,7 +958,7 @@ ObliDB
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-Reading"><span class="toc-text">Paper Reading</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce"><span class="toc-text">MapReduce</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Master%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">Master数据结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%B9%E9%94%99"><span class="toc-text">容错</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%8C%96"><span class="toc-text">本地优化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E7%B2%92%E5%BA%A6"><span class="toc-text">任务粒度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E4%BB%BB%E5%8A%A1"><span class="toc-text">备份任务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Google-File-System"><span class="toc-text">Google File System</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview"><span class="toc-text">Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%81%87%E8%AE%BE"><span class="toc-text">假设</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-text">架构</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BA%A4%E4%BA%92"><span class="toc-text">系统交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Master%E6%93%8D%E4%BD%9C"><span class="toc-text">Master操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E9%94%99%E5%92%8C%E8%AF%8A%E6%96%AD"><span class="toc-text">容错和诊断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fault-tolerant-virtual-machines"><span class="toc-text">Fault-tolerant virtual machines</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%ACFT%E8%AE%BE%E8%AE%A1"><span class="toc-text">基本FT设计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%87%8D%E6%92%AD%E5%AE%9E%E7%8E%B0"><span class="toc-text">确定性重播实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#FT%E5%8D%8F%E8%AE%AE"><span class="toc-text">FT协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%92%8C%E5%93%8D%E5%BA%94%E6%95%85%E9%9A%9C"><span class="toc-text">检测和响应故障</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FT%E7%9A%84%E5%AE%9E%E9%99%85%E5%AE%9E%E7%8E%B0"><span class="toc-text">FT的实际实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%92%8C%E9%87%8D%E5%90%AFFT-VM"><span class="toc-text">启动和重启FT VM</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E7%90%86Logging-Channel"><span class="toc-text">管理Logging Channel</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%87%8D%E8%A6%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">其他重要实现</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Course-Notes"><span class="toc-text">Course Notes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FT-VM"><span class="toc-text">FT VM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-text">复制状态机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%BA%8B%E4%BB%B6"><span class="toc-text">非确定性事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%8E%A7%E5%88%B6"><span class="toc-text">输出控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Test-and-Set%E6%9C%8D%E5%8A%A1"><span class="toc-text">Test-and-Set服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raft"><span class="toc-text">Raft</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Majority-Vote"><span class="toc-text">Majority Vote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Raft%E5%88%9D%E6%8E%A2"><span class="toc-text">Raft初探</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-text">日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E6%8E%A5%E5%8F%A3"><span class="toc-text">应用层接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Leader%E9%80%89%E4%B8%BE"><span class="toc-text">Leader选举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E4%B8%BE%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-text">选举定时器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%81%A2%E5%A4%8D"><span class="toc-text">日志恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E4%B8%BE%E7%BA%A6%E6%9D%9F"><span class="toc-text">选举约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D"><span class="toc-text">快速恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">持久化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%BF%AB%E7%85%A7"><span class="toc-text">日志快照</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4"><span class="toc-text">线性一致</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Paper-Reading"><span class="toc-text">Paper Reading</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MapReduce"><span class="toc-text">MapReduce</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0"><span class="toc-text">实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Master%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">Master数据结构</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%B9%E9%94%99"><span class="toc-text">容错</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E4%BC%98%E5%8C%96"><span class="toc-text">本地优化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%BB%E5%8A%A1%E7%B2%92%E5%BA%A6"><span class="toc-text">任务粒度</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E4%BB%BB%E5%8A%A1"><span class="toc-text">备份任务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%94%B9%E8%BF%9B"><span class="toc-text">改进</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Google-File-System"><span class="toc-text">Google File System</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview"><span class="toc-text">Overview</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%81%87%E8%AE%BE"><span class="toc-text">假设</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%B6%E6%9E%84"><span class="toc-text">架构</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E4%BA%A4%E4%BA%92"><span class="toc-text">系统交互</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Master%E6%93%8D%E4%BD%9C"><span class="toc-text">Master操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%B9%E9%94%99%E5%92%8C%E8%AF%8A%E6%96%AD"><span class="toc-text">容错和诊断</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Fault-tolerant-virtual-machines"><span class="toc-text">Fault-tolerant virtual machines</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9F%BA%E6%9C%ACFT%E8%AE%BE%E8%AE%A1"><span class="toc-text">基本FT设计</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A1%AE%E5%AE%9A%E6%80%A7%E9%87%8D%E6%92%AD%E5%AE%9E%E7%8E%B0"><span class="toc-text">确定性重播实现</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#FT%E5%8D%8F%E8%AE%AE"><span class="toc-text">FT协议</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A3%80%E6%B5%8B%E5%92%8C%E5%93%8D%E5%BA%94%E6%95%85%E9%9A%9C"><span class="toc-text">检测和响应故障</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FT%E7%9A%84%E5%AE%9E%E9%99%85%E5%AE%9E%E7%8E%B0"><span class="toc-text">FT的实际实现</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E5%92%8C%E9%87%8D%E5%90%AFFT-VM"><span class="toc-text">启动和重启FT VM</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%A1%E7%90%86Logging-Channel"><span class="toc-text">管理Logging Channel</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E9%87%8D%E8%A6%81%E5%AE%9E%E7%8E%B0"><span class="toc-text">其他重要实现</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Course-Notes"><span class="toc-text">Course Notes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#FT-VM"><span class="toc-text">FT VM</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="toc-text">复制状态机</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E7%A1%AE%E5%AE%9A%E6%80%A7%E4%BA%8B%E4%BB%B6"><span class="toc-text">非确定性事件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%93%E5%87%BA%E6%8E%A7%E5%88%B6"><span class="toc-text">输出控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Test-and-Set%E6%9C%8D%E5%8A%A1"><span class="toc-text">Test-and-Set服务</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Raft"><span class="toc-text">Raft</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Majority-Vote"><span class="toc-text">Majority Vote</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Raft%E5%88%9D%E6%8E%A2"><span class="toc-text">Raft初探</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97"><span class="toc-text">日志</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%B1%82%E6%8E%A5%E5%8F%A3"><span class="toc-text">应用层接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Leader%E9%80%89%E4%B8%BE"><span class="toc-text">Leader选举</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E4%B8%BE%E5%AE%9A%E6%97%B6%E5%99%A8"><span class="toc-text">选举定时器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E6%81%A2%E5%A4%8D"><span class="toc-text">日志恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%89%E4%B8%BE%E7%BA%A6%E6%9D%9F"><span class="toc-text">选举约束</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%81%A2%E5%A4%8D"><span class="toc-text">快速恢复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%81%E4%B9%85%E5%8C%96"><span class="toc-text">持久化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%97%A5%E5%BF%97%E5%BF%AB%E7%85%A7"><span class="toc-text">日志快照</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E4%B8%80%E8%87%B4"><span class="toc-text">线性一致</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Client%E4%BA%A4%E4%BA%92"><span class="toc-text">Client交互</span></a></li></ol></li></ol></li></ol>
     </div>
   </section>
 
