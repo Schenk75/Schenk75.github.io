@@ -1,0 +1,2289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>现代密码学 Notes - Schenk - Blog</title>
+  
+    <meta name="keywords" content="cryptography">
+  
+
+  
+    <meta name="description" content="现代密码学课程笔记">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        现代密码学 Notes
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Notes/">Notes</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:23:09+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：7.1k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：26分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="现代密码学 Notes" data-path="/2020/11/25/learning-notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="古典替换密码">古典替换密码</h2>
+<h3 id="恺撒密码">恺撒密码</h3>
+<p>每个字母用其后的第三个字母替换，即</p>
+<blockquote>
+<p>Plain:   ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+<p>Cipher: DEFGHIJKLMNOPQRSTUVWXYZABC</p>
+</blockquote>
+<ul>
+<li>恺撒密码的一般形式，可以将字母移动的位数由3变为1-25中的任何一个</li>
+</ul>
+<h3 id="混合单表替换密码">混合单表替换密码</h3>
+<ul>
+<li>每个字母可以用其它任何一个字母替换（不能重复）</li>
+<li>密钥长度为26个字母，因为每个字母需要一个映射</li>
+</ul>
+<h3 id="简单的单表替换密码">简单的单表替换密码</h3>
+<ul>
+<li>设置一个没有重复字母的“密钥字”，其它字母按顺序写在密钥字最后字母后面</li>
+</ul>
+<blockquote>
+<p>给定密钥字 JULISCAER</p>
+<p>Plain:   ABCDEFGHIJKLMNOPQRSTUVWXYZ</p>
+<p>Cipher: JULISCAERTVWXYZBDFGHKMNOPQ</p>
+</blockquote>
+<h3 id="多字母替换密码">多字母替换密码</h3>
+<p>使用多个单字母替换表，因此一个字母可以被多个字母替换：用一个密钥选择每个字母使用哪个字母表，密钥的第i个字母表示使用第i个字母表，依次使用每个字母表，当密钥的字母使用完后，再从头开始</p>
+<h2 id="古典置换密码">古典置换密码</h2>
+<ul>
+<li>方法：通过重新编排消息字母隐藏信息</li>
+<li>特点：没有改变原来消息的字母集</li>
+<li>关键思想：<strong>按一定规则写出明文，按另一规则读出密文</strong></li>
+<li>密钥：用于读密文的方法和写明文的方法</li>
+</ul>
+<h2 id="分组密码">分组密码</h2>
+<p>在分组密码中，消息被分成许多块，每块都要被加密</p>
+<h3 id="替换运算-S-boxes">替换运算 S-boxes</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125210011605.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125210011605.png" srcset="data:image/png;base64,666" alt="image-20201125210011605" style="zoom:56%;" />
+<ul>
+<li>
+<p>一个二进制字用其它二进制字替换，这种替换函数就构成密钥，可以看作是一个大的查表运算</p>
+</li>
+<li>
+<p>混淆：使作用于明文的密钥和密文之间的关系复杂化</p>
+</li>
+</ul>
+<h3 id="置换运算-P-boxes">置换运算 P-boxes</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125205943924.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125205943924.png" srcset="data:image/png;base64,666" alt="image-20201125205943924" style="zoom:67%;" />
+<ul>
+<li>二进制字次序被打乱，重新排序的方法构成密钥</li>
+<li>扩散：将明文及密钥的影响尽可能迅速地散布到较多个输出的密文中</li>
+</ul>
+<h4 id="雪崩效应">雪崩效应</h4>
+<ul>
+<li>输入改变1bit, 导致近一半的比特发生变化</li>
+<li>保证小的输入变化导致大的输出变化</li>
+</ul>
+<h4 id="完备性效应">完备性效应</h4>
+<ul>
+<li>每个输出比特是所有输入比特的复杂函数的输出</li>
+<li>保证每个输出比特依赖于所有的输入比特</li>
+</ul>
+<h3 id="Feistel密码">Feistel密码</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125203244552.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125203244552.png" srcset="data:image/png;base64,666" alt="image-20201125203244552" style="zoom: 50%;" />
+<blockquote>
+<ul>
+<li>把输入块分成左右两部分</li>
+<li>轮函数g是一个S-P网络</li>
+<li>由第i个密钥控制（子密钥）</li>
+</ul>
+<p>L(i) = R(i-1)</p>
+<p>R(i) = L(i-1) xor g(K(i), R(i-1))</p>
+</blockquote>
+<ul>
+<li>求逆很容易</li>
+<li>实际中，一些这样的连续变换形成完整密码变换</li>
+</ul>
+<h4 id="Feistel密码设计">Feistel密码设计</h4>
+<ul>
+<li>分组大小：增加分组长度会提高安全性, 但降低了密码运算速度</li>
+<li>密钥大小：增加密钥长度可以提高安全性(使得穷搜索困难)，但降低了密码速度</li>
+<li>轮数：增加轮数可以提高安全性，但降低速度</li>
+<li>子密钥生成：子密钥生成越复杂就越安全，但降低速度</li>
+</ul>
+<h3 id="Lucifer">Lucifer</h3>
+<ul>
+<li>分组长度是128-bit，密钥长度是128-bit</li>
+<li>每轮使用的子密钥是密钥的左半部分</li>
+<li>密钥每次要向左旋转56-bits，所以密钥的每部分都参加运算</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125210039067.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125210039067.png" srcset="data:image/png;base64,666" alt="image-20201125210039067" style="zoom: 67%;" />
+<p>轮函数的具体结构：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125205433305.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201125205433305.png" srcset="data:image/png;base64,666" alt="image-20201125205433305" style="zoom:67%;" />
+<h2 id="现代分组加密算法">现代分组加密算法</h2>
+<h3 id="简化的DES-S-DES">简化的DES (S-DES)</h3>
+<p>加密算法涉及五个函数：</p>
+<ul>
+<li>初始置换 IP</li>
+<li>复合函数 f<sub>k1</sub> ，由密钥K确定，具有转换和替换的运算</li>
+<li>转换函数 SW</li>
+<li>复合函数 f<sub>k2</sub></li>
+<li>初始置换IP的逆置换 IP<sup>-1</sup></li>
+</ul>
+<h4 id="加解密流程">加解密流程</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126105757628.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126105757628.png" srcset="data:image/png;base64,666" alt="image-20201126105757628" style="zoom:55%;" />
+<ul>
+<li>
+<p>密文 = IP<sup>-1</sup>(f<sub>k2</sub>(SW(f<sub>k1</sub>(IP(明文)))))</p>
+</li>
+<li>
+<p>明文 = IP<sup>-1</sup>(f<sub>k1</sub>(SW(f<sub>k2</sub>(IP(密文)))))</p>
+</li>
+<li>
+<p>密钥生成：</p>
+<ul>
+<li>
+<p>P10(k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, k<sub>4</sub>, k<sub>5</sub>, k<sub>6</sub>, k<sub>7</sub>, k<sub>8</sub>, k<sub>9</sub>, k<sub>10</sub>) = (k<sub>3</sub>, k<sub>5</sub>, k<sub>2</sub>, k<sub>7</sub>, k<sub>4</sub>, k<sub>10</sub>, k<sub>1</sub>, k<sub>9</sub>, k<sub>8</sub>, k<sub>6</sub>)</p>
+</li>
+<li>
+<p>P8(k<sub>1</sub>, k<sub>2</sub>, k<sub>3</sub>, k<sub>4</sub>, k<sub>5</sub>, k<sub>6</sub>, k<sub>7</sub>, k<sub>8</sub>, k<sub>9</sub>, k<sub>10</sub>) = (k<sub>6</sub>, k<sub>3</sub>, k<sub>7</sub>, k<sub>4</sub>, k<sub>8</sub>, k<sub>5</sub>, k<sub>10</sub>, k<sub>9</sub>)</p>
+</li>
+<li>
+<p>LS-1为循环左移1位，LS-2为循环左移2位</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126120725293.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126120725293.png" srcset="data:image/png;base64,666" alt="image-20201126120725293" style="zoom:50%;" />
+</li>
+</ul>
+</li>
+<li>
+<p>IP函数：</p>
+<blockquote>
+<p>IP=   1 2 3 4 5 6 7 8</p>
+<p>​        2 6 3 1 4 8 5 7</p>
+<p>IP<sup>-1</sup>=   1 2 3 4 5 6 7 8</p>
+<p>​          4 1 3 5 7 2 8 6</p>
+</blockquote>
+</li>
+<li>
+<p>函数f<sub>k</sub>：f<sub>k</sub>(L, R) = (L xor F(R, SK), R) , 其中SK为子密钥</p>
+<ul>
+<li>
+<p>F是一个4-bit到4-bit的映射：</p>
+<ul>
+<li>
+<p>首先对R做扩张/置换(E/P)运算</p>
+<blockquote>
+<p>E/P运算：(1, 2, 3, 4)  =&gt;  (4, 1, 2, 3, 2, 3, 4, 1)</p>
+</blockquote>
+</li>
+<li>
+<p>将子密钥SK（对应具体算法中的K<sub>1</sub>和K<sub>2</sub>）与E/P运算的结果异或得到8-bit数</p>
+<blockquote>
+<p>P0,0    P0,1    P0,2    P0,3</p>
+<p>P1,0    P1,1    P1,2    P1,3</p>
+</blockquote>
+</li>
+<li>
+<p>第一行进入S盒S0，第二行进入S盒S1，分别产生2-bit输出</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126123020454.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126123020454.png" srcset="data:image/png;base64,666" alt="image-20201126123020454" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126123032631.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126123032631.png" srcset="data:image/png;base64,666" alt="image-20201126123032631" style="zoom:50%;" />
+<blockquote>
+<p>第1和第4输入比特决定行，第2和第3输入比特决定列，以确定选取S-盒元素的位置</p>
+<p>如 (P0,0 P0,3)=(0 0),并且(P0,1 P0,2)=(1 0)，则选取S盒矩阵的第0行第2列的元素作为2-bit输出</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>加密具体过程</p>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126123926304.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126123926304.png" srcset="data:image/png;base64,666" alt="image-20201126123926304" style="zoom:55%;" />
+<h3 id="数据加密标准DES">数据加密标准DES</h3>
+<h4 id="DES加密流程">DES加密流程</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126130554342.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126130554342.png" srcset="data:image/png;base64,666" alt="image-20201126130554342" style="zoom:60%;" />
+<blockquote>
+<ol>
+<li>对明文X，通过一个固定的初始置换IP得到X<sub>0</sub>：<br>
+X<sub>0</sub> = IP(X) = L<sub>0</sub>R<sub>0</sub> , 分为左右两部分。</li>
+<li>函数F的16次迭代：L<sub>i</sub>R<sub>i</sub> (1&lt;=i&lt;=16）<br>
+L<sub>i</sub> = R<sub>i-1</sub> ,    R<sub>i</sub> = L<sub>i-1</sub> xor F(R<sub>i-1</sub>, K<sub>i</sub>)<br>
+其中K<sub>i</sub>是长为48位的子密钥。</li>
+<li>对比特串R<sub>16</sub>L<sub>16</sub>使用逆置换IP<sup>-1</sup>得到密文Y：<br>
+Y = IP<sup>-1</sup>(R<sub>16</sub>L<sub>16</sub>)</li>
+</ol>
+</blockquote>
+<p><a href="#DES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8">加密相关的表见附录</a></p>
+<h4 id="DES一轮加密">DES一轮加密</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126140254793.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126140254793.png" srcset="data:image/png;base64,666" alt="image-20201126140254793" style="zoom:50%;" />
+<h5 id="轮函数F">轮函数F</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126140406545.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126140406545.png" srcset="data:image/png;base64,666" alt="image-20201126140406545" style="zoom:40%;" />
+<p>F(R<sub>i-1</sub>, K<sub>i</sub>) ，输入为32-bit的R<sub>i-1</sub>和48-bit的子密钥K<sub>i</sub></p>
+<blockquote>
+<ol>
+<li>对R<sub>i-1</sub>使用扩展函数E，扩展为48-bit</li>
+<li>计算 E(R<sub>i-1</sub>) xor K<sub>i</sub> ，结果写成8个6-bit串 B=b<sub>1</sub>b<sub>2</sub>b<sub>3</sub>b<sub>4</sub>b<sub>5</sub>b<sub>6</sub></li>
+<li>使用8个4*16的S盒，其中的元素取0~15的整数，每个S盒输出为4-bit串：
+<ul>
+<li>b<sub>1</sub>b<sub>6</sub>确定S盒的行数，b<sub>2</sub>b<sub>3</sub>b<sub>4</sub>b<sub>5</sub>确定S盒的列数</li>
+</ul>
+</li>
+<li>最后，P为固定置换，输出为32-bit串</li>
+</ol>
+</blockquote>
+<h4 id="密钥K计算子密钥">密钥K计算子密钥</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126142937157.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126142937157.png" srcset="data:image/png;base64,666" alt="image-20201126142937157" style="zoom:55%;" />
+<p>密钥K是长度为64的位串：56位参加子密钥编排，8位是奇偶校验位，在密钥编排的计算中，不参加运算。</p>
+<blockquote>
+<ol>
+<li>
+<p>给定64位的密钥K，放弃奇偶校验位(8, 16, …, 64)，先进行PC-1固定置换，结果为前28-bit的C<sub>0</sub>和后28-bit的D<sub>0</sub></p>
+</li>
+<li>
+<p>对1 &lt;= i &lt;= 16，计算</p>
+<p>C<sub>i</sub> = LS<sub>i</sub>(C<sub>i-1</sub>)</p>
+<p>D<sub>i</sub> = LS<sub>i</sub>(D<sub>i-1</sub>)</p>
+<p>其中LS<sub>i</sub>表示循环左移1或2位，当i=1,2,9,16时移1位，其他情况移2位</p>
+</li>
+<li>
+<p>计算 K<sub>i</sub> = PC-2(C<sub>i</sub>D<sub>i</sub>)</p>
+</li>
+</ol>
+</blockquote>
+<h4 id="DES的S盒">DES的S盒</h4>
+<p>DES的核心是S盒</p>
+<ul>
+<li>S盒不是它输入变量的线性函数</li>
+<li>改变S盒的一个输入位至少要引起两位的输出改变</li>
+<li>对任何一个S盒，如果固定一个输入比特，其它输入变化时，输出数字中0和1的总数近于相等</li>
+</ul>
+<h4 id="双重DES">双重DES</h4>
+<blockquote>
+<p>加密：C = E<sub>K2</sub>[E<sub>K1</sub>[P]]</p>
+<p>解密：P = D<sub>K1</sub>[D<sub>K2</sub>[P]]</p>
+</blockquote>
+<h4 id="三重DES">三重DES</h4>
+<blockquote>
+<p>两个密钥加密：C = E<sub>K1</sub>[D<sub>K2</sub>[E<sub>K1</sub>[P]]]</p>
+</blockquote>
+<h3 id="IDEA">IDEA</h3>
+<ul>
+<li>分组长度为64位，子分组长度为16位</li>
+<li>密钥长度为128位</li>
+<li>进行8轮循环</li>
+<li>同一算法既可以加密也可以解密</li>
+</ul>
+<h4 id="IDEA加密总体方案">IDEA加密总体方案</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126144958945.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126144958945.png" srcset="data:image/png;base64,666" alt="image-20201126144958945" style="zoom:50%;" />
+<h4 id="IDEA加密具体过程">IDEA加密具体过程</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126145235594.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126145235594.png" srcset="data:image/png;base64,666" alt="image-20201126145235594" style="zoom:60%;" />
+<ul>
+<li><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126145539436.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126145539436.png" srcset="data:image/png;base64,666" alt="image-20201126145539436" style="zoom:80%;" />是整数模2<sup>16</sup>+1乘 (IDEA的S盒)</li>
+<li><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/image-20201126145717202.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/image-20201126145717202.png" srcset="data:image/png;base64,666" alt="image-20201126145717202">是整数模2<sup>16</sup>加</li>
+</ul>
+<h4 id="IDEA的密钥生成">IDEA的密钥生成</h4>
+<p>52个16-bit的加密子密钥从128-bit的密钥中生成：</p>
+<blockquote>
+<ol>
+<li>前8个子密钥直接从密钥中取出；</li>
+<li>对密钥进行25-bit循环左移，接下来的密钥从中取出；</li>
+<li>重复进行直到52个子密钥全部生成。</li>
+</ol>
+</blockquote>
+<p>解密密钥从加密子密钥中导出：</p>
+<blockquote>
+<ul>
+<li>解密循环 i 的前4个子密钥从加密循环 10-i 的前4个子密钥中导出：
+<ul>
+<li>解密密钥的第1、4个子密钥对应于1、4加密子密钥的<strong>乘法逆元</strong>；</li>
+<li>解密密钥的第2、3个子密钥对应于2、3加密子密钥的<strong>加法逆元</strong></li>
+</ul>
+</li>
+<li>对前8个循环来说，循环 i 的最后两个子密钥等于加密循环 9-i 的最后两个子密钥</li>
+</ul>
+</blockquote>
+<h3 id="AES-Rijndael">AES-Rijndael</h3>
+<ul>
+<li>可变块长、可变密钥长度
+<ul>
+<li>分组长度指定为128位</li>
+<li>密钥长度为128，192或256位，相应的迭代轮数为10、12和14</li>
+</ul>
+</li>
+</ul>
+<h4 id="AES框架">AES框架</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126151721262.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126151721262.png" srcset="data:image/png;base64,666" alt="image-20201126151721262" style="zoom:60%;" />
+<h4 id="AES轮函数">AES轮函数</h4>
+<p>每一轮迭代的结构都一样，只是最后一轮省略了列混合变换：</p>
+<h5 id="字节替换-Byte-Sub">字节替换(Byte Sub)</h5>
+<p>对数据的每一字节应用一个非线性变换；</p>
+<p><a href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2%E8%A1%A8">替换表</a>是一个16×16的矩阵。表中纵向的x取自状态矩阵中的高4比特，横向的y取自低4比特。</p>
+<h5 id="行移位-Shift-Row">行移位(Shift Row)</h5>
+<p>对每一行的字节循环重新排序，可以表示为:  B<sub>i,j</sub> = A<sub>i,(i+j)mod4</sub></p>
+<h5 id="列混合-Mix-Column">列混合(Mix Column)</h5>
+<p>对矩阵的列应用一个线性变换:</p>
+<ul>
+<li>将状态的每一列视为GF(2<sup>8</sup>)上的多项式S(x)，然后乘以固定多项式a(x)，并模除x<sup>4</sup>+1。其中a(x) = {03}x<sup>3</sup>+{01}x<sup>2</sup>+{01}x+{02}</li>
+<li>a(x)存在关于x<sup>4</sup>+1的逆元，变换的矩阵为：</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126163656799.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126163656799.png" srcset="data:image/png;base64,666" alt="image-20201126163656799" style="zoom:50%;" />
+<ul>
+<li>列混合变换的结果为：</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126163743098.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126163743098.png" srcset="data:image/png;base64,666" alt="image-20201126163743098" style="zoom:50%;" />
+<h5 id="轮密钥加-Add-Round-Key">轮密钥加(Add Round Key)</h5>
+<ul>
+<li>
+<p>把轮密钥混合到中间数据，对状态和每轮的子密钥进行简单的异或操作</p>
+</li>
+<li>
+<p>每轮子密钥是通过密钥调度算法从主密钥中产生，子密钥长度等于分组长度</p>
+</li>
+<li>
+<p>轮密钥加运算需要用到4个导出的32比特子密钥</p>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126164006477.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126164006477.png" srcset="data:image/png;base64,666" alt="image-20201126164006477" style="zoom:66%;" />
+<h4 id="AES子密钥生成">AES子密钥生成</h4>
+<p>Rijindael算法每一轮需要用到N<sub>b</sub>比特的子密钥，共有N<sub>r</sub>轮，另外，第一次轮密钥加的时候也需要用一轮子密钥，于是总共需要N<sub>b</sub>*(N<sub>r</sub>+1)比特的子密钥，对于AES-128来说就是用1408比特的子密钥</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126164423818.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126164423818.png" srcset="data:image/png;base64,666" alt="image-20201126164423818" style="zoom:67%;" />
+<h4 id="AES解密过程">AES解密过程</h4>
+<p>逆字节替换、逆行移位、逆列混合、轮密钥加(其逆变换就是本身)</p>
+<h3 id="分组密码工作模式">分组密码工作模式</h3>
+<h4 id="ECB-电码本模式">ECB 电码本模式</h4>
+<ul>
+<li>消息分成相互独立的加密模块</li>
+<li>每块独立使用DES算法</li>
+<li>适合少量的数据加密</li>
+<li>如果最后一个分组长度不够，需要填充</li>
+<li>对于同一个明文分组，如果出现多次，其密文是相同的，因为每次的加密密钥都相同 (<strong>缺陷</strong>)</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126164736650.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126164736650.png" srcset="data:image/png;base64,666" alt="image-20201126164736650" style="zoom:67%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126165303436.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126165303436.png" srcset="data:image/png;base64,666" alt="image-20201126165303436" style="zoom:67%;" />
+<h4 id="CBC-密码分组链接模式">CBC 密码分组链接模式</h4>
+<ul>
+<li>使重复的明文分组产生不同的密文分组：每次加密使用相同加密密钥，但是输入是当前明文分组盒前一个密文分组的异或</li>
+<li>适合加密长度大于64比特的消息</li>
+<li>如果最后一个分组长度不够，需要填充</li>
+<li>可以用来进行用户鉴别</li>
+<li>错误传播</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126165145190.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126165145190.png" srcset="data:image/png;base64,666" alt="image-20201126165145190" style="zoom:67%;" />
+<ul>
+<li>解密时，每一个密文分组被解密后，再与前一个密文分组异或，便能得到明文分组</li>
+<li>产生第一个密文分组时，需要一个初始向量IV与第一个明文分组异或，IV对于收发方都是已知的，且应该像密钥一样被保护</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126165215403.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126165215403.png" srcset="data:image/png;base64,666" alt="image-20201126165215403" style="zoom:67%;" />
+<h4 id="CFB-密码反馈模式">CFB 密码反馈模式</h4>
+<ul>
+<li>消息作为比特流，不需要对消息填充</li>
+<li>适合数据以比特或字节为单位出现</li>
+<li>错误传播</li>
+<li>可以用于认证</li>
+</ul>
+<p>加密过程：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170039554.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170039554.png" srcset="data:image/png;base64,666" alt="image-20201126170039554" style="zoom:67%;" />
+<p>解密过程：</p>
+<ul>
+<li>将收到的密文单元和加密函数的输出进行异或</li>
+<li>仍然使用加密算法而不是解密算法</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170254044.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170254044.png" srcset="data:image/png;base64,666" alt="image-20201126170254044" style="zoom:67%;" />
+<h4 id="OFB-输出反馈模式">OFB 输出反馈模式</h4>
+<ul>
+<li>结构类似CFB，不同之处在于OFB将加密算法的输出反馈到移位寄存器，而CFB将密文单元反馈到移位寄存器</li>
+<li>消息作为比特流，不需要对消息填充</li>
+<li>比特错误不会被传播</li>
+</ul>
+<p>加密过程：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170529982.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170529982.png" srcset="data:image/png;base64,666" alt="image-20201126170529982" style="zoom:67%;" />
+<p>解密过程：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170543567.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170543567.png" srcset="data:image/png;base64,666" alt="image-20201126170543567" style="zoom:67%;" />
+<h4 id="CTR-计算器模式">CTR 计算器模式</h4>
+<ul>
+<li>可并行加密</li>
+<li>预处理</li>
+<li>吞吐量仅受可使用并行数量的限制</li>
+<li>加密数据块随机访问</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170708908.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126170708908.png" srcset="data:image/png;base64,666" alt="image-20201126170708908" style="zoom:67%;" />
+<h2 id="流密码">流密码</h2>
+<h3 id="流密码简单结构">流密码简单结构</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127083144531.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127083144531.png" srcset="data:image/png;base64,666" alt="image-20201127083144531" style="zoom:67%;" />
+<ul>
+<li>密钥源是一个容易记住的密钥</li>
+<li>密钥流生成器生成一个周期较长、可用于加解密运算的伪随机序列</li>
+</ul>
+<h3 id="同步流密码与自同步流密码">同步流密码与自同步流密码</h3>
+<h4 id="同步流密码">同步流密码</h4>
+<ul>
+<li>密钥流的产生与明文消息流相互独立</li>
+<li>无错误传播：在传输期间一个密文字符被改变只影响该符号的恢复，不会对后继的符号产生影响</li>
+</ul>
+<h4 id="自同步流密码">自同步流密码</h4>
+<p>密钥流的产生与之前已经产生的若干密文有关</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127083600988.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127083600988.png" srcset="data:image/png;base64,666" alt="image-20201127083600988" style="zoom:67%;" />
+<h3 id="线性反馈移位寄存器-LFSR">线性反馈移位寄存器 LFSR</h3>
+<ul>
+<li>用于生成密钥流：
+<ul>
+<li>LFSR的结构非常适合硬件实现</li>
+<li>LFSR的结构便于使用代数方法进行理论分析</li>
+<li>产生的序列的周期可以很大</li>
+<li>产生的序列具有良好的统计特性</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127083933077.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127083933077.png" srcset="data:image/png;base64,666" alt="image-20201127083933077" style="zoom:67%;" />
+<ul>
+<li>
+<p>反馈函数为：<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127084035769.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127084035769.png" srcset="data:image/png;base64,666" alt="image-20201127084035769" style="zoom:60%;" />， 其中加法运算为模2加，乘法为普通乘法</p>
+</li>
+<li>
+<p>第t+1时刻第i级寄存器的内容为：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127084404733.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127084404733.png" srcset="data:image/png;base64,666" alt="image-20201127084404733" style="zoom:60%;" />
+</li>
+<li>
+<p>LFSR的联接多项式为：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127090215010.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127090215010.png" srcset="data:image/png;base64,666" alt="image-20201127090215010" style="zoom:67%;" />
+</li>
+</ul>
+<h4 id="LFSR的周期与m序列">LFSR的周期与m序列</h4>
+<ul>
+<li>一个n级LFSR序列的周期最大只能是2<sup>n</sup>-1</li>
+<li>若n级LFSR产生的非零序列的周期为2<sup>n</sup>-1，则称其为m序列</li>
+<li>一个n级LFSR为最长移位寄存器的充要条件是它的联接多项式为F<sub>2</sub>上的n次本原多项式</li>
+<li>2<sup>n</sup>-1为素数时，F<sub>2</sub>上的每一个n次不可约多项式均为n次本原多项式</li>
+</ul>
+<h3 id="伪随机序列">伪随机序列</h3>
+<h4 id="Golomb随机性假设">Golomb随机性假设</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127092052608.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127092052608.png" srcset="data:image/png;base64,666" alt="image-20201127092052608" style="zoom:70%;" />
+<p>注：游程指一段连续的相同数字</p>
+<h4 id="m序列的伪随机性">m序列的伪随机性</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127091508439.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127091508439.png" srcset="data:image/png;base64,666" alt="image-20201127091508439" style="zoom:70%;" />
+<h3 id="线性复杂度">线性复杂度</h3>
+<p>线性复杂度：能够输出该序列的最小线性移位寄存器的级数，即次数最小的联接多项式</p>
+<ul>
+<li>如果序列的线性复杂度为l(&gt;=1)，则只要知道序列中任意相继的2l位，就可确定整个序列</li>
+</ul>
+<h3 id="安全的密钥流">安全的密钥流</h3>
+<ul>
+<li>周期充分长，一般不少于1016</li>
+<li>随机统计特性好，即基本满足Golomb的随机性假设</li>
+<li>大的线性复杂度，为序列长度的一半</li>
+</ul>
+<h3 id="基于LFSR的伪随机序列生成器">基于LFSR的伪随机序列生成器</h3>
+<p>在LFSR的基础上加入非线性化的手段，产生适合于流密码应用的密钥序列(伪随机序列)</p>
+<h4 id="滤波生成器">滤波生成器</h4>
+<p>由一个n级线性移位寄存器和一个m(&lt;n)元非线性滤波函数组成，滤波函数的输出为密钥流序列</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127092445491.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127092445491.png" srcset="data:image/png;base64,666" alt="image-20201127092445491" style="zoom: 67%;" />
+<ul>
+<li>g是一个m元布尔函数</li>
+</ul>
+<h4 id="组合生成器">组合生成器</h4>
+<p>若干个线性移位寄存器LFSR<sub>i</sub>(i=1, …, n)和一个非线性组合函数组成，组合函数的输出构成密钥流序列</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127092657734.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127092657734.png" srcset="data:image/png;base64,666" alt="image-20201127092657734" style="zoom:67%;" />
+<ul>
+<li>其中LFSR<sub>i</sub>为n个级数分别为r<sub>1</sub>, r<sub>2</sub>, …, r<sub>n</sub>的线性移位寄存器</li>
+<li>f是n元布尔函数</li>
+</ul>
+<h4 id="钟控制生成器">钟控制生成器</h4>
+<p>用一个或多个移位寄存器来控制另一个或多个移位寄存器的时钟</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127093002106.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127093002106.png" srcset="data:image/png;base64,666" alt="image-20201127093002106" style="zoom:67%;" />
+<ul>
+<li>当LFSR<sub>1</sub>输出1时，移位时钟脉冲通过与门使LFSR<sub>2</sub>进行一次移位，从而生成下一位</li>
+<li>当LFSR<sub>1</sub>输出0时，移位时钟脉冲无法通过与门影响LFSR<sub>2</sub>，因此LFSR<sub>2</sub>重复输出前一位</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127093608989.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201127093608989.png" srcset="data:image/png;base64,666" alt="image-20201127093608989" style="zoom:77%;" />
+<ul>
+<li>当LFSR<sub>1</sub>的输出是1时，LFSR<sub>2</sub>被时钟驱动</li>
+<li>当LFSR<sub>1</sub>的输出是0时，LFSR<sub>3</sub>被时钟驱动</li>
+<li>LFSR<sub>1</sub>的输出与LFSR<sub>2</sub>的输出做异或运算即为这个<strong>交错式停走生成器</strong>的输出</li>
+</ul>
+<h3 id="实用流密码">实用流密码</h3>
+<h4 id="全球移动通信系统GSM中的A5算法">全球移动通信系统GSM中的A5算法</h4>
+<p>A5的钟控机制：如果在某一时刻钟控单元中三个值的某两个或三个相同，则对应的移位寄存器在下一时刻被驱动，而剩下的一个(或0个)值对应的移位寄存器则停走</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209103006094.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209103006094.png" srcset="data:image/png;base64,666" alt="image-20201209103006094" style="zoom:80%;" />
+<h4 id="RC4">RC4</h4>
+<ul>
+<li>参数n，长为n的秘密内部状态(2<sup>n</sup>数组)，当n取8时，内部状态有256(=2<sup>n</sup>)个元素(S[0], S[1], …, S[255])构成，每个元素都是0~255之间的一个数字</li>
+<li>输入：一个可变长的密钥，用于初始化内部状态</li>
+<li>输出：状态中按照一定方式选出的某一个元素K，该输出构成密钥流的一个字节，加解密时，K与一个明文/密文字节执行XOR运算</li>
+<li>每生成一个K值，内部状态中的元素会被重新置换一次，以便下次生成K值</li>
+</ul>
+<h5 id="密钥调度算法">密钥调度算法</h5>
+<ul>
+<li>
+<p>用来设置内部状态的随机排列，最开始设置为S[i]=i (i=0, 1, …, 255)</p>
+</li>
+<li>
+<p>密钥长度可变，设为L个字节(K[0],…, K[L-1])，一般L在5~32之间，用这L个字节不断重复填充，直到得到 K[0],…, K[255]。该数组K将被用于对内部状态S进行随机化</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209112304978.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209112304978.png" srcset="data:image/png;base64,666" alt="image-20201209112304978" style="zoom:67%;" />
+</li>
+</ul>
+<h5 id="伪随机生成算法">伪随机生成算法</h5>
+<p>从内部状态中选取一个随机元素作为密钥流中的一个字节，并修改内部状态以便下一次选取</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209112418590.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209112418590.png" srcset="data:image/png;base64,666" alt="image-20201209112418590" style="zoom:67%;" />
+<h5 id="例子">例子</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209112644630.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201209112644630.png" srcset="data:image/png;base64,666" alt="image-20201209112644630" style="zoom:80%;" />
+<h2 id="公钥密码">公钥密码</h2>
+<h3 id="对称密码体制的缺陷">对称密码体制的缺陷</h3>
+<ol>
+<li>密钥分配问题：缺少安全信道</li>
+<li>密钥管理问题：任意两个用户之间都需要共享密钥，数量级很大</li>
+<li>没有签名功能</li>
+</ol>
+<h3 id="公钥算法分类">公钥算法分类</h3>
+<ul>
+<li>Public Key Distribution Schemes (PKDS) 密钥交换
+<ul>
+<li>用于交换秘密信息(依赖于双方主体)</li>
+<li>常用于交换对称加密算法的密钥</li>
+</ul>
+</li>
+<li>Public Key Encryption (PKE) 公钥加密
+<ul>
+<li>用于加密任何消息</li>
+<li>任何人可以用公钥加密消息</li>
+<li>私钥的拥有者可以解密消息</li>
+<li>任何公钥加密方案能够用于密钥分配方案PKDS</li>
+<li>许多公钥加密方案也是数字签名方案</li>
+</ul>
+</li>
+<li>Signature Schemes
+<ul>
+<li>用于生成对某消息的数字签名</li>
+<li>私钥的拥有者生成数字签名</li>
+<li>任何人可以用公钥验证签名</li>
+</ul>
+</li>
+</ul>
+<h3 id="Diffie-Hellman密钥分配">Diffie-Hellman密钥分配</h3>
+<ul>
+<li>不能用于交换任意消息</li>
+<li>基于有限域上的指数问题</li>
+<li>安全性是基于计算离散对数的困难性</li>
+<li>能抵抗被动攻击，不能抵抗主动攻击（中间人）</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/20200723135236713.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/20200723135236713.png" srcset="data:image/png;base64,666" alt="img" style="zoom:80%;" />
+<h3 id="RSA">RSA</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/image-20201211082859483.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/image-20201211082859483.png" srcset="data:image/png;base64,666" alt="image-20201211082859483"></p>
+<ul>
+<li>素数p, q要求足够大</li>
+<li>通常选择小的加密指数E，可以对所有用户都相同</li>
+</ul>
+<h4 id="RSA快速实现">RSA快速实现</h4>
+<ul>
+<li>加密快，指数小；解密慢，指数大</li>
+<li>利用中国剩余定理CRT快速实现RSA解密(M=C<sup>D</sup> mod N)：
+<ul>
+<li>M<sub>1</sub> = M mod p = (C mod p)<sup>Dmod(p-1)</sup></li>
+<li>M<sub>2</sub> = M mod q = (C mod q)<sup>Dmod(q-1)</sup></li>
+<li>解方程：M = M<sub>1</sub> mod p 和 M = M<sub>2</sub> mod q</li>
+<li>具有唯一解(利用CRT)：M = (quM<sub>1</sub> + pu’M<sub>2</sub>) mod N，其中pu mod q =1，qu’ mod p = 1</li>
+</ul>
+</li>
+</ul>
+<h4 id="RABIN公钥密码体制">RABIN公钥密码体制</h4>
+<ul>
+<li>基于二次剩余问题和模n平方根问题</li>
+<li>加密密钥为2，安全性等价于对大整数n的分解；解密更为困难</li>
+<li>不能抵抗选择密文攻击</li>
+</ul>
+<h3 id="EI-Gamal公钥加密">EI Gamal公钥加密</h3>
+<ul>
+<li>
+<p>D-H算法的变形，用于安全交换密钥</p>
+</li>
+<li>
+<p>安全性基于离散对数</p>
+</li>
+<li>
+<p>缺点：增加消息长度（2倍）</p>
+</li>
+</ul>
+<img src="D:\Source\notes\现代密码学-notes\image-20201216105037750.png" class="lazyload" data-srcset="D:\Source\notes\现代密码学-notes\image-20201216105037750.png" srcset="data:image/png;base64,666" alt="image-20201216105037750" style="zoom:80%;" />
+<h2 id="认证和哈希函数">认证和哈希函数</h2>
+<ul>
+<li>认证的主要目的：
+<ul>
+<li>实体认证(发送者非冒充)</li>
+<li>消息认证(验证信息的完整性)</li>
+</ul>
+</li>
+<li>三类产生认证符的函数：
+<ul>
+<li>消息加密</li>
+<li>消息认证码(MAC)</li>
+<li>哈希函数</li>
+</ul>
+</li>
+</ul>
+<h3 id="消息加密">消息加密</h3>
+<ul>
+<li>对称加密：提供保密与一定程度的认证，不提供签名</li>
+<li>公钥加密：(A -&gt; B)
+<ul>
+<li>E(KU<sub>b</sub>, M) =&gt; 提供保密，不提供认证</li>
+<li>E(KR<sub>a</sub>, M) =&gt; 提供认证和签名</li>
+<li>E(KU<sub>b</sub>, E(KR<sub>a</sub>, M)) =&gt; 提供保密、认证和签名</li>
+</ul>
+</li>
+</ul>
+<h3 id="消息认证码-MAC">消息认证码(MAC)</h3>
+<p>对选定消息使用一个密钥产生一个短小的定长数据分组，附加在消息中提供认证功能 (MAC = C<sub>k</sub>(M))</p>
+<ul>
+<li>
+<p>基本用法：</p>
+<ul>
+<li>M || C<sub>k</sub>(M) =&gt; 提供认证</li>
+<li>E<sub>k2</sub>(M || C<sub>k1</sub>(M)) =&gt; 提供认证(K1)和保密(K2)</li>
+<li>E<sub>k2</sub>(M) || C<sub>k1</sub>(E<sub>k2</sub>(M)) =&gt; 提供认证(K1)和保密(K2)</li>
+</ul>
+</li>
+<li>
+<p>适用于消息广播、比消息加密的工作量小、认证与保密分离、延长消息的保护期限</p>
+</li>
+<li>
+<p>不可逆，且不提供数字签名</p>
+</li>
+</ul>
+<h3 id="哈希函数">哈希函数</h3>
+<ul>
+<li>基本用法：
+<ul>
+<li>E<sub>k</sub>(M || H(M)) =&gt; 提供保密和鉴别</li>
+<li>M || E<sub>k</sub>(H(M)) =&gt; 提供鉴别</li>
+<li>M || E<sub>KRa</sub>(H(M)) =&gt; 提供鉴别和数字签名</li>
+<li>E<sub>k</sub>(M || E<sub>KRa</sub>(H(M))) =&gt; 提供鉴别、数字签名以及保密</li>
+<li>M || H(M || S) =&gt; 提供鉴别(S是通信双方共享的一个秘密值)</li>
+<li>E<sub>k</sub>(M || H(M || S)) =&gt; 提供鉴别和保密</li>
+</ul>
+</li>
+<li>哈希函数要求：
+<ul>
+<li>消息长度任意，输出定长</li>
+<li>易于计算</li>
+<li>单向性</li>
+<li>弱抗碰撞性：任意给定分组x，寻求不等于x的y，使得H(y)= H(x)在计算上不可行</li>
+<li>强抗碰撞性：寻求对任何的(x,y)对使得H(x)=H(y)在计算上不可行</li>
+</ul>
+</li>
+</ul>
+<h4 id="简单的异或哈希函数">简单的异或哈希函数</h4>
+<p>每个n比特长度分组按比特异或，得到长度为n的哈希码</p>
+<ul>
+<li>改进：(使得输入数据完全随机化，掩盖输入的数据格式)
+<ul>
+<li>先将n比特的哈希值设置为0</li>
+<li>当前的哈希值循环左移一位</li>
+<li>数据分组与哈希值异或形成新的哈希值</li>
+</ul>
+</li>
+<li>Merkle-Damgard结构：</li>
+</ul>
+<img src="D:\Source\notes\现代密码学-notes\image-20201216193951310.png" class="lazyload" data-srcset="D:\Source\notes\现代密码学-notes\image-20201216193951310.png" srcset="data:image/png;base64,666" alt="image-20201216193951310" style="zoom:75%;" />
+<h4 id="MD5">MD5</h4>
+<p>输入任意长度报文，输出128比特的摘要；输入分组长度为512比特；符合Merkle-Damgard结构</p>
+<h5 id="算法流程">算法流程</h5>
+<ol>
+<li>
+<p>在消息的最后添加填充位（一个1和若干个0），使得数据的长度满足length = 448 mod 512，填充完后，信息的长度为N*512+448(bit)</p>
+</li>
+<li>
+<p>记录信息长度，用64位来存储填充前信息长度，如果信息长度超过2<sup>64</sup>位，则只保留低64位。这64位加在第一步结果的后面，这样信息长度就变为(N+1)*512(bit)</p>
+</li>
+<li>
+<p>初始化MD缓存，使用一个128位缓存存放哈希的中间和最后结果，缓存表示为4个32位的缓存器（A,B,C,D），初始化格式为低位字节存放在高地址字节</p>
+</li>
+<li>
+<p>四轮循环处理512bit分组</p>
+<ul>
+<li>
+<p>输入：当前处理的512位分组Y<sub>q</sub>与上一轮输出CV<sub>q</sub></p>
+</li>
+<li>
+<p>循环：4轮循环依次记为F，G，H，I；借助列表T[1,…,64]（T[i]=2<sup>32</sup> * |sin(i)|的整数部分），列表提供随机化的32位模板以消除输入的规律</p>
+<ul>
+<li>
+<p>每个循环包括16步操作，每一步的基本形式：<br>
+$$<br>
+b \leftarrow b + ((a + g(b, c, d) + X[k] + T[i]) &lt;&lt;&lt; s)<br>
+$$</p>
+<ul>
+<li>+：模2<sup>32</sup>加</li>
+<li>a, b, c, d：MD缓存中的4个字，一开始被初始化，之后每一步操作结果都会替换其中一个字</li>
+<li>&lt;&lt;&lt; s：循环左移s位</li>
+<li>T[i]：矩阵T中的第i个32比特字，i = 1,…,16</li>
+<li>g：循环函数F、G、H、I</li>
+<li>X[k]：当前分组的第k个字</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223105753560.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223105753560.png" srcset="data:image/png;base64,666" alt="image-20201223105753560" style="zoom:60%;" />
+</li>
+<li>
+<p>输出：第4次循环输出加到第1轮循环的输入上产生CV<sub>q+1</sub>，相加是缓存中的4个字分别与CV<sub>q</sub>中对应的4个字以模2<sup>32</sup>相加</p>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223110415662.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223110415662.png" srcset="data:image/png;base64,666" alt="image-20201223110415662" style="zoom:67%;" />
+</li>
+</ol>
+<h5 id="MD5应用">MD5应用</h5>
+<ul>
+<li>对明文消息生成消息摘要</li>
+<li>用于数字签名（UNIX、Linux等操作系统保护用户口令）</li>
+</ul>
+<h5 id="MD5口令逆向">MD5口令逆向</h5>
+<h4 id="SHA-1">SHA-1</h4>
+<p>输入最大长度为2<sup>64</sup>位的消息，输出160比特 ，分组为512比特</p>
+<h5 id="算法流程-v2">算法流程</h5>
+<ol>
+<li>
+<p>在消息的最后添加填充位（一个1和若干个0），使得数据的长度满足length = 448 mod 512，填充完后，信息的长度为N*512+448(bit)</p>
+</li>
+<li>
+<p>记录信息长度，用64位来存储填充前信息长度，如果信息长度超过2<sup>64</sup>位，则只保留低64位。这64位加在第一步结果的后面，这样信息长度就变为(N+1)*512(bit)</p>
+</li>
+<li>
+<p>初始化MD缓冲区，使用160位MD缓冲区来保存中间和最终哈希结果，表示为5个32位寄存器（A,B,C,D,E），存储为低位字节放在低地址字节上</p>
+</li>
+<li>
+<p>以512位数据块为单位处理消息，4轮，每轮20步，每次循环分别使用一个额外的常数K<sub>t</sub></p>
+<ul>
+<li>
+<p>每一步的基本形式：</p>
+<p>$$<br>
+A,B,C,D,E\leftarrow (E+f_t(B,C,D)+S<sup>5(A)+W_i+K_t),A,S</sup>{30}(B),C,D<br>
+$$</p>
+<ul>
+<li>
+<p>+：模2<sup>32</sup>加法</p>
+</li>
+<li>
+<p>f<sub>t</sub>：逻辑函数，每轮循环不同</p>
+</li>
+<li>
+<p>S<sup>i</sup>：32位常数循环左移i位</p>
+</li>
+<li>
+<p>K<sub>t</sub>：额外的常数</p>
+</li>
+<li>
+<p>W<sub>i</sub>：当前512位数据导出的一个32位字；共80个</p>
+<ul>
+<li>
+<p>前16个直接来自当前分组的16个字</p>
+</li>
+<li>
+<p>其余：<br>
+$$<br>
+W_t=S^1(W_{t-16}\bigoplus W_{t-14}\bigoplus W_{t-8}\bigoplus W_{t-3})<br>
+$$</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121458851.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121458851.png" srcset="data:image/png;base64,666" alt="image-20201223121458851" style="zoom: 67%;" />
+<ol start="5">
+<li>第4次循环输出加到CV<sub>q</sub>，得到160位CV<sub>q+1</sub>（模2<sup>32</sup>加）</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121515315.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223121515315.png" srcset="data:image/png;base64,666" alt="image-20201223121515315" style="zoom:67%;" />
+<h4 id="哈希函数对比">哈希函数对比</h4>
+<ul>
+<li>SHA = MD4 ＋ 扩展变换 ＋ 外加一轮 ＋ 更好的雪崩</li>
+<li>MD5 = MD4 ＋ 改进的比特杂凑 ＋ 外加一轮 ＋ 更好的雪崩</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223122213539.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223122213539.png" srcset="data:image/png;base64,666" alt="image-20201223122213539" style="zoom: 67%;" />
+<h2 id="数字签名算法">数字签名算法</h2>
+<p>只对消息的哈希签名，否则交换信息长度增加一倍；数字签名可以提供消息的不可否认性</p>
+<h3 id="RSA-v2">RSA</h3>
+<p>给定(e, R), (d, p, q)</p>
+<ul>
+<li>计算明文M的哈希h，S = h<sup>d</sup>(mod R)，发送(M, S)</li>
+<li>接收方同样计算哈希h，S<sup>e</sup> mod R = h’ mod R，对比h和h’</li>
+<li>若先加密后签名，签名可能被替换</li>
+</ul>
+<h3 id="EI-Gamal">EI Gamal</h3>
+<ul>
+<li>加密算法不可交换——需要专门的签名算法</li>
+<li>安全性基于离散对数的计算困难性</li>
+<li>公钥：(y, g, p)，私钥(x)</li>
+<li>签名方案:
+<ul>
+<li>随机数k，与p-1互素</li>
+<li>计算K = g<sup>k</sup> mod p</li>
+<li>计算S = k<sup>−1</sup>(M − Kx) mod (p−1)</li>
+<li>发送签名(M, K, S)，销毁k</li>
+<li>验证y<sup>K</sup>K<sup>S</sup> mod p=g<sup>M</sup> mod p</li>
+</ul>
+</li>
+<li>签名长度为消息的两倍</li>
+</ul>
+<h3 id="DSA">DSA</h3>
+<ul>
+<li>El Gamal的变形，生成320位签名</li>
+<li>安全性基于离散对数的计算困难性</li>
+<li>密钥生成
+<ul>
+<li>公开参数 (p, q, g)
+<ul>
+<li>p：大素数，2<sup>L</sup>，L为512到1024位且为64的倍数</li>
+<li>q：160位（p-1）的素因子</li>
+<li>g：h<sup>(p−1)/q</sup>,   h &lt; p−1 且 h<sup>(p−1)/q</sup>(mod p) &gt; 1</li>
+</ul>
+</li>
+<li>选择私钥x，计算y = g<sup>x</sup> mod p，公钥为 (p, q, g, y)</li>
+</ul>
+</li>
+<li>签名生成（SHA：哈希函数）
+<ul>
+<li>r = (g<sup>k</sup> mod p) mod q</li>
+<li>s = k<sup>−1</sup>(SHA(M) + xr) mod q</li>
+<li>发送 (M, r, s)</li>
+</ul>
+</li>
+<li>签名验证
+<ul>
+<li>w = s<sup>−1</sup> mod q</li>
+<li>u1 = SHA(M)w mod q</li>
+<li>u2 = rw mod q</li>
+<li>v = (g<sup>u1</sup>y<sup>u2</sup> mod p) mod q</li>
+<li>验证 v = r</li>
+</ul>
+</li>
+</ul>
+<h3 id="HMAC">HMAC</h3>
+<ul>
+<li>以上为需要私钥的认证方案，计算量大</li>
+<li>密钥与消息同时参加运算：KeyedHash = Hash(Key | Message)或Hash(Key1 | Hash(Key2 | Message))</li>
+<li>HMAC：使用带密钥hash函数的结果
+<ul>
+<li>HMAC<sub>K</sub> = Hash((K′ ⨁ opad) || Hash((K′ ⨁ ipad) || M))</li>
+<li>K’：经过填充的密钥</li>
+<li>opad、ipad：特殊的填充值</li>
+</ul>
+</li>
+<li>安全性基于原始的hash</li>
+</ul>
+<h2 id="信息隐藏与隐写分析">信息隐藏与隐写分析</h2>
+<h3 id="信息隐藏的基本概念">信息隐藏的基本概念</h3>
+<p>信息隐藏是将信息秘密嵌入在数字图像、声音、文档、视频等数字产品中，用以隐蔽通信、隐蔽标识，或识别所有者、完整性、发源地、使用权、序列号等。</p>
+<h4 id="信息隐藏技术的主要分支">信息隐藏技术的主要分支</h4>
+<ul>
+<li>隐蔽信道：系统存在的一些安全漏洞，通过某些非正常的访问控制操作，能形成隐秘数据流，而基于正常安全机制的软硬件不能觉察和有效控制</li>
+<li>匿名通信
+<ul>
+<li>源重写技术：采用路由转发策略，发送者匿名</li>
+</ul>
+</li>
+<li>隐写术</li>
+<li>版权标志</li>
+</ul>
+<h4 id="水印的分类">水印的分类</h4>
+<p>根据应用分类：</p>
+<ul>
+<li>隐蔽通信</li>
+<li>版权保护</li>
+<li>认证和完整性</li>
+<li>内容标注</li>
+</ul>
+<p>根据嵌入域分类：</p>
+<ul>
+<li>空域，如LSB</li>
+<li>变换域，如DFT、DCT、DWT等</li>
+</ul>
+<p>根据是否可见分类</p>
+<ul>
+<li>可见水印</li>
+<li>不可见水印</li>
+</ul>
+<p>根据密钥分类</p>
+<ul>
+<li>密钥水印</li>
+<li>公钥水印</li>
+</ul>
+<p>根据原始数据分类</p>
+<ul>
+<li>私有水印：检测时需要原始数据</li>
+<li>盲水印：检测时不需要原始数据</li>
+</ul>
+<p>根据载体恢复分类</p>
+<ul>
+<li>可逆水印</li>
+<li>不可逆水印</li>
+</ul>
+<p>根据鲁棒性分类</p>
+<ul>
+<li>鲁棒水印：用于认证、版权保护</li>
+<li>半易碎水印</li>
+<li>易碎水印：对恶意改动敏感，用于完整性判定</li>
+</ul>
+<h4 id="鲁棒水印特性">鲁棒水印特性</h4>
+<ul>
+<li>不可见性</li>
+<li>安全可靠性</li>
+<li>鲁棒性</li>
+<li>复杂性</li>
+<li>容量</li>
+</ul>
+<h3 id="信息隐藏的一般过程">信息隐藏的一般过程</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223160600413.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223160600413.png" srcset="data:image/png;base64,666" alt="image-20201223160600413" style="zoom:70%;" />
+<h4 id="水印生成">水印生成</h4>
+<p>类似噪声，具有不可预测的随机性</p>
+<ul>
+<li>Arnold置乱技术：置乱96次回到原图</li>
+<li>扩频技术
+<ul>
+<li>基于片率</li>
+<li>基于伪随机序列</li>
+</ul>
+</li>
+</ul>
+<h4 id="水印嵌入">水印嵌入</h4>
+<ul>
+<li>加法嵌入：X<sub>w</sub>(k) = X<sub>0</sub>(k) + a(k)w(k)</li>
+<li>乘法嵌入：X<sub>w</sub>(k) = X<sub>0</sub>(k)(1 + a(k)w(k))</li>
+</ul>
+<h3 id="信息隐藏的常见算法">信息隐藏的常见算法</h3>
+<h4 id="空域信息隐藏算法">空域信息隐藏算法</h4>
+<p>通过直接修改像素值实现信息嵌入</p>
+<ul>
+<li>优点：简单、快速、容量大</li>
+<li>缺点：鲁棒性差</li>
+</ul>
+<p>图像位平面特性：</p>
+<ul>
+<li>位平面越高，对灰度值的贡献越大，相邻比特的相关也越强</li>
+<li>最低位平面类似随机噪声</li>
+</ul>
+<h5 id="LSB算法">LSB算法</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162221552.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162221552.png" srcset="data:image/png;base64,666" alt="image-20201223162221552" style="zoom:60%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162248435.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162248435.png" srcset="data:image/png;base64,666" alt="image-20201223162248435" style="zoom:60%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162326057.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162326057.png" srcset="data:image/png;base64,666" alt="image-20201223162326057" style="zoom:60%;" />
+<h5 id="Patchwork算法">Patchwork算法</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162458268.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162458268.png" srcset="data:image/png;base64,666" alt="image-20201223162458268" style="zoom:80%;" />
+<h5 id="Checksum算法">Checksum算法</h5>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162614060.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201223162614060.png" srcset="data:image/png;base64,666" alt="image-20201223162614060" style="zoom:80%;" />
+<h4 id="频域水印算法">频域水印算法</h4>
+<p>通过修改频域空间的系数实现水印嵌入</p>
+<ul>
+<li>离散傅里叶变换（DFT）</li>
+<li>离散余弦变换（DCT）</li>
+<li>离散小波变换（DWT）</li>
+</ul>
+<p>优点：鲁棒性好</p>
+<p>缺点：复杂度高</p>
+<h2 id="附录">附录</h2>
+<h3 id="DES算法相关表">DES算法相关表</h3>
+<h4 id="初始置换IP-对明文输入进行次序打乱">初始置换IP (对明文输入进行次序打乱)</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126133239171.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126133239171.png" srcset="data:image/png;base64,666" alt="image-20201126133239171" style="zoom: 40%;" />
+<h4 id="初始置换的逆置换IP-1">初始置换的逆置换IP<sup>-1</sup></h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126133334739.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126133334739.png" srcset="data:image/png;base64,666" alt="image-20201126133334739" style="zoom:40%;" />
+<h4 id="扩展置换E-32-bit到48-bit">扩展置换E (32-bit到48-bit)</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135403930.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135403930.png" srcset="data:image/png;base64,666" alt="image-20201126135403930" style="zoom: 40%;" />
+<h4 id="置换函数P">置换函数P</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135548535.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135548535.png" srcset="data:image/png;base64,666" alt="image-20201126135548535" style="zoom:40%;" />
+<h4 id="PC1">PC1</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135745175.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135745175.png" srcset="data:image/png;base64,666" alt="image-20201126135745175" style="zoom:44%;" />
+<h4 id="PC2">PC2</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135956793.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126135956793.png" srcset="data:image/png;base64,666" alt="image-20201126135956793" style="zoom:44%;" />
+<h4 id="S-box-例子">S-box 例子</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126140106789.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/现代密码学-notes/image-20201126140106789.png" srcset="data:image/png;base64,666" alt="image-20201126140106789" style="zoom:40%;" />
+<h3 id="AES算法相关表">AES算法相关表</h3>
+<h4 id="字节替换表">字节替换表</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/image-20201126152318235.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6-notes/image-20201126152318235.png" srcset="data:image/png;base64,666" alt="image-20201126152318235"></p>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年11月25日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/cryptography/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>cryptography</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/11/26/useful-skills/csdn-pdf/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>CSDN博客保存为PDF</p>
+          <p class='content'>F12打开开发者工具，在Console输入以下js代码：
+123456789101112131415161718(function()&#123;	&#x27;use strict&#x27;;...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/11/25/paper-reading/paper-sgx-support-for-dynamic-memory-management-inside-an-enclave/'>
+          <p class='title'>论文阅读-SGX Support for Dynamic Memory Management Inside an Enclave<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>1. Introduction
+SGX1 shortcomings
+
+
+enclave建立时必须分配其所需的所有内存，并且难以根据工作量自适应分配enclave，需要根据最坏情况的工作量来分配内...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A4%E5%85%B8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">古典替换密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%81%BA%E6%92%92%E5%AF%86%E7%A0%81"><span class="toc-text">恺撒密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E5%8D%95%E8%A1%A8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">混合单表替换密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%8D%95%E8%A1%A8%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">简单的单表替换密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E5%AD%97%E6%AF%8D%E6%9B%BF%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">多字母替换密码</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%A4%E5%85%B8%E7%BD%AE%E6%8D%A2%E5%AF%86%E7%A0%81"><span class="toc-text">古典置换密码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81"><span class="toc-text">分组密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9B%BF%E6%8D%A2%E8%BF%90%E7%AE%97-S-boxes"><span class="toc-text">替换运算 S-boxes</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2%E8%BF%90%E7%AE%97-P-boxes"><span class="toc-text">置换运算 P-boxes</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9B%AA%E5%B4%A9%E6%95%88%E5%BA%94"><span class="toc-text">雪崩效应</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E5%A4%87%E6%80%A7%E6%95%88%E5%BA%94"><span class="toc-text">完备性效应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Feistel%E5%AF%86%E7%A0%81"><span class="toc-text">Feistel密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Feistel%E5%AF%86%E7%A0%81%E8%AE%BE%E8%AE%A1"><span class="toc-text">Feistel密码设计</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Lucifer"><span class="toc-text">Lucifer</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%B0%E4%BB%A3%E5%88%86%E7%BB%84%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">现代分组加密算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8C%96%E7%9A%84DES-S-DES"><span class="toc-text">简化的DES (S-DES)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A0%E8%A7%A3%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-text">加解密流程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%8A%A0%E5%AF%86%E6%A0%87%E5%87%86DES"><span class="toc-text">数据加密标准DES</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E5%8A%A0%E5%AF%86%E6%B5%81%E7%A8%8B"><span class="toc-text">DES加密流程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E4%B8%80%E8%BD%AE%E5%8A%A0%E5%AF%86"><span class="toc-text">DES一轮加密</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AE%E5%87%BD%E6%95%B0F"><span class="toc-text">轮函数F</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E9%92%A5K%E8%AE%A1%E7%AE%97%E5%AD%90%E5%AF%86%E9%92%A5"><span class="toc-text">密钥K计算子密钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#DES%E7%9A%84S%E7%9B%92"><span class="toc-text">DES的S盒</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8C%E9%87%8DDES"><span class="toc-text">双重DES</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E9%87%8DDES"><span class="toc-text">三重DES</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IDEA"><span class="toc-text">IDEA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E5%8A%A0%E5%AF%86%E6%80%BB%E4%BD%93%E6%96%B9%E6%A1%88"><span class="toc-text">IDEA加密总体方案</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E5%8A%A0%E5%AF%86%E5%85%B7%E4%BD%93%E8%BF%87%E7%A8%8B"><span class="toc-text">IDEA加密具体过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#IDEA%E7%9A%84%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="toc-text">IDEA的密钥生成</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES-Rijndael"><span class="toc-text">AES-Rijndael</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E6%A1%86%E6%9E%B6"><span class="toc-text">AES框架</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E8%BD%AE%E5%87%BD%E6%95%B0"><span class="toc-text">AES轮函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2-Byte-Sub"><span class="toc-text">字节替换(Byte Sub)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%A1%8C%E7%A7%BB%E4%BD%8D-Shift-Row"><span class="toc-text">行移位(Shift Row)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%88%97%E6%B7%B7%E5%90%88-Mix-Column"><span class="toc-text">列混合(Mix Column)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%BD%AE%E5%AF%86%E9%92%A5%E5%8A%A0-Add-Round-Key"><span class="toc-text">轮密钥加(Add Round Key)</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E5%AD%90%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="toc-text">AES子密钥生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#AES%E8%A7%A3%E5%AF%86%E8%BF%87%E7%A8%8B"><span class="toc-text">AES解密过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">分组密码工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ECB-%E7%94%B5%E7%A0%81%E6%9C%AC%E6%A8%A1%E5%BC%8F"><span class="toc-text">ECB 电码本模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CBC-%E5%AF%86%E7%A0%81%E5%88%86%E7%BB%84%E9%93%BE%E6%8E%A5%E6%A8%A1%E5%BC%8F"><span class="toc-text">CBC 密码分组链接模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CFB-%E5%AF%86%E7%A0%81%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">CFB 密码反馈模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#OFB-%E8%BE%93%E5%87%BA%E5%8F%8D%E9%A6%88%E6%A8%A1%E5%BC%8F"><span class="toc-text">OFB 输出反馈模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CTR-%E8%AE%A1%E7%AE%97%E5%99%A8%E6%A8%A1%E5%BC%8F"><span class="toc-text">CTR 计算器模式</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81%E7%AE%80%E5%8D%95%E7%BB%93%E6%9E%84"><span class="toc-text">流密码简单结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81%E4%B8%8E%E8%87%AA%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">同步流密码与自同步流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">同步流密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%90%8C%E6%AD%A5%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">自同步流密码</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%8F%8D%E9%A6%88%E7%A7%BB%E4%BD%8D%E5%AF%84%E5%AD%98%E5%99%A8-LFSR"><span class="toc-text">线性反馈移位寄存器 LFSR</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LFSR%E7%9A%84%E5%91%A8%E6%9C%9F%E4%B8%8Em%E5%BA%8F%E5%88%97"><span class="toc-text">LFSR的周期与m序列</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97"><span class="toc-text">伪随机序列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Golomb%E9%9A%8F%E6%9C%BA%E6%80%A7%E5%81%87%E8%AE%BE"><span class="toc-text">Golomb随机性假设</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#m%E5%BA%8F%E5%88%97%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%80%A7"><span class="toc-text">m序列的伪随机性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BA%BF%E6%80%A7%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="toc-text">线性复杂度</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E5%AF%86%E9%92%A5%E6%B5%81"><span class="toc-text">安全的密钥流</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%BA%E4%BA%8ELFSR%E7%9A%84%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%BA%8F%E5%88%97%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">基于LFSR的伪随机序列生成器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%BB%A4%E6%B3%A2%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">滤波生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%84%E5%90%88%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">组合生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%92%9F%E6%8E%A7%E5%88%B6%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">钟控制生成器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%94%A8%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">实用流密码</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E7%90%83%E7%A7%BB%E5%8A%A8%E9%80%9A%E4%BF%A1%E7%B3%BB%E7%BB%9FGSM%E4%B8%AD%E7%9A%84A5%E7%AE%97%E6%B3%95"><span class="toc-text">全球移动通信系统GSM中的A5算法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RC4"><span class="toc-text">RC4</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AF%86%E9%92%A5%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="toc-text">密钥调度算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="toc-text">伪随机生成算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text">例子</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81"><span class="toc-text">公钥密码</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E7%A7%B0%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6%E7%9A%84%E7%BC%BA%E9%99%B7"><span class="toc-text">对称密码体制的缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AC%E9%92%A5%E7%AE%97%E6%B3%95%E5%88%86%E7%B1%BB"><span class="toc-text">公钥算法分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Diffie-Hellman%E5%AF%86%E9%92%A5%E5%88%86%E9%85%8D"><span class="toc-text">Diffie-Hellman密钥分配</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA"><span class="toc-text">RSA</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#RSA%E5%BF%AB%E9%80%9F%E5%AE%9E%E7%8E%B0"><span class="toc-text">RSA快速实现</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#RABIN%E5%85%AC%E9%92%A5%E5%AF%86%E7%A0%81%E4%BD%93%E5%88%B6"><span class="toc-text">RABIN公钥密码体制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EI-Gamal%E5%85%AC%E9%92%A5%E5%8A%A0%E5%AF%86"><span class="toc-text">EI Gamal公钥加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A4%E8%AF%81%E5%92%8C%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">认证和哈希函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86"><span class="toc-text">消息加密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E7%A0%81-MAC"><span class="toc-text">消息认证码(MAC)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">哈希函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E7%9A%84%E5%BC%82%E6%88%96%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0"><span class="toc-text">简单的异或哈希函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#MD5"><span class="toc-text">MD5</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-text">算法流程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MD5%E5%BA%94%E7%94%A8"><span class="toc-text">MD5应用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#MD5%E5%8F%A3%E4%BB%A4%E9%80%86%E5%90%91"><span class="toc-text">MD5口令逆向</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SHA-1"><span class="toc-text">SHA-1</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B-v2"><span class="toc-text">算法流程</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E5%AF%B9%E6%AF%94"><span class="toc-text">哈希函数对比</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E5%AD%97%E7%AD%BE%E5%90%8D%E7%AE%97%E6%B3%95"><span class="toc-text">数字签名算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RSA-v2"><span class="toc-text">RSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#EI-Gamal"><span class="toc-text">EI Gamal</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DSA"><span class="toc-text">DSA</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#HMAC"><span class="toc-text">HMAC</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E4%B8%8E%E9%9A%90%E5%86%99%E5%88%86%E6%9E%90"><span class="toc-text">信息隐藏与隐写分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5"><span class="toc-text">信息隐藏的基本概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E6%8A%80%E6%9C%AF%E7%9A%84%E4%B8%BB%E8%A6%81%E5%88%86%E6%94%AF"><span class="toc-text">信息隐藏技术的主要分支</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B4%E5%8D%B0%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">水印的分类</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%B2%81%E6%A3%92%E6%B0%B4%E5%8D%B0%E7%89%B9%E6%80%A7"><span class="toc-text">鲁棒水印特性</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%9A%84%E4%B8%80%E8%88%AC%E8%BF%87%E7%A8%8B"><span class="toc-text">信息隐藏的一般过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B4%E5%8D%B0%E7%94%9F%E6%88%90"><span class="toc-text">水印生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B4%E5%8D%B0%E5%B5%8C%E5%85%A5"><span class="toc-text">水印嵌入</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%9A%84%E5%B8%B8%E8%A7%81%E7%AE%97%E6%B3%95"><span class="toc-text">信息隐藏的常见算法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A9%BA%E5%9F%9F%E4%BF%A1%E6%81%AF%E9%9A%90%E8%97%8F%E7%AE%97%E6%B3%95"><span class="toc-text">空域信息隐藏算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#LSB%E7%AE%97%E6%B3%95"><span class="toc-text">LSB算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Patchwork%E7%AE%97%E6%B3%95"><span class="toc-text">Patchwork算法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Checksum%E7%AE%97%E6%B3%95"><span class="toc-text">Checksum算法</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%91%E5%9F%9F%E6%B0%B4%E5%8D%B0%E7%AE%97%E6%B3%95"><span class="toc-text">频域水印算法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-text">附录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8"><span class="toc-text">DES算法相关表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%BD%AE%E6%8D%A2IP-%E5%AF%B9%E6%98%8E%E6%96%87%E8%BE%93%E5%85%A5%E8%BF%9B%E8%A1%8C%E6%AC%A1%E5%BA%8F%E6%89%93%E4%B9%B1"><span class="toc-text">初始置换IP (对明文输入进行次序打乱)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E7%BD%AE%E6%8D%A2%E7%9A%84%E9%80%86%E7%BD%AE%E6%8D%A2IP-1"><span class="toc-text">初始置换的逆置换IP-1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%A9%E5%B1%95%E7%BD%AE%E6%8D%A2E-32-bit%E5%88%B048-bit"><span class="toc-text">扩展置换E (32-bit到48-bit)</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BD%AE%E6%8D%A2%E5%87%BD%E6%95%B0P"><span class="toc-text">置换函数P</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC1"><span class="toc-text">PC1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PC2"><span class="toc-text">PC2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#S-box-%E4%BE%8B%E5%AD%90"><span class="toc-text">S-box 例子</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AES%E7%AE%97%E6%B3%95%E7%9B%B8%E5%85%B3%E8%A1%A8"><span class="toc-text">AES算法相关表</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%97%E8%8A%82%E6%9B%BF%E6%8D%A2%E8%A1%A8"><span class="toc-text">字节替换表</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="现代密码学 Notes";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

@@ -1,0 +1,1609 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>SGX Developer Guide - Reading Notes - Schenk - Blog</title>
+  
+    <meta name="keywords" content="sgx">
+  
+
+  
+    <meta name="description" content="Intel SGX Developer Guide 学习笔记">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        SGX Developer Guide - Reading Notes
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Notes/">Notes</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:34:30+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：6.2k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：22分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="SGX Developer Guide - Reading Notes" data-path="/2020/11/25/learning-notes/SGX-Developer-Guide-Notes/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="专业名词">专业名词</h2>
+<ul>
+<li>
+<p>ECall：“Enclave Call”一个调用enclave内部接口函数的操作</p>
+</li>
+<li>
+<p>OCall：“Out call”从enclave内部向外部的应用发起调用的操作</p>
+</li>
+<li>
+<p>Trusted：任何在enclave内部 <code>trusted</code> 环境下执行的代码或者数据结构</p>
+</li>
+<li>
+<p>Trusted Thread Context：线程的上下文存放在enclave中，主要包括以下几个部分组成：</p>
+<ul>
+<li>Thread Control Structure（TCS）线程控制结构</li>
+<li>Thread Data/Thread Local Storage 在enclave中的线程相关的数据</li>
+<li>State Save Area(SSA) 线程异常处理机制</li>
+<li>Stack 线程栈</li>
+</ul>
+</li>
+<li>
+<p>Untrusted：指代任何运行在应用的 <code>untrusted</code> 环境下（等价于enclave外部）的代码或者数据结构。</p>
+</li>
+</ul>
+<h2 id="Enclave-编程模型">Enclave 编程模型</h2>
+<h3 id="Enclave开发原则">Enclave开发原则</h3>
+<ul>
+<li>enclave是一个庞大而单一的软件实体，目标在于将对于一个应用而言的可信计算基降低至可信运行时系统，ISV代码和第三方可信库。在上述组件中的任一个bug将会导致enclave的安全问题。</li>
+<li>非可信域控制了enclave 接口函数什么时候被调用的顺序。</li>
+<li>当调用进入enclave中，是由不可信域来在enclave中选择可信线程上下文去执行。</li>
+<li>并不保证传递进去enclave（ecall）中的参数和从enclave向外部发送的参数（ocall）是正确的，因为这是由不可信域提供的。</li>
+<li>enclave向外部发送的调用 <code>OCall</code>，不能保证不可信函数一定正确地被执行。</li>
+<li>任何人都可以加载一个enclave。更为严重的是，攻击者可能使用攻击性应用程序去加载一个enclave，利用该enclave存在的安全漏洞，窃取相关数据。</li>
+</ul>
+<h3 id="Enclave文件格式">Enclave文件格式</h3>
+<ul>
+<li>一个 enclave library 文件包括可信代码和数据部分，当enclave被创建时，这些将会被导入到受保护的 enclave 内存（即EPC）中</li>
+<li>在一个enclave文件中，还存在着Intel SGX特定的数据结构，enclave元数据：
+<ul>
+<li>元数据没有导入EPC中，而是被不可信的加载器加载，并决定enclave如何导入到EPC中</li>
+<li>元数据中定义了可信线程上下文的数量，包括可信堆和可信栈的大小，在enclave初始化的时候，可信堆和可信栈被可信运行时系统初始化</li>
+<li>元数据同时包括enclave的签名，这对于enclave的认证和初始化时非常重要的</li>
+</ul>
+</li>
+</ul>
+<p>**注：**不管enclave中定义了多少个可信线程，在设计的过程中不能假设不可信应用将会以特定的顺序去调用 Enclave 中的接口函数。一旦enclave被初始化，一个攻击者可以调用 Enclave 接口函数，以任何可能的顺序去发起调用并且提供相应的输入参数。</p>
+<h3 id="Enclave可信计算基">Enclave可信计算基</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Developer-Guide-Notes/image-20201118224903930.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Developer-Guide-Notes/image-20201118224903930.png" srcset="data:image/png;base64,666" alt="image-20201118224903930"></p>
+<h3 id="Enclave-Interface-函数-ECalls">Enclave Interface 函数 (ECalls)</h3>
+<ul>
+<li>enclave无法控制哪个ECall被执行，或者ECall将会以怎样的顺序被调用</li>
+<li>ISV接口函数仅仅只能在enclave初始化后被调用，这意味着：
+<ul>
+<li>任何必要的地址基地址重置被正确地执行。</li>
+<li>可信全局数据，例如栈等被正确地初始化。</li>
+<li>可信线程的上下文，可信线程被正确地初始化。</li>
+<li>不直接说明的可信初始化函数执行完成。（例如ISV全局构造函数）</li>
+</ul>
+</li>
+</ul>
+<h3 id="Enclave的输入">Enclave的输入</h3>
+<ul>
+<li>Enclave输入和输出可以被不可信的代码观察和修改</li>
+<li>为了防止针对输入函数的攻击，软件开发者应该采用加密的方式和完整性检测来保证enclave执行的可信性</li>
+</ul>
+<p><strong>当一个encalve函数被调用时</strong>：</p>
+<ul>
+<li>函数的参数和其他任何通过引用传递的序列化数据参数进入到可信环境中，并且对于攻击者无法访问的。</li>
+<li>在参数上进行读写操作，返回值和其他序列化的引用，根据enclave开发者的参数与特殊定义，将不会影响ISV代码和数据的保密和完整性。
+<ul>
+<li>参数和返回值，序列化数据被可信运行时分配和管理，不对任何ISV代码和数据进行覆盖。</li>
+<li>参数，返回值和序列化引用的大小被ISV所指定。</li>
+</ul>
+</li>
+</ul>
+<h2 id="通过引用传递的输入参数">通过引用传递的输入参数</h2>
+<p>当ISV接口函数被调用时，输入参数将被停留在enclave中。然而，当一个输入参数通过引用的形式传递，只有引用（或指针）将会放置到enclave中。引用所指向的值停留在外部，并且会不断地变化。例如，一个攻击者可能在enclave检查函数参数后改变所引用的值。</p>
+<h3 id="外部Enclave调用-OCalls">外部Enclave调用 (OCalls)</h3>
+<p>Enclave无法直接访问OS提供的服务。作为替代的是，encalve必须发起一个OCall将其传递到不可信应用中。</p>
+<p>当一个enclave内的ISV函数发起OCall时：</p>
+<ul>
+<li>OCall仅仅暴露其参数和返回值到不可信域中。</li>
+<li>当一个OCall发生时，返回值和任何序列化数据的引用将传递进入可信执行环境中，对攻击者不可以访问。另外enclave需要检查指针。</li>
+<li>当一个OCall发生时，可信线程上下文与OCall之前的相同，除了在栈上的数据和易变寄存器上的值。</li>
+</ul>
+<h2 id="Enclave签名">Enclave签名</h2>
+<p>在软件中通过enclave建立信任的过程中主要有着以下三种行为：</p>
+<ul>
+<li>Measurement（度量）：作为enclave在可信环境中初始化时用来验证文件准确性的身份。</li>
+<li>Attestation（认证）：向其它实体证明当前的环境被正确的初始化。</li>
+<li>Sealing（数据的密封）：通过某种方式保证可信环境上的数据可以正确地持久化和重新加载。</li>
+</ul>
+<p>Enclave签名包含允许Intel SGX硬件检测enclave的完整性是否被篡改的信息，同时可以识别enclave持有人的身份。encalve 签名包含这几个如下的重要字段，对于外部实体的认证非常重要。</p>
+<ul>
+<li>Enclave Measurement - 一个简单的256位哈希值用来标注代码和放入到enclave中的初始化数据，包括他们放入到EPC中期待的顺序和位置，以及这些页面的安全属性。当enclave代码/数据加载到EPC中，CPU开始计算enclave measurement并且将这个值存储在MRENCLAVE 寄存器中。接着CPU比较MRENCLAVE寄存器中的内容和存放在SIGSTRUCT中的enclave measurement值。当且仅当它们相等的时候，CPU允许enclave被初始化。</li>
+<li>Enclave所有者的公钥 - 当一个enclave被正确地初始化，CPU将enclave所有者的公钥的hash存放在MRSIGNER寄存器中。MRSIGNER中的内容将会用作enclave所有者的身份证明。被同一个key认证的enclave在MRSIGNER寄存器中的值相同。</li>
+<li>Enclave的安全版本号（ISVSVN）- enclave所有者对于enclave的每个版本号分配一个安全版本号。安全版本号反映了enclave的安全属性级别，并且需要单调递增，随着安全属性的不断上升。在一个enclave被正确初始化后，CPU记录SVN，并且在远程认证的过程中被使用。一个有着相同安全属性的enclave的不同版本应该分配相同的安全版本号。例如，一个没有解决安全相关bug的新版本enclave需要与旧版本的enclave持有相同的安全版本号。</li>
+<li>Enclave的产品ID（ISVPRODID）- enclave所有者针对每一个enclave分配一个产品ID。产品ID允许enclave所有者使用相同的enclave所有者身份去分割enclave。当一个enclave被正确的初始化后，CPU记录Product ID，在远程认证的过程中可以被使用。</li>
+</ul>
+<h2 id="Enclave认证">Enclave认证</h2>
+<h3 id="本地认证">本地认证</h3>
+<p>一个enclave可以请求硬件生成一个证书，即report，其中通过密码学证据证明着enclave存在这个平台上。这个report可以给其他的enclave，让其进行验证report是同一平台上生成。内部enclave之间认证机制使用的是对称密钥，只有验证report结构的enclave和创建enclave report的硬件可以访问到，并且嵌入到硬件平台中。</p>
+<p>一个enclave report包含着以下的信息：</p>
+<ul>
+<li>enclave中的code和初始化数据的measurement。</li>
+<li>enclave初始化的时候记录ISV证书公钥的哈希值。</li>
+<li>用户后来添加的数据。</li>
+<li>其他安全相关的状态信息。</li>
+<li>上述所有数据的一个签名，可以被生成report的同一平台去进行验证。</li>
+</ul>
+<h4 id="本地认证过程">本地认证过程</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Developer-Guide-Notes/image-20201122114320790.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Developer-Guide-Notes/image-20201122114320790.png" srcset="data:image/png;base64,666" alt="image-20201122114320790"></p>
+<ol>
+<li>
+<p>在上图中，应用A持有enclave A，应用B持有enclave B。在不可信应用A和B为两个enclave建立通信后，enclave B向enclave A发送了MRENCLAVE的值。（应用A和B可以是同一应用）</p>
+<p>有两种方法对于应用而言可以提取enclave的MRENCLAVE measurement:</p>
+<ul>
+<li>应用B从enclave B的enclave证书中提取MRENCLAVE的值。</li>
+<li>enclave B提供了一个接口来导出该值，通过创建一个report。</li>
+</ul>
+</li>
+<li>
+<p>Encalve A请求硬件生成一份report送至enclave B，并且其中包含着从enclave B获取到的数据。enclave A通过不可信应用将数据发送给enclave B。</p>
+</li>
+<li>
+<p>当enclave B收到了来自enclave A的报告，enclave B要求硬件去验证report来确认enclave A和B在同一平台上运行。enclave B从enclave A中提取相应的MRENCLAVE，然后请求硬件生成自己的report，接着发送给enclave A。</p>
+</li>
+<li>
+<p>enclave A验证enclave B的report，并且验证enclave B和自己运行在同一平台上。</p>
+</li>
+</ol>
+<h3 id="远程-跨平台-认证">远程 (跨平台) 认证</h3>
+<p>一个持有enclave的应用可以要求enclave去生成一份report，接着将这份report传到平台服务去生成一种类型的证书，反映着enclave和平台的状态。这种类型的证书被称为quote。这个quote可以传递到平台外的实体，并且使用Intel Enhanced Privacy ID（Intel EPID）签名技术去进行验证。作为结果，CPU的密钥并没有直接从平台内部暴露出去。</p>
+<p>一个quote包含这以下的数据：</p>
+<ul>
+<li>enclave中代码和初始化数据的measurement。</li>
+<li>enclave初始化的时候记录ISV证书公钥的哈希值。</li>
+<li>enclave的产品ID和安全版本号。</li>
+<li>enclave的属性，例如，encalve是否运行在debug mode。</li>
+<li>enclave中添加的用户数据。提供了一种方式由enclave向外部实体提供数据。</li>
+<li>上述所有数据的一个签名，借助于Intel EPID组签名技术。 包含在quote中的enclave 数据（MRENCLAVE, MRSIGNER, ISVPRODID, ISVSVN, ATTRIBUTES等等）在远程认证过程的末尾提供给远程服务使用上。服务提供者将根据这些数据去进行判断是否可信。</li>
+</ul>
+<h4 id="EPID">EPID</h4>
+<p>Intel EPID是一种组签名技术，允许平台去匿名签名对象并且可以保护签名者的隐私（如果使用机器的CPUID签名，会导致隐私的泄露）。通过Intel EPID签名技术，组里面的每一个签名者都有他们各自的私钥，但是验证者使用相同的公钥去验证个人的签名。因此，用户无法识别出两个交易是否来自于同一个机构，因为用户无法检测中是组里面哪个成员做了签名。在Intel SGX中，这个组是所有支持Intel SGX平台的集合。</p>
+<h4 id="QE">QE</h4>
+<p>Intel中内嵌了一种特殊的enclave，成为Quoting Enclave（QE），QE验证report正确地按照其MRENCLAVE mesurement值进行创建，然后将它用一个硬件特定的非对称密钥（Intel EPID key）进行签名，输出的内容就是quote。当enclave 系统正在运行的过程中，只有QE有权限访问Intel EPID key。因此quote可以看作直接来自于硬件本身，但是CPU key永远不会暴露到平台外部。</p>
+<h4 id="远程认证过程">远程认证过程</h4>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Developer-Guide-Notes/image-20201122120414342.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Developer-Guide-Notes/image-20201122120414342.png" srcset="data:image/png;base64,666" alt="image-20201122120414342"></p>
+<ol>
+<li>当应用需要在平台外部的服务，它首先和外部服务提供系统建立连接。服务提供者发起挑战(包含一个nonce)来证明应用确实运行在enclave中</li>
+<li>应用从应用的enclave请求一份report，并将来自外部服务提供商的nonce传递进enclave中</li>
+<li>enclave生成一份report结构，并将其连同一个清单返回给应用，清单包含report中用户数据部分的值以及nonce和用于挑战应答交互的密钥</li>
+<li>report发送给QE去做签名
+<ul>
+<li>QE验证report</li>
+<li>QE转换report的body转换为quote，并对其使用EPID进行签名</li>
+</ul>
+</li>
+<li>QE返回quote structure</li>
+<li>应用返回quote结构体和其他相关的信息到外部服务者</li>
+<li>外部服务者使用EPID验证公钥去验证quote的签名信息。</li>
+<li>外部服务者对比来自enclave的信息，并与其它可信配置的信息进行比较。判断enclave是否满足条件。其中包括检测enclave是否运行在debug模式，及其的measurement，产品ID和enclave所有人等等。</li>
+</ol>
+<h3 id="区分不同的Enclave运行实例">区分不同的Enclave运行实例</h3>
+<p>Intel SGX不直接提供一种机制（例如，通过自动生成的REPORT字段）来区分同一个enclave的两个不同的实例。</p>
+<p>如果想要尝试的话，可以使用RDRAND函数生成随机数，并作为作为用户数据，嵌入到REPORT中。</p>
+<h2 id="Enclave密封">Enclave密封</h2>
+<p>为了保护和持久化数据，提供了一种由enclave软件从特定的enclave中提取key的机制。这个Key只能在特定的平台上被某个enclave生成。enclave 软件使用那个key去在平台上加密数据或者从平台上解密已经存在的数据。我们把这种加密和解密的操作成为密封和解封。</p>
+<h3 id="软件密封技术">软件密封技术</h3>
+<h4 id="密封到当前的enclave（依照于enclave度量）">密封到当前的enclave（依照于enclave度量）</h4>
+<p>密封到当前enclave 使用enclave measurement的当前版本（MRENCLAVE），当enclave创建的时候，将这个值绑定到密封操作所需要使用的key上。这个绑定操作由硬件执行通过EGETKEY指令。</p>
+<p>只有有着相同的MRENCLAVE度量的enclave才能够将密封的数据进行解密。如果enclave的DLL，Dynamic Library，或者Shared Object文件被篡改，那么enclave的measurement将会发生改变。作为影响，密封的key同样会发生变化，数据将不会被还原。</p>
+<h4 id="密封到enclave当前的所有者">密封到enclave当前的所有者</h4>
+<p>将数据密封到enclave的当前的所有者需要使用enclave所有者的身份，这个值由CPU在enclave初始化的过程中存储在MRSIGNER寄存器中，并且这个值被绑定到密封数据函数所需要使用到的key中。这个绑定是由硬件通过EGETKEY指令完成。被密封数据函数使用的key同时也被绑定到enclave的产品ID上。产品ID在enclave初始化时存储在CPU中。</p>
+<p>当MRSIGNER度量寄存器的值和产品ID相同时，enclave才能解密。 这种机制的好处是：</p>
+<ul>
+<li>它允许enclave的所有者对enclave进行升级，但是不需要进行复杂的升级过程来解密之前密封在之前版本的enclave（MRENCLAVE 度量值不同）中的数据，并且重新使用密封到新的版本</li>
+<li>它允许来自相同的所有者的enclave实现共享数据</li>
+</ul>
+<p>Enclave所有者生产出enclave后，可以为之指定安全版本号。这个安全版本号同样在enclave初始化的时候存储在CPU中。一个enclave在从CPU中获取密封key的请求中必须提供一个相应的安全版本号。一个enclave不能指定一个比它当前安全版本号靠后的enclave，但是encalve可以指定一个在当前安全版本号之前的安全版本号。这个选项使enclave获得了解封之前版本的enclave中的数据，对于enclave软件更新，是有着巨大的好处的。</p>
+<h3 id="密封和解封过程">密封和解封过程</h3>
+<p>在enclave中<strong>密封</strong>数据的主要过程如下：</p>
+<ol>
+<li>
+<p>为加密数据和密封数据结构在enclave中分配内存。其中密封数据结构主要包括要加密的数据和额外认证数据(AAD, 额外的参与MAC计算但不进行加密的数据或文本)。额外认证数据中的信息可能包括应用enclave，版本号，数据等</p>
+</li>
+<li>
+<p>调用加密数据的API来执行加密操作，一个加密操作算法如下：</p>
+<ul>
+<li>验证输入参数是有效的。例如，如果作为参数进行传递的是一个指向加密数据结构的指针，它指向的缓存必须存在于enclave中。</li>
+<li>初始化并向其中填充一个将要被EGETKEY指令来执行密钥请求的数据结构。过程如下：
+<ul>
+<li>获取EREPORT去获得安全ISV和TCB安全版本号，将在key获取中使用</li>
+<li>Key 名称：识别获取key的名字，在这种情况下即为Seal key</li>
+<li>Key Policy：识别即将使用的软件密封策略。使用MRSIGNER来表示密封到enclave的所有者上，使用MRENCLAVE来表示密封到当前的enclave（enclave measurement）中。保留位必须被清除</li>
+<li>Key ID：调用RDRAND来获取一个随机数</li>
+<li>属性字段：表明密封密钥应该与什么属性进行绑定</li>
+</ul>
+</li>
+<li>使用上一步构造出的密钥请求结构调用EGETKEY获取Seal key</li>
+<li>使用加密算法来使用密封密钥来执行密封操作。推荐使用AES-GCM加解密函数，例如Rijndael128GCM</li>
+<li>从内存删除seal key以防泄露</li>
+</ul>
+</li>
+<li>
+<p>将密封数据结构（包括密钥请求结构）从enclave中保存到外部内存中。密钥请求结构将用来在今后的enclave初始化后去获取密封密钥。</p>
+</li>
+</ol>
+<p>在enclave中对加密数据进行<strong>解密</strong>主要包括以下过程：</p>
+<ol>
+<li>
+<p>为待解密的数据分配内存。</p>
+</li>
+<li>
+<p>调用解密api去执行解密操作。一个解密操作算法如下：</p>
+<ul>
+<li>验证输入参数的合法性。</li>
+<li>从密封数据结构中提取密钥请求结构</li>
+<li>借助密钥请求结构去通过EGETKEY指令获取密封密钥</li>
+<li>调用解密算法使用密封密钥解密</li>
+<li>从内存中删除密封密钥以防止泄露</li>
+<li>验证解密算法生成的hash与加密过程中生成的hash一致</li>
+</ul>
+</li>
+</ol>
+<h3 id="区分不同的Enclave实例">区分不同的Enclave实例</h3>
+<p>即使同一个enclave的两个不同的实例可以在它们认证时区分，但是当两个enclave都使用EGETKEY指令时，目前Intel SGX不提供一种机制来阻止一个enclave实例去访问另一个enclave的密封数据，两个实例将会返回相同的密钥值。</p>
+<p>如果要区分enclave实例的SEAL key，推荐：</p>
+<blockquote>
+<p>Intel recommends that enclave writers use the KEYID field of the KEYREQUEST structure passed into the EGETKEY instruction to pass an enclave instance specific nonce. This will provide a different key even when the same enclave is in a different virtual machine.</p>
+</blockquote>
+<h2 id="处理器特征">处理器特征</h2>
+<p>在enclave中可以执行大部分Ring3软件能执行的指令</p>
+<h2 id="程序性能">程序性能</h2>
+<h3 id="Enclave创建">Enclave创建</h3>
+<p>enclave的大小很大程度上影响了创建enclave的时间，主要是由于在enclave的度量（measurement）过程中，需要进行一系列操作以保证所有的代码加载到enclave中是可信的。</p>
+<p>在enclave的创建过程中，一系列的EADD和EEXTEND指令将被运行，主要用于加载和度量enclave的页面。</p>
+<ul>
+<li>EADD每次加载4k字节的数据。</li>
+<li>EEXTEND每次度量256字节的数据。这意味着对于EADD添加的4KB的数据，需要发起16次的EEXTEND调用。</li>
+</ul>
+<p>相关的性能优化建议：</p>
+<ul>
+<li>减小enclave的大小。仔细检查在enclave中每段代码和数据元素，如有必要，将其移除。（使用工具：Intel VTune Amplifier）。例如，将即将静态链接的.o 文件先转换为诶.a文件。</li>
+<li>Intel SGX 允许enclave通过 Enclave Dynamic Memory Management（EDMM）的方式去进行扩展。当你的OS支持EDMM，那么可以先创建一个比较小的enclave，然后扩展它。</li>
+<li>通过在application中添加加载条的方式来获取用户的注意力，借此隐藏应用的加载时间。</li>
+<li>避免频繁的enclave创建和重新加载，进而最小化重复的加载性能损耗。</li>
+</ul>
+<h3 id="Enclave切换">Enclave切换</h3>
+<p>在enclave之间的频繁转变需要在上下文之间切换非常多次。当一个EENTER指令触发进入enclave时，为了保证enclave可以正常运行，属于不可信运行时的注册状态（register state）和其它信息被存储，enclave中的线程状态和其它属于可信状态的信息被加载，这部分工作主要是由SDK生成的代码执行。一个相反的过程发生在从enclave中退出（被EEXIT指令触发）：可信线程状态信息被保存，不可信的注册状态和其它信息被还原，在这个过程中同样执行着安全检查，这部分工作也主要由SDK生成的代码自动执行。这些行为构成了在应用和enclave之间控制权切换所带来的固定负载。</p>
+<p>然而，这个转变中有一些可变变量影响着损耗，即传递参数的大小。参数在从不可信应用部分到可信enclave传递的过程中被序列化，并且返回值被反序列化。在可信enclave中，来自不可信应用的参数被反序列化，并且将返回值序列化。如果应用传递大量的参数，将会有显著的性能损耗。</p>
+<p>如果在enclave和应用之间的控制权的转变很大程度地冲击着性能，考虑通过通过以下的方式降低影响：</p>
+<ul>
+<li>减小传递参数的总大小。（使用工具：Intel VTunte Amplifier）</li>
+<li>当确实有大量数据需要进行传递的时候，考虑使用指针的方式。<strong>需要说明的是，使用指针会带来一部分安全风险，为此你必须自己去实现指针检查器，如果使用这种方式的话。</strong></li>
+</ul>
+<h3 id="过多缓存未命中">过多缓存未命中</h3>
+<p>encalve所存储的内存内容在处理器cache之外的部分都是加密受保护的。这种类型的保护在从内存中获取cache lines带来了相应的负载。这种负载和Intel SGX实现方式有直接关系。</p>
+<p>Intel SGX架构中在缓存未命中的情况下，相对于其他传统的负载，新增了两种类型的负载：</p>
+<ul>
+<li>对于不在处理器cache中的每一条cache line所执行的完成check/anti-replay 检查，以及在系统内存中更新相应的数据结构（如果必要的话）。这种类型的负载依赖于内存访问模式。</li>
+<li>在cache和内存中加载和移除数据所带来的加解密。</li>
+</ul>
+<p>如果你的系统受到大量的缓存未命中而相关的性能损耗的冲击，可以考虑下面的步骤：</p>
+<ul>
+<li>减小enclave中的数据的大小。观察数据，以保证只有必要的数据才能装载进入enclave中。更少的数据意味着更少的加减密和更少的数据结构检查，在Intel SGX内存控制/保护机制下。可以使用Intel VTune Amplifier来观察应用中的cache行为。</li>
+<li>可以查看下面的文档去创建一个更加“缓存友好”的应用：<a target="_blank" rel="noopener" href="https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-optimization-manual.pdf">PDF地址</a></li>
+</ul>
+<h3 id="过多的页写入">过多的页写入</h3>
+<p>需要考虑Intel SGX应用频繁大量的页面切换对性能的影响，并且如何最小化这方面的后果：</p>
+<p>Intel SGX使用安全存储 EPC 来存储enclave中的内容。Enclave页面大小为4KB。当enclave比EPC总可用的内存要大的话，enclave分页机制可能会被某些特权软件来使用。当OS尝试交换enclave页面时，CPU使用EWB指令执行以下的步骤：</p>
+<ul>
+<li>读取要替换出去的Intel SGX页面（移出）</li>
+<li>加密页面中的内容</li>
+<li>将加密的页面写到未收到保护的系统内存中</li>
+</ul>
+<p>由于这个过程有着固定的负载，因此越多的页面被替换出去，越多的性能损耗发生。为了阻止应用频繁经历这种页面的交换，尽可能确保enclave的大小小于EPC。尽可能只将秘密数据和在这之上的操作放入enclave中，从而最小化页面交换的可能性。可以使用Intel VTune Amplifier工具来观察应用中页面替换的行为，来保证做出正确的决定</p>
+<h3 id="多线程下的性能">多线程下的性能</h3>
+<p>如果应用是多线程的，从数据同步，锁，线程模型和内存分配算法上去寻找改善性能的方法。</p>
+<ul>
+<li>Intel SGX SDK 的一些关于同步和锁的原语已经被优化。</li>
+<li>对于较重的多线程应用，推荐选择更好的内存分配算法。Intel SGX SDK针对linux提供了TCMalloc内存分配算法，相对于默认的dlmalloc内存分配算法，有着更好的性能表现。</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年11月25日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sgx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sgx</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2020/11/25/learning-notes/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Internet安全协议与分析Notes</p>
+          <p class='content'>IPSec
+
+通信保护协议
+AH
+
+通信提供数据源认证、抗抵赖性、数据完整性和反重播保证，但不提供机密性保护
+
+AH传输模式
+
+
+源IP地址、目的IP地址是不能修改的，否则会被检测出来，因此AH...</p>
+        </a>
+      
+      
+        <a class='next' href='/2020/11/24/instruction/sgx-programming/'>
+          <p class='title'>SGX程序基础<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>项目目录结构
+以SampleEnclave为例，目录结构如下：
+12345678910111213141516171819202122232425262728293031323334353637...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%93%E4%B8%9A%E5%90%8D%E8%AF%8D"><span class="toc-text">专业名词</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave-%E7%BC%96%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-text">Enclave 编程模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%BC%80%E5%8F%91%E5%8E%9F%E5%88%99"><span class="toc-text">Enclave开发原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-text">Enclave文件格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%8F%AF%E4%BF%A1%E8%AE%A1%E7%AE%97%E5%9F%BA"><span class="toc-text">Enclave可信计算基</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave-Interface-%E5%87%BD%E6%95%B0-ECalls"><span class="toc-text">Enclave Interface 函数 (ECalls)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E7%9A%84%E8%BE%93%E5%85%A5"><span class="toc-text">Enclave的输入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E5%BC%95%E7%94%A8%E4%BC%A0%E9%80%92%E7%9A%84%E8%BE%93%E5%85%A5%E5%8F%82%E6%95%B0"><span class="toc-text">通过引用传递的输入参数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8Enclave%E8%B0%83%E7%94%A8-OCalls"><span class="toc-text">外部Enclave调用 (OCalls)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E7%AD%BE%E5%90%8D"><span class="toc-text">Enclave签名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E8%AE%A4%E8%AF%81"><span class="toc-text">Enclave认证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81"><span class="toc-text">本地认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">本地认证过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B-%E8%B7%A8%E5%B9%B3%E5%8F%B0-%E8%AE%A4%E8%AF%81"><span class="toc-text">远程 (跨平台) 认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#EPID"><span class="toc-text">EPID</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#QE"><span class="toc-text">QE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%9C%E7%A8%8B%E8%AE%A4%E8%AF%81%E8%BF%87%E7%A8%8B"><span class="toc-text">远程认证过程</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84Enclave%E8%BF%90%E8%A1%8C%E5%AE%9E%E4%BE%8B"><span class="toc-text">区分不同的Enclave运行实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Enclave%E5%AF%86%E5%B0%81"><span class="toc-text">Enclave密封</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6%E5%AF%86%E5%B0%81%E6%8A%80%E6%9C%AF"><span class="toc-text">软件密封技术</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%88%B0%E5%BD%93%E5%89%8D%E7%9A%84enclave%EF%BC%88%E4%BE%9D%E7%85%A7%E4%BA%8Eenclave%E5%BA%A6%E9%87%8F%EF%BC%89"><span class="toc-text">密封到当前的enclave（依照于enclave度量）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%88%B0enclave%E5%BD%93%E5%89%8D%E7%9A%84%E6%89%80%E6%9C%89%E8%80%85"><span class="toc-text">密封到enclave当前的所有者</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%86%E5%B0%81%E5%92%8C%E8%A7%A3%E5%B0%81%E8%BF%87%E7%A8%8B"><span class="toc-text">密封和解封过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%BA%E5%88%86%E4%B8%8D%E5%90%8C%E7%9A%84Enclave%E5%AE%9E%E4%BE%8B"><span class="toc-text">区分不同的Enclave实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E5%99%A8%E7%89%B9%E5%BE%81"><span class="toc-text">处理器特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E6%80%A7%E8%83%BD"><span class="toc-text">程序性能</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%88%9B%E5%BB%BA"><span class="toc-text">Enclave创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Enclave%E5%88%87%E6%8D%A2"><span class="toc-text">Enclave切换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E5%A4%9A%E7%BC%93%E5%AD%98%E6%9C%AA%E5%91%BD%E4%B8%AD"><span class="toc-text">过多缓存未命中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%87%E5%A4%9A%E7%9A%84%E9%A1%B5%E5%86%99%E5%85%A5"><span class="toc-text">过多的页写入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E7%9A%84%E6%80%A7%E8%83%BD"><span class="toc-text">多线程下的性能</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="SGX Developer Guide - Reading Notes";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

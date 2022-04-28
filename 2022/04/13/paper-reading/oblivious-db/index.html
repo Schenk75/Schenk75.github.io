@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>论文阅读-Oblivious Database相关 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="sgx,db">
+  
+
+  
+    <meta name="description" content="论文阅读-Oblivious Database相关">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        论文阅读-Oblivious Database相关
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Paper-Reading/">Paper Reading</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:41:56+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：1.8k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：6分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="论文阅读-Oblivious Database相关" data-path="/2022/04/13/paper-reading/oblivious-db/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="不经意数据库相关研究">不经意数据库相关研究</h2>
+<p>关键是隐藏访问模式：隐藏访问内容+访问时间/访问次数/访问顺序等</p>
+<h3 id="ObliDB">ObliDB</h3>
+<h4 id="威胁模型：">威胁模型：</h4>
+<ul>
+<li>读取并篡改不可信内存</li>
+<li>暂停和恢复Enclave执行</li>
+<li>观察到对不可信内存的访问模式</li>
+<li>监听网络通信</li>
+<li>了解存储的数据的辅助信息</li>
+<li>无法突破SGX远程认证</li>
+<li><strong>假设</strong>：不经意内存有限</li>
+</ul>
+<h4 id="安全保证：">安全保证：</h4>
+<ul>
+<li>探测到任何篡改数据的恶意行为</li>
+<li>只泄露查询选择率（select行的比例），表的大小（包括输出表和中间表）和查询方案</li>
+<li>可选的padding模式，可以隐藏表的大小和查询选择率</li>
+<li>在enclave外的数据经过加密和MAC计算，仅泄露大小</li>
+<li>数据库中表的数量 &amp; 查询了哪张表不作隐藏</li>
+</ul>
+<h4 id="Overview：">Overview：</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220404194724441.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220404194724441.png" srcset="data:image/png;base64,666" alt="image-20220404194724441" style="zoom:60%;" />
+<ul>
+<li>不经意数据库引擎支持小规模查询和分析查询（需要遍历整张表）</li>
+<li>表加密存储在不可信内存但是访问模式被隐藏</li>
+<li>两种存储方案：线性表、不经意索引（用于单点查询）</li>
+<li>Enclave用于存储密钥、元数据，不经意算子在Enclave中执行</li>
+</ul>
+<h4 id="存储方案">存储方案</h4>
+<p><strong>扁平化存储</strong></p>
+<p>数据存储在相邻的块中，每次读/写都需要访问所有块（整张表），用于存储：</p>
+<ul>
+<li>小的表</li>
+<li>操作后返回表的大部分区域的表</li>
+<li>涉及读取全部或大部分表的分析</li>
+</ul>
+<p>数据的插入、更新、删除需遍历整张表，对未受影响的块进行虚拟写（重新写一遍所有数据并重新加密）</p>
+<p><strong>索引存储</strong></p>
+<p>对B+树的插入/删除操作会泄露树的结构信息 =&gt; 使用虚拟ORAM访问，填充所有插入/删除操作，使其访问次数与最坏情况匹配</p>
+<p>优化：</p>
+<ul>
+<li>懒写回：只在必要的时候写入ORAM，否则将节点保留在enclave中</li>
+<li>移除指向父节点的指针</li>
+</ul>
+<h3 id="Opaque">Opaque</h3>
+<blockquote>
+<p>Opaque relies on oblivious sorts over the entire dataset. These systems are not efficient for more general workloads that may also include point queries.【ObliDB】(单点查询效率低)</p>
+<p>仅达到了Level 1的不经意性，因为使用不经意内存池进行优化【O-Join】</p>
+</blockquote>
+<p>不经意分布式数据分析平台：</p>
+<ul>
+<li>引入一系列新的分布式关系运算符</li>
+<li>新的查询规划技术，rule-based和cost-based</li>
+<li>三种运行模式：加密模式、不经意模式、不经意填充模式</li>
+</ul>
+<h4 id="威胁模型">威胁模型</h4>
+<ul>
+<li>观察和修改网络通信</li>
+<li>获取操作系统的root权限</li>
+<li>观察enclave对不可信内存的访问模式</li>
+<li>可以进行回滚攻击，将密封的数据恢复到之前的状态</li>
+<li>不能破坏可信硬件</li>
+<li>对Opaque源码的访问是不经意的</li>
+</ul>
+<h4 id="安全保证">安全保证</h4>
+<p><strong>加密模式</strong></p>
+<ul>
+<li>数据加密和身份认证</li>
+<li>self-verifying integrity</li>
+</ul>
+<p><strong>不经意模式</strong></p>
+<ul>
+<li>隐藏访问模式，但不隐藏访问的数据大小，以及Catalyst选择的查询方案</li>
+</ul>
+<p><strong>不经意填充模式</strong></p>
+<ul>
+<li>在不经意模式的基础上，进一步隐藏数据大小和查询方案</li>
+</ul>
+<h4 id="Overview">Overview</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220405165557918.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220405165557918.png" srcset="data:image/png;base64,666" alt="image-20220405165557918" style="zoom:60%;" />
+<h4 id="不经意执行">不经意执行</h4>
+<ul>
+<li>不经意排序（单机 &amp; 分布式）</li>
+<li>不经意过滤（filter）</li>
+<li>不经意聚合（group）</li>
+<li>不经意连接（join）</li>
+</ul>
+<h4 id="查询规划">查询规划</h4>
+<ul>
+<li>成本模型：主要考虑不经意排序的次数</li>
+<li>查询优化</li>
+<li>混合敏感性：使用second path analysis来推断敏感表</li>
+</ul>
+<h3 id="OCQ">OCQ</h3>
+<p>多方不经意竞争分析的解决方案，而不是设计一个数据库</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220408145702098.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220408145702098.png" srcset="data:image/png;base64,666" alt="image-20220408145702098" style="zoom:60%;" />
+<h4 id="主要贡献：">主要贡献：</h4>
+<ul>
+<li>不经意查询算法</li>
+<li>schema-aware填充机制：防止两种数据泄露——enclave中的数据泄露和enclave外网络通信中的模式泄露</li>
+<li>不经意规划器：决定在哪执行操作以及如何执行</li>
+</ul>
+<h4 id="不经意算法：">不经意算法：</h4>
+<blockquote>
+<p>Single-machine oblivious sorting can be done using sorting networks that perform a fixed sequence of compare-exchange operations. Asymptotically more compare-exchange operations are needed for oblivious sorting than for traditional sorting. An oblivious compare-exchange can be implemented via a comparison followed by a conditional swap of two equal-length buffers depending on the result of the comparison.</p>
+<p>For data partitioned across multiple machines, oblivious sorting can be accomplished using a two-level sorting algorithm in which each partition is individually sorted using a sorting network, and records are sorted across partitions using an algorithm called column sort. Column sort consists of a fixed sequence of data exchange and intra-machine sorting<br>
+that uses only 4 shuffles, compared to O(nlog2n) shuffles for a sorting-network-based distributed sort.</p>
+</blockquote>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220408162528084.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220408162528084.png" srcset="data:image/png;base64,666" alt="image-20220408162528084" style="zoom:60%;" />
+<h4 id="Overview-v2">Overview</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220408163008436.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220408163008436.png" srcset="data:image/png;base64,666" alt="image-20220408163008436" style="zoom:60%;" />
+<h3 id="Oblivious-join">Oblivious join</h3>
+<ul>
+<li>
+<p>提出时间复杂度为 $O(nlog^2n+mlogm)$ 的不经意equi-join算法，其中 $n$ 是输入表大小之和， $m$ 是输出表大小</p>
+<ul>
+<li>equi-join是指根据相等的条件来join两张表</li>
+</ul>
+</li>
+<li>
+<p>该算法只依赖于能够在加密数据上支持sorting network的计算模型</p>
+</li>
+<li>
+<p>不隐藏输出大小和运行时间</p>
+</li>
+</ul>
+<h4 id="在加密数据上进行计算">在加密数据上进行计算</h4>
+<ul>
+<li>Outsourced External Memory</li>
+<li>Secure Cryptographic Coprocessors</li>
+<li>TEE</li>
+<li>Secure Multiparty Computation</li>
+<li>Fully Homomorphic Encryption</li>
+</ul>
+<h4 id="不经意性划分">不经意性划分</h4>
+<ul>
+<li>Level 1：对公共内存的访问是不经意的，但需要非常数量的本地内存来执行non-oblivious计算</li>
+<li>Level 2：对公共内存的访问是不经意的，且需要的本地内存大小是一个常数
+<ul>
+<li>访问程序的数据是不经意的，但是基于控制流访问的字节码没有隐藏。例如分支语句，条件本身是不经意的，但是跳转到的分支的字节码位置没有隐藏</li>
+</ul>
+</li>
+<li>Level 3：程序的控制流，甚至处理器执行的指令，都与输入无关</li>
+</ul>
+<p>将Level 2的程序转变为Level 3的程序需另外满足3条限制：</p>
+<ol>
+<li>循环次数必须是常数（因为若根据变量来定循环次数，会很难隐藏执行循环的时间）</li>
+<li>任何变量执行的最大分支数是一个常数</li>
+<li>若一个程序暴露输出长度 $m$ ，则这一定在分配了 $m_0\in\Omega(m)$ 的内存之后</li>
+</ol>
+<h4 id="Overview-v3">Overview</h4>
+<ul>
+<li>输入两张未排序的表 $T_1$ 和 $T_2$ ，分别包含 $n_1$ 和 $n_2$ 对 $(j,d)$ ，其中 $j$ 表示参与join条件判断的属性， $d$ 是其他属性。输出记为 $T_1\bowtie T_2={(d_1,d_2)|(j,d_1)\in T_1, (j,d_2)\in T_2}$</li>
+<li>使用固定大小的本地内存来实现Level 2的不经意性</li>
+</ul>
+<h4 id="算法">算法</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220409170313852.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220409170313852.png" srcset="data:image/png;base64,666" alt="image-20220409170313852" style="zoom:40%;" />
+<h3 id="ProDB">ProDB</h3>
+<h3 id="Oblix">Oblix</h3>
+<blockquote>
+<p>POSUP [41] and Oblix [50] explore oblivious indexes over encrypted data using specialized ORAM constructions as building blocks, but do not support general queries.【ObliDB】</p>
+</blockquote>
+<h3 id="Obladi">Obladi</h3>
+<blockquote>
+<p>Obladi [28] considers concurrent ACID transactions but does not support indexes and only processes operations in batches over discrete time epochs.【ObliDB】</p>
+</blockquote>
+<p>提供ACID事务</p>
+<h3 id="CODBS">CODBS</h3>
+<h3 id="Practical-Oblivious-Join">Practical Oblivious Join</h3>
+<h3 id="对比">对比</h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>数据库类型</th>
+<th>支持</th>
+<th>特点</th>
+<th>实现</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ObliDB</td>
+<td>关系型</td>
+<td>索引</td>
+<td></td>
+<td>TEE+ORAM</td>
+</tr>
+<tr>
+<td>Opaque</td>
+<td>Spark SQL</td>
+<td></td>
+<td>分布式</td>
+<td>TEE</td>
+</tr>
+<tr>
+<td>OCQ</td>
+<td>Opaque</td>
+<td></td>
+<td>分布式</td>
+<td>TEE</td>
+</tr>
+<tr>
+<td>O-Join</td>
+<td>/</td>
+<td></td>
+<td>高效</td>
+<td>TEE</td>
+</tr>
+<tr>
+<td>ProDB</td>
+<td></td>
+<td></td>
+<td></td>
+<td>TEE+ORAM</td>
+</tr>
+<tr>
+<td>Oblix</td>
+<td></td>
+<td>索引</td>
+<td></td>
+<td>ORAM</td>
+</tr>
+<tr>
+<td>Obladi</td>
+<td>kv数据库</td>
+<td>事务</td>
+<td></td>
+<td>ORAM</td>
+</tr>
+<tr>
+<td>CODBS</td>
+<td>关系型(PostgresSQL)</td>
+<td></td>
+<td></td>
+<td>ORAM</td>
+</tr>
+<tr>
+<td>Practical O-Join</td>
+<td></td>
+<td></td>
+<td></td>
+<td>ORAM</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="POSUP">POSUP</h3>
+<blockquote>
+<p>POSUP [41] and Oblix [50] explore oblivious indexes over encrypted data using specialized ORAM constructions as building blocks, but do not support general queries.【ObliDB】</p>
+</blockquote>
+<p>使用Intel SGX开发不经意数据结构，在大数据集上提供实用的不经意搜索/更新操作（与可搜索加密相关，与数据库关系不大）</p>
+<h2 id="不经意性验证">不经意性验证</h2>
+<h3 id="Memory-trace-oblivious-program-execution">Memory trace oblivious program execution</h3>
+<h2 id="KV数据库">KV数据库</h2>
+<h3 id="EdgelessDB">EdgelessDB</h3>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2022年4月13日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sgx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sgx</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/db/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>db</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2022/04/28/learning-notes/mit-6.824/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>MIT 6.824 Distributed Systems 学习笔记</p>
+          <p class='content'>Paper Reading
+MapReduce
+一个编程模型，用于大规模并行计算，以及采用re-execution进行容错处理
+
+$Map$：输入键值对，输出一系列中间键值对，并将相同的中间键排...</p>
+        </a>
+      
+      
+        <a class='next' href='/2022/03/20/learning-notes/cryptography/'>
+          <p class='title'>Introduction To Modern Cryptography笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Chapter 1: Introduction
+1.2 对称加密Setting
+
+Kerckhoffs’ principle：要求加密算法的安全性只依赖于密钥的安全性，而加解密算法都应当可以公开...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6"><span class="toc-text">不经意数据库相关研究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ObliDB"><span class="toc-text">ObliDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%EF%BC%9A"><span class="toc-text">威胁模型：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%BF%9D%E8%AF%81%EF%BC%9A"><span class="toc-text">安全保证：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview%EF%BC%9A"><span class="toc-text">Overview：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88"><span class="toc-text">存储方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Opaque"><span class="toc-text">Opaque</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%BF%9D%E8%AF%81"><span class="toc-text">安全保证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">不经意执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%92"><span class="toc-text">查询规划</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OCQ"><span class="toc-text">OCQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE%EF%BC%9A"><span class="toc-text">主要贡献：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="toc-text">不经意算法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v2"><span class="toc-text">Overview</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oblivious-join"><span class="toc-text">Oblivious join</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-text">在加密数据上进行计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%80%A7%E5%88%92%E5%88%86"><span class="toc-text">不经意性划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v3"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-text">算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ProDB"><span class="toc-text">ProDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oblix"><span class="toc-text">Oblix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Obladi"><span class="toc-text">Obladi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CODBS"><span class="toc-text">CODBS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Oblivious-Join"><span class="toc-text">Practical Oblivious Join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-text">对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POSUP"><span class="toc-text">POSUP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="toc-text">不经意性验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-trace-oblivious-program-execution"><span class="toc-text">Memory trace oblivious program execution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KV%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">KV数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EdgelessDB"><span class="toc-text">EdgelessDB</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="论文阅读-Oblivious Database相关";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

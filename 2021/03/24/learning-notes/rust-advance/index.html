@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>Rust高级特性 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="rust">
+  
+
+  
+    <meta name="description" content="Rust高级特性">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Rust高级特性
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Notes/">Notes</a><span class="sep"></span><a class="category-link" href="/categories/Rust/">Rust</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:17:07+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：9.7k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：41分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Rust高级特性" data-path="/2021/03/24/learning-notes/rust-advance/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h3 id="闭包">闭包</h3>
+<p>在函数中返回闭包：</p>
+<ul>
+<li>
+<p>为了从函数返回一些东西，Rust 需要知道返回类型的大小，而不能直接返回一个trait，因此可以返回一个Box指针</p>
+</li>
+<li>
+<p>在函数中定义的变量放入闭包中返回，会因为移出作用域而失效，因此采用move关键字使得闭包获得它环境的所有权</p>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">factory</span></span>() -&gt; <span class="built_in">Box</span>&lt;<span class="built_in">Fn</span>(<span class="built_in">i32</span>) -&gt; <span class="built_in">i32</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> num = <span class="number">5</span>;</span><br><span class="line">    <span class="built_in">Box</span>::new(<span class="keyword">move</span> |x| x + num)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> f = factory();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> answer = f(<span class="number">1</span>);</span><br><span class="line">    <span class="built_in">assert_eq!</span>(<span class="number">6</span>, answer);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通用函数调用">通用函数调用</h3>
+<p>不同的trait中有同名函数：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Foo</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">f</span></span>(&amp;<span class="keyword">self</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Bar</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">f</span></span>(&amp;<span class="keyword">self</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Baz</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Foo <span class="keyword">for</span> Baz &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">f</span></span>(&amp;<span class="keyword">self</span>) &#123; <span class="built_in">println!</span>(<span class="string">&quot;Baz’s impl of Foo&quot;</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Bar <span class="keyword">for</span> Baz &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">f</span></span>(&amp;<span class="keyword">self</span>) &#123; <span class="built_in">println!</span>(<span class="string">&quot;Baz’s impl of Bar&quot;</span>); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> b = Baz;</span><br><span class="line"><span class="comment">// b.f();	// 产生歧义，不能执行</span></span><br><span class="line">Foo::f(&amp;b);</span><br><span class="line">Bar::f(&amp;b);</span><br></pre></td></tr></table></figure>
+<p>结构体本身和trait中有同名函数，使用 <code>&lt;Type as Trait&gt;</code> 指明用的是哪个trait中的函数：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Foo</span></span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">foo</span></span>() -&gt; <span class="built_in">i32</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Bar</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Bar &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">foo</span></span>() -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">        <span class="number">20</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Foo <span class="keyword">for</span> Bar &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">foo</span></span>() -&gt; <span class="built_in">i32</span> &#123;</span><br><span class="line">        <span class="number">10</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="built_in">assert_eq!</span>(<span class="number">10</span>, &lt;Bar <span class="keyword">as</span> Foo&gt;::foo());</span><br><span class="line">    <span class="built_in">assert_eq!</span>(<span class="number">20</span>, Bar::foo());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="包-crate-和模块-module">包(crate)和模块(module)</h3>
+<p>基本调用：</p>
+<ul>
+<li>
+<p>结构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">foo</span><br><span class="line">├── Cargo.toml</span><br><span class="line">└── src</span><br><span class="line">    └── aaa.rs</span><br><span class="line">    └── main.rs</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>aaa.rs</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">print_aaa</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, <span class="number">25</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>main.rs</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mod</span> aaa;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> self::aaa::print_aaa;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span> </span>() &#123;</span><br><span class="line">    print_aaa();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="多层模块">多层模块</h4>
+<ol>
+<li>优先查找 <code>xxx.rs</code> 文件
+<ol>
+<li><code>main.rs</code>、<code>lib.rs</code>、<code>mod.rs</code>中的<code>mod xxx</code> ： 默认优先查找同级目录下的 <code>xxx.rs</code> 文件；</li>
+<li>其他文件<code>yyy.rs</code>中的<code>mod xxx</code> ：默认优先查找同级目录的<code>yyy</code>目录下的 <code>xxx.rs</code> 文件；</li>
+</ol>
+</li>
+<li>如果 <code>xxx.rs</code> 不存在，则查找 <code>xxx/mod.rs</code> 文件，即 <code>xxx</code> 目录下的 <code>mod.rs</code> 文件。</li>
+</ol>
+<p><strong>例子</strong>：</p>
+<ul>
+<li>
+<p>结构：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">src</span><br><span class="line">├── a</span><br><span class="line">│   ├── b</span><br><span class="line">│   │   ├── c</span><br><span class="line">│   │   │   ├── d.rs</span><br><span class="line">│   │   │   └── mod.rs</span><br><span class="line">│   │   └── mod.rs</span><br><span class="line">│   └── mod.rs</span><br><span class="line">└── main.rs</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>a/b/c/d.rs</code>：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">print_ddd</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;i am ddd.&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>a/b/c/mod.rs</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> d;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>a/b/mod.rs</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> c;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>a/mod.rs</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> b;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>main.rs</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mod</span> a;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> self::a::b::c::d;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    d::print_ddd();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>**注：**若在 <code>a/mod.rs</code> 中进行重导出(Re-exporting)，即：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="keyword">mod</span> b;</span><br><span class="line"><span class="keyword">pub</span> <span class="keyword">use</span> b::c::d;</span><br></pre></td></tr></table></figure>
+<p>则可以直接在 <code>main.rs</code> 中使用 <code>use a::d;</code> 来调用</p>
+<h4 id="路径">路径</h4>
+<p><code>self</code> 的含义：</p>
+<ol>
+<li><code>use self::xxx</code> 表示，加载当前模块中的 <code>xxx</code>。此时 self 可省略；</li>
+<li><code>use xxx::&#123;self, yyy&#125;</code>，表示，加载当前路径下模块 <code>xxx</code> 本身，以及模块 <code>xxx</code> 下的 <code>yyy</code>；</li>
+</ol>
+<p><code>super</code> 表示父模块：<code>use super::xxx;</code> 表示引用父模块中的 <code>xxx</code></p>
+<h3 id="数组转基本类型">数组转基本类型</h3>
+<p>将包含4个u8的数组转换为u32类型</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem;</span><br><span class="line"></span><br><span class="line"><span class="keyword">unsafe</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> a = [<span class="number">0u8</span>, <span class="number">0u8</span>, <span class="number">0u8</span>, <span class="number">0u8</span>];</span><br><span class="line">    <span class="keyword">let</span> b = mem::transmute::&lt;[<span class="built_in">u8</span>; <span class="number">4</span>], <span class="built_in">u32</span>&gt;(a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="关联类型">关联类型</h3>
+<p>将多个类型归为一类，如下，构建一个图(Graph)，需要的类型包括点(Node)和边(Edge)</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Graph</span></span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="title">N</span></span>;</span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="title">E</span></span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">has_edge</span></span>(&amp;<span class="keyword">self</span>, &amp;Self::N, &amp;Self::N) -&gt; <span class="built_in">bool</span>;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">edges</span></span>(&amp;<span class="keyword">self</span>, &amp;Self::N) -&gt; <span class="built_in">Vec</span>&lt;Self::E&gt;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Node</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Edge</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">MyGraph</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span> Graph <span class="keyword">for</span> MyGraph &#123;</span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="title">N</span></span> = Node;</span><br><span class="line">    <span class="class"><span class="keyword">type</span> <span class="title">E</span></span> = Edge;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">has_edge</span></span>(&amp;<span class="keyword">self</span>, n1: &amp;Node, n2: &amp;Node) -&gt; <span class="built_in">bool</span> &#123;</span><br><span class="line">        <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">edges</span></span>(&amp;<span class="keyword">self</span>, n: &amp;Node) -&gt; <span class="built_in">Vec</span>&lt;Edge&gt; &#123;</span><br><span class="line">        <span class="built_in">Vec</span>::new()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> graph = MyGraph;</span><br><span class="line"><span class="keyword">let</span> obj = <span class="built_in">Box</span>::new(graph) <span class="keyword">as</span> <span class="built_in">Box</span>&lt;Graph&lt;N=Node, E=Edge&gt;&gt;;</span><br></pre></td></tr></table></figure>
+<h3 id="宏">宏</h3>
+<p>$开头的变量是语法元素，指示符用于限定愈发元素的类型，包括：</p>
+<ul>
+<li>ident: 标识符，用来表示函数或变量名</li>
+<li>expr: 表达式</li>
+<li>block: 代码块，用花括号包起来的多个语句</li>
+<li>pat: 模式，普通模式匹配（非宏本身的模式）中的模式，例如 <code>Some(t)</code>, <code>(3, 'a', _)</code></li>
+<li>path: 路径，注意这里不是操作系统中的文件路径，而是用双冒号分隔的限定名(qualified name)，如 <code>std::cmp::PartialOrd</code></li>
+<li>tt: 单个语法树</li>
+<li>ty: 类型，语义层面的类型，如 <code>i32</code>, <code>char</code></li>
+<li>item: 条目，</li>
+<li>meta: 元条目</li>
+<li>stmt: 单条语句，如 <code>let a = 42;</code></li>
+</ul>
+<h4 id="重复">重复</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">macro_rules!</span> vector &#123;</span><br><span class="line">    ($($x:expr),*) =&gt; &#123;</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut</span> temp_vec = <span class="built_in">Vec</span>::new();</span><br><span class="line">            $(temp_vec.push($x);)*</span><br><span class="line">            temp_vec</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">let</span> a = vector![<span class="number">1</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">8</span>];</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, a);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="递归">递归</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">macro_rules!</span> find_min &#123;</span><br><span class="line">    ($x:expr) =&gt; ($x);</span><br><span class="line">    ($x:expr, $($y:expr),+) =&gt; (</span><br><span class="line">        std::cmp::min($x, find_min!($($y),+))</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, find_min!(<span class="number">1u32</span>));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, find_min!(<span class="number">1u32</span> + <span class="number">2</span> , <span class="number">2u32</span>));</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, find_min!(<span class="number">5u32</span>, <span class="number">2u32</span> * <span class="number">3</span>, <span class="number">4u32</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="导入和导出">导入和导出</h4>
+<p>宏导入导出用 <code>#[macro_use]</code> 和 <code>#[macro_export]</code>。父模块中定义的宏对其下的子模块是可见的，要想子模块中定义的宏在其后面的父模块中可用，需要使用 <code>#[macro_use]</code>。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">macro_rules!</span> m1 &#123; () =&gt; (()) &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 宏 m1 在这里可用</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">mod</span> foo &#123;</span><br><span class="line">    <span class="comment">// 宏 m1 在这里可用</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">#[macro_export]</span></span><br><span class="line">    <span class="built_in">macro_rules!</span> m2 &#123; () =&gt; (()) &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 宏 m1 和 m2 在这里可用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 宏 m1 在这里可用</span></span><br><span class="line"><span class="meta">#[macro_export]</span></span><br><span class="line"><span class="built_in">macro_rules!</span> m3 &#123; () =&gt; (()) &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 宏 m1 和 m3 在这里可用</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#[macro_use]</span></span><br><span class="line"><span class="keyword">mod</span> bar &#123;</span><br><span class="line">    <span class="comment">// 宏 m1 和 m3 在这里可用</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">macro_rules!</span> m4 &#123; () =&gt; (()) &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 宏 m1, m3, m4 在这里均可用</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 宏 m1, m3, m4 均可用</span></span><br></pre></td></tr></table></figure>
+<p>crate 之间只有被标为 <code>#[macro_export]</code> 的宏可以被其它 crate 导入。假设上面例子是 <code>foo</code> crate 中的部分代码，则只有 <code>m2</code> 和 <code>m3</code> 可以被其它 crate 导入。导入方式是在 <code>extern crate foo;</code> 前面加上 <code>#[macro_use]</code></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[macro_use]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> foo;</span><br><span class="line"><span class="comment">// foo 中 m2, m3 都被导入</span></span><br></pre></td></tr></table></figure>
+<p>如果只想导入 <code>foo</code> crate 中某个宏，比如 <code>m3</code>，就给 <code>#[macro_use]</code> 加上参数</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[macro_use(m3)]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> foo;</span><br><span class="line"><span class="comment">// foo 中只有 m3 被导入</span></span><br></pre></td></tr></table></figure>
+<h3 id="unsafe">unsafe</h3>
+<ul>
+<li>解引用一个裸指针<code>*const T</code>和<code>*mut T</code></li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> x = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">let</span> raw = &amp;x <span class="keyword">as</span> *<span class="keyword">const</span> <span class="built_in">i32</span>;</span><br><span class="line"><span class="keyword">let</span> points_at = <span class="keyword">unsafe</span> &#123; *raw &#125;;</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;raw points at &#123;&#125;&quot;</span>, points_at);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>读写一个可变的静态变量<code>static mut</code></li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">mut</span> N: <span class="built_in">i32</span> = <span class="number">5</span>;</span><br><span class="line"><span class="keyword">unsafe</span> &#123;</span><br><span class="line">    N += <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;N: &#123;&#125;&quot;</span>, N);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>调用一个不安全函数</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">unsafe</span> <span class="function"><span class="keyword">fn</span> <span class="title">foo</span></span>() &#123;</span><br><span class="line">    <span class="comment">//实现</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        foo();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="迭代器">迭代器</h3>
+<h4 id="消费者">消费者</h4>
+<ul>
+<li>
+<p>collect()</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> one_to_one_hundred = (<span class="number">1</span>..<span class="number">101</span>).collect::&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;&gt;();</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>find()</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> greater_than_forty_two = (<span class="number">0</span>..<span class="number">100</span>).find(|x| *x &gt; <span class="number">42</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>fold()</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算从迭代器的第0个元素开始，所有元素的累加</span></span><br><span class="line"><span class="keyword">let</span> sum = (<span class="number">1</span>..<span class="number">4</span>).fold(<span class="number">0</span>, |sum, x| sum + x);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="迭代适配器">迭代适配器</h4>
+<ul>
+<li>
+<p>map</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>..<span class="number">100</span>).map(|x| <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, x));</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>take</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>..).take(<span class="number">5</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>filter</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> (<span class="number">1</span>..<span class="number">100</span>).filter(|&amp;x| x % <span class="number">2</span> == <span class="number">0</span>) &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;&#125;&quot;</span>, i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="FFI">FFI</h3>
+<h4 id="调用ffi函数">调用ffi函数</h4>
+<h5 id="引入libc库">引入libc库</h5>
+<p><code>Cargo.toml</code>:</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">libc</span> = <span class="string">&quot;0.2.86&quot;</span></span><br></pre></td></tr></table></figure>
+<p>rs文件：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> libc</span><br></pre></td></tr></table></figure>
+<h5 id="声明ffi函数">声明ffi函数</h5>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> libc::c_int;</span><br><span class="line"><span class="keyword">use</span> libc::c_void;</span><br><span class="line"><span class="keyword">use</span> libc::size_t;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[link(name = <span class="meta-string">&quot;yourlib&quot;</span>)]</span></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">your_func</span></span>(arg1: c_int, arg2: *<span class="keyword">mut</span> c_void) -&gt; size_t; <span class="comment">// 声明ffi函数</span></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">your_func2</span></span>(arg1: c_int, arg2: *<span class="keyword">mut</span> c_void) -&gt; size_t;</span><br><span class="line">    <span class="keyword">static</span> ffi_global: c_int; <span class="comment">// 声明ffi全局变量</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="调用ffi函数-v2">调用ffi函数</h5>
+<p>由于此函数来自外部的c库，所以rust并不能保证该函数的安全性。因此，调用任何一个<code>ffi</code>函数需要一个<code>unsafe</code>块。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result: size_t = <span class="keyword">unsafe</span> &#123;</span><br><span class="line">    your_func(<span class="number">1</span> <span class="keyword">as</span> c_int, <span class="built_in">Box</span>::into_raw(<span class="built_in">Box</span>::new(<span class="number">3</span>)) <span class="keyword">as</span> *<span class="keyword">mut</span> c_void)</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h5 id="封装unsafe，暴露安全接口">封装unsafe，暴露安全接口</h5>
+<p>在一个叫<code>ffi.rs</code>之类的文件中写上所有的<code>extern块</code>用以声明ffi函数。在一个叫<code>wrapper.rs</code>之类的文件中进行包装：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// ffi.rs</span></span><br><span class="line"><span class="meta">#[link(name = <span class="meta-string">&quot;yourlib&quot;</span>)]</span></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">your_func</span></span>(arg1: c_int, arg2: *<span class="keyword">mut</span> c_void) -&gt; size_t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// wrapper.rs</span></span><br><span class="line"><span class="comment">// 对外暴露(pub use)your_func_wrapper函数即可</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">your_func_wrapper</span></span>(arg1: <span class="built_in">i32</span>, arg2: &amp;<span class="keyword">mut</span> <span class="built_in">i32</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123; your_func(<span class="number">1</span> <span class="keyword">as</span> c_int, <span class="built_in">Box</span>::into_raw(<span class="built_in">Box</span>::new(<span class="number">3</span>)) <span class="keyword">as</span> *<span class="keyword">mut</span> c_void) &#125; <span class="keyword">as</span> <span class="built_in">isize</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="数据结构对应">数据结构对应</h4>
+<h5 id="结构体-Enum">结构体/Enum</h5>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="comment">// 如果使用#[repr(C, packed)]将不为此结构体填充空位用以对齐</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RustObject</span></span> &#123;</span><br><span class="line">    a: c_int,</span><br><span class="line">    <span class="comment">// other members</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">SomeEnum</span></span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="回调函数">回调函数</h5>
+<p>将一个rust函数转变成c可执行的回调函数非常简单：在函数前面加上<code>extern &quot;C&quot;</code>:</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">callback</span></span>(a: c_int) &#123; <span class="comment">// 这个函数是传给c调用的</span></span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;hello &#123;&#125;!&quot;</span>, a);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[link(name = <span class="meta-string">&quot;yourlib&quot;</span>)]</span></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line">   <span class="function"><span class="keyword">fn</span> <span class="title">run_callback</span></span>(data: <span class="built_in">i32</span>, cb: <span class="keyword">extern</span> <span class="function"><span class="keyword">fn</span></span>(<span class="built_in">i32</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="comment">// 调用c库中定义的run_callback函数，而run_callback函数中的回调函数callback则是在rust中定义的</span></span><br><span class="line">        run_callback(<span class="number">1</span> <span class="keyword">as</span> <span class="built_in">i32</span>, callback); <span class="comment">// 打印 1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对应c库代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*rust_callback)</span><span class="params">(<span class="keyword">int32_t</span>)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">run_callback</span><span class="params">(<span class="keyword">int32_t</span> data, rust_callback callback)</span> </span>&#123;</span><br><span class="line">    callback(data); <span class="comment">// 调用传过来的回调函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="字符串">字符串</h5>
+<p><strong>CStr</strong></p>
+<p>对于产生于c的字符串(如在c程序中使用<code>malloc</code>产生)，rust使用<code>CStr</code>来表示，和<code>str</code>类型对应，表明我们并不拥有这个字符串</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::ffi::CStr;</span><br><span class="line"><span class="keyword">use</span> libc::c_char;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[link(name = <span class="meta-string">&quot;yourlib&quot;</span>)]</span></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">char_func</span></span>() -&gt; *<span class="keyword">mut</span> c_char;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">get_string</span></span>() -&gt; <span class="built_in">String</span> &#123;</span><br><span class="line">    <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> raw_string: *<span class="keyword">mut</span> c_char = char_func();</span><br><span class="line">        <span class="keyword">let</span> cstr = CStr::from_ptr(my_string());</span><br><span class="line">        cstr.to_string_lossy().into_owned()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里<code>get_string</code>使用<code>CStr::from_ptr</code>从c的<code>char*</code>获取一个字符串，并且转化成了一个String.</p>
+<ul>
+<li>注意to_string_lossy()的使用：因为在rust中一切字符都是采用utf8表示的而c不是， 因此如果要将c的字符串转换到rust字符串的话，需要检查是否都为有效<code>utf-8</code>字节。<code>to_string_lossy</code>将返回一个<code>Cow&lt;str&gt;</code>类型， 即如果c字符串都为有效<code>utf-8</code>字节，则将其0开销地转换成一个<code>&amp;str</code>类型，若不是，rust会将其拷贝一份并且将非法字节用<code>U+FFFD</code>填充。</li>
+</ul>
+<p><strong>CString</strong></p>
+<p>和<code>CStr</code>表示从c中来，rust不拥有归属权的字符串相反，<code>CString</code>表示由rust分配，用以传给c程序的字符串。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::ffi::CString;</span><br><span class="line"><span class="keyword">use</span> std::os::raw::c_char;</span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">my_printer</span></span>(s: *<span class="keyword">const</span> c_char);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> c_to_print = CString::new(<span class="string">&quot;Hello, world!&quot;</span>).unwrap();</span><br><span class="line"><span class="keyword">unsafe</span> &#123;</span><br><span class="line">    my_printer(c_to_print.as_ptr()); <span class="comment">// 使用 as_ptr 将CString转化成char指针传给c函数</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意c字符串中并不能包含<code>\0</code>字节(因为<code>\0</code>用来表示c字符串的结束符),因此<code>CString::new</code>将返回一个<code>Result</code>， 如果输入有<code>\0</code>的话则为<code>Error(NulError)</code>。</p>
+<h5 id="空指针">空指针</h5>
+<p>另一种很常见的情况是需要一个空指针。请使用<code>0 as *const _</code> 或者 <code>std::ptr::null()</code>来生产一个空指针。</p>
+<h3 id="将Rust编译成库">将Rust编译成库</h3>
+<h4 id="调用约定和mangle">调用约定和mangle</h4>
+<p>由于rust支持重载，所以函数名会被编译器进行混淆，就像c++一样。因此当你的函数被编译完毕后，函数名会带上一串表明函数签名的字符串。</p>
+<p>比如：<code>fn test() &#123;&#125;</code>会变成<code>_ZN4test20hf06ae59e934e5641haaE</code>. 这样的函数名为ffi调用带来了困难，因此，rust提供了<code>#[no_mangle]</code>属性为函数修饰。 对于带有<code>#[no_mangle]</code>属性的函数，rust编译器不会为它进行函数名混淆。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">test</span></span>() &#123;&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用Any">使用Any</h4>
+<p>由于在跨越<code>ffi</code>过程中，<code>rust</code>类型信息会丢失，比如当用<code>rust</code>提供一个<code>OpaqueStruct</code>给别的语言时：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::mem::transmute;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Foo</span></span>&lt;T&gt; &#123;</span><br><span class="line">  t: T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">new_foo_vec</span></span>() -&gt; *<span class="keyword">const</span> c_void &#123;</span><br><span class="line">    <span class="built_in">Box</span>::into_raw(<span class="built_in">Box</span>::new(Foo &#123;t: <span class="built_in">vec!</span>[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;)) <span class="keyword">as</span> *<span class="keyword">const</span> c_void</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">new_foo_int</span></span>() -&gt; *<span class="keyword">const</span> c_void &#123;</span><br><span class="line">    <span class="built_in">Box</span>::into_raw(<span class="built_in">Box</span>::new(Foo &#123;t: <span class="number">1</span>&#125;)) <span class="keyword">as</span> *<span class="keyword">const</span> c_void</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">push_foo_element</span></span>(t: &amp;<span class="keyword">mut</span> Foo&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;&gt;) &#123;</span><br><span class="line">    t.t.push(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">push_foo_element_c</span></span>(foo: *<span class="keyword">mut</span> c_void)&#123;</span><br><span class="line">    <span class="keyword">let</span> foo2 = <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        &amp;<span class="keyword">mut</span> *(foo <span class="keyword">as</span> *<span class="keyword">mut</span> Foo&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;&gt;) <span class="comment">// 这么确定是Foo&lt;Vec&lt;i32&gt;&gt;? 万一foo是Foo&lt;i32&gt;怎么办？</span></span><br><span class="line">    &#125;;</span><br><span class="line">    push_foo_element(foo3);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上代码中完全不知道<code>foo</code>是一个什么东西。安全也无从说起了，只能靠文档。 因此在<code>ffi</code>调用时往往会丧失掉<code>rust</code>类型系统带来的方便和安全。在这里提供一个小技巧:使用<code>Box&lt;Box&lt;Any&gt;&gt;</code>来包装你的类型。</p>
+<p><code>rust</code>的<code>Any</code>类型为<code>rust</code>带来了运行时反射的能力，使用<code>Any</code>跨越<code>ffi</code>边界将极大提高程序安全性。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::any::Any;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Debug)]</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Foo</span></span>&lt;T&gt; &#123;</span><br><span class="line">  t: T</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">new_foo_vec</span></span>() -&gt; *<span class="keyword">const</span> c_void &#123;</span><br><span class="line">    <span class="built_in">Box</span>::into_raw(<span class="built_in">Box</span>::new(<span class="built_in">Box</span>::new(Foo &#123;t: <span class="built_in">vec!</span>[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]&#125;) <span class="keyword">as</span> <span class="built_in">Box</span>&lt;Any&gt;)) <span class="keyword">as</span> *<span class="keyword">const</span> c_void</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">new_foo_int</span></span>() -&gt; *<span class="keyword">const</span> c_void &#123;</span><br><span class="line">    <span class="built_in">Box</span>::into_raw(<span class="built_in">Box</span>::new(<span class="built_in">Box</span>::new(Foo &#123;t: <span class="number">1</span>&#125;) <span class="keyword">as</span> <span class="built_in">Box</span>&lt;Any&gt;)) <span class="keyword">as</span> *<span class="keyword">const</span> c_void</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">push_foo_element</span></span>(t: &amp;<span class="keyword">mut</span> Foo&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;&gt;) &#123;</span><br><span class="line">    t.t.push(<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[no_mangle]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="string">&quot;C&quot;</span> <span class="function"><span class="keyword">fn</span> <span class="title">push_foo_element_c</span></span>(foo: *<span class="keyword">mut</span> c_void)&#123;</span><br><span class="line">    <span class="keyword">let</span> foo2 = <span class="keyword">unsafe</span> &#123;</span><br><span class="line">        &amp;<span class="keyword">mut</span> *(foo <span class="keyword">as</span> *<span class="keyword">mut</span> <span class="built_in">Box</span>&lt;Any&gt;)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">let</span> foo3: <span class="built_in">Option</span>&lt;&amp;<span class="keyword">mut</span> Foo&lt;<span class="built_in">Vec</span>&lt;<span class="built_in">i32</span>&gt;&gt;&gt; = foo2.downcast_mut(); <span class="comment">// 如果foo2不是*const Box&lt;Foo&lt;Vec&lt;i32&gt;&gt;&gt;, 则foo3将会是None</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> <span class="literal">Some</span>(value) = foo3 &#123;</span><br><span class="line">      push_foo_element(value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样一来，就非常不容易出错了。</p>
+<h3 id="属性">属性</h3>
+<p>属性只能应用于Item（元素、项）， 例如 <code>use</code> 声明、模块、函数等。</p>
+<p>在Rust中，Item是Crate（库）的一个组成部分。它包括</p>
+<ul>
+<li><code>extern crate</code>声明</li>
+<li><code>use</code>声明</li>
+<li>模块（模块是一个Item的容器）</li>
+<li>函数</li>
+<li><code>type</code>定义</li>
+<li>结构体定义</li>
+<li>枚举类型定义</li>
+<li>常量定义</li>
+<li>静态变量定义</li>
+<li>Trait定义</li>
+<li>实现（Impl）</li>
+</ul>
+<p>这些Item是可以互相嵌套的，比如在一个函数中定义一个静态变量、在一个模块中使用<code>use</code>声明或定义一个结构体。这些定义在某个作用域里面的Item跟你把 它写到最外层作用域所实现的功能是一样的，只不过你要访问这些嵌套的Item就必须使用路径（Path），如<code>a::b::c</code>。但一些外层的Item不允许你使用路径去访问它的子Item，比如函数，在函数中定义的静态变量、结构体等，是不可以通过路径来访问的。</p>
+<h4 id="属性语法">属性语法</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[name(arg1, arg2 = <span class="meta-string">&quot;param&quot;</span>)]</span></span><br></pre></td></tr></table></figure>
+<p>它是由一个<code>#</code>开启，后面紧接着一个<code>[]</code>，里面便是属性的具体内容，它可以有如下几种写法：</p>
+<ul>
+<li>单个标识符代表的属性名，如<code>#[unix]</code></li>
+<li>单个标识符代表属性名，后面紧跟着一个<code>=</code>，然后再跟着一个字面量（Literal），组成一个键值对，如<code>#[link(name = &quot;openssl&quot;)]</code></li>
+<li>单个标识符代表属性名，后面跟着一个逗号隔开的子属性的列表，如<code>#[cfg(and(unix, not(windows)))]</code></li>
+</ul>
+<p>在<code>#</code>后面还可以紧跟一个<code>!</code>，比如<code>#![feature(box_syntax)]</code>，这表示这个属性是应用于它所在的这个Item。而如果没有<code>!</code>则表示这个属性仅应用于紧接着的那个Item。</p>
+<p>例如：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 为这个crate开启box_syntax这个新特性</span></span><br><span class="line"><span class="meta">#![feature(box_syntax)]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 这是一个单元测试函数</span></span><br><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">test_foo</span></span>() &#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 条件编译，只会在编译目标为Linux时才会生效</span></span><br><span class="line"><span class="meta">#[cfg(target_os=<span class="meta-string">&quot;linux&quot;</span>)]</span></span><br><span class="line"><span class="keyword">mod</span> bar &#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 为以下的这个type定义关掉non_camel_case_types的编译警告</span></span><br><span class="line"><span class="meta">#[allow(non_camel_case_types)]</span></span><br><span class="line"><span class="class"><span class="keyword">type</span> <span class="title">int8_t</span></span> = <span class="built_in">i8</span>;</span><br></pre></td></tr></table></figure>
+<h4 id="Crate的属性">Crate的属性</h4>
+<ul>
+<li>
+<p><code>crate_name</code> - 指定Crate的名字。如<code>#[crate_name = &quot;my_crate&quot;]</code>则可以让编译出的库名字为<code>libmy_crate.rlib</code>。</p>
+</li>
+<li>
+<p><code>crate_type</code> - 指定Crate的类型，有以下几种选择</p>
+<ul>
+<li><code>&quot;bin&quot;</code> - 编译为可执行文件；</li>
+<li><code>&quot;lib&quot;</code> - 编译为库；</li>
+<li><code>&quot;dylib&quot;</code> - 编译为动态链接库；</li>
+<li><code>&quot;staticlib&quot;</code> - 编译为静态链接库；</li>
+<li><code>&quot;rlib&quot;</code> - 编译为Rust特有的库文件，它是一种特殊的静态链接库格式，它里面会含有一些元数据供编译器使用，最终会静态链接到目标文件之中。</li>
+</ul>
+<p>例<code>#![crate_type = &quot;dylib&quot;]</code>。</p>
+</li>
+<li>
+<p><code>feature</code> - 可以开启一些不稳定特性，只可在nightly版的编译器中使用。</p>
+</li>
+<li>
+<p><code>no_builtins</code> - 去掉内建函数。</p>
+</li>
+<li>
+<p><code>no_main</code>- 不生成<code>main</code>这个符号，当你需要链接的库中已经定义了<code>main</code>函数时会用到。</p>
+</li>
+<li>
+<p><code>no_start</code> - 不链接自带的<code>native</code>库。</p>
+</li>
+<li>
+<p><code>no_std</code> - 不链接自带的<code>std</code>库。</p>
+</li>
+<li>
+<p><code>plugin</code> - 加载编译器插件，一般用于加载自定义的编译器插件库。用法是</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载foo, bar两个插件</span></span><br><span class="line"><span class="meta">#![plugin(foo, bar)]</span></span><br><span class="line"><span class="comment">// 或者给插件传入必要的初始化参数</span></span><br><span class="line"><span class="meta">#![plugin(foo(arg1, arg2))]</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>recursive_limit</code> - 设置在编译期最大的递归层级。比如自动解引用、递归定义的宏等。默认设置是<code>#![recursive_limit = &quot;64&quot;]</code></p>
+</li>
+</ul>
+<h4 id="模块的属性">模块的属性</h4>
+<ul>
+<li>
+<p><code>no_implicit_prelude</code> - 取消自动插入<code>use std::prelude::*</code>。</p>
+</li>
+<li>
+<p><code>path</code> - 设置此<code>mod</code>的文件路径。</p>
+<p>如声明<code>mod a;</code>，则寻找</p>
+<ul>
+<li>本文件夹下的<code>a.rs</code>文件</li>
+<li>本文件夹下的<code>a/mod.rs</code>文件</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[cfg(unix)]</span></span><br><span class="line"><span class="meta">#[path = <span class="meta-string">&quot;sys/unix.rs&quot;</span>]</span></span><br><span class="line"><span class="keyword">mod</span> sys;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(windows)]</span></span><br><span class="line"><span class="meta">#[path = <span class="meta-string">&quot;sys/windows.rs&quot;</span>]</span></span><br><span class="line"><span class="keyword">mod</span> sys;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="函数的属性">函数的属性</h4>
+<ul>
+<li><code>main</code> - 把这个函数作为入口函数，替代<code>fn main</code>，会被入口函数（Entry Point）调用。</li>
+<li><code>plugin_registrar</code> - 编写编译器插件时用，用于定义编译器插件的入口函数。</li>
+<li><code>start</code> - 把这个函数作为入口函数（Entry Point），改写 <code>start</code> language item。</li>
+<li><code>test</code> - 指明这个函数为单元测试函数，在非测试环境下不会被编译。</li>
+<li><code>should_panic</code> - 指明这个单元测试函数必然会panic。</li>
+<li><code>cold</code> - 指明这个函数很可能是不会被执行的，因此优化的时候特别对待它。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 把`my_main`作为主函数</span></span><br><span class="line"><span class="meta">#[main]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">my_main</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把`plugin_registrar`作为此编译器插件的入口函数</span></span><br><span class="line"><span class="meta">#[plugin_registrar]</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">plugin_registrar</span></span>(reg: &amp;<span class="keyword">mut</span> Registry) &#123;</span><br><span class="line">    reg.register_macro(<span class="string">&quot;rn&quot;</span>, expand_rn);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 把`entry_point`作为入口函数，不再执行标准库中的初始化流程</span></span><br><span class="line"><span class="meta">#[start]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">entry_point</span></span>(argc: <span class="built_in">isize</span>, argv: *<span class="keyword">const</span> *<span class="keyword">const</span> <span class="built_in">u8</span>) -&gt; <span class="built_in">isize</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 定义一个单元测试</span></span><br><span class="line"><span class="comment">// 这个单元测试一定会panic</span></span><br><span class="line"><span class="meta">#[test]</span></span><br><span class="line"><span class="meta">#[should_panic]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">my_test</span></span>() &#123;</span><br><span class="line">    <span class="built_in">panic!</span>(<span class="string">&quot;I expected to be panicked&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这个函数很可能是不会执行的，</span></span><br><span class="line"><span class="comment">// 所以优化的时候就换种方式</span></span><br><span class="line"><span class="meta">#[cold]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">unlikely_to_be_executed</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="全局静态变量的属性">全局静态变量的属性</h4>
+<ul>
+<li><code>thread_local</code> - 只可用于<code>static mut</code>，表示这个变量是thread local的。</li>
+</ul>
+<h4 id="FFI的属性">FFI的属性</h4>
+<p><code>extern</code>块可以应用以下属性</p>
+<ul>
+<li>
+<p><code>link_args</code> - 指定链接时给链接器的参数，平台和实现相关。</p>
+</li>
+<li>
+<p><code>link</code> - 说明这个块需要链接一个native库，它有以下参数：</p>
+<ul>
+<li><code>name</code> - 库的名字，比如<code>libname.a</code>的名字是<code>name</code>；</li>
+<li><code>kind</code> - 库的类型，它包括
+<ul>
+<li><code>dylib</code> - 动态链接库</li>
+<li><code>static</code> - 静态库</li>
+<li><code>framework</code> - OS X里的Framework</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[link(name = <span class="meta-string">&quot;readline&quot;</span>)]</span></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[link(name = <span class="meta-string">&quot;CoreFoundation&quot;</span>, kind = <span class="meta-string">&quot;framework&quot;</span>)]</span></span><br><span class="line"><span class="keyword">extern</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>在<code>extern</code>块里面，可以使用</p>
+<ul>
+<li><code>link_name</code> - 指定这个链接的外部函数的名字或全局变量的名字；</li>
+<li><code>linkage</code> - 对于全局变量，可以指定一些LLVM的链接类型（ <a target="_blank" rel="noopener" href="http://llvm.org/docs/LangRef.html#linkage-types">http://llvm.org/docs/LangRef.html#linkage-types</a> ）。</li>
+</ul>
+<p>对于<code>enum</code>类型，可以使用</p>
+<ul>
+<li><code>repr</code> - 目前接受<code>C</code>，<code>C</code>表示兼容C ABI。</li>
+</ul>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[repr(C)]</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">eType</span></span> &#123;</span><br><span class="line">    Operator,</span><br><span class="line">    Indicator,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于<code>struct</code>类型，可以使用</p>
+<ul>
+<li><code>repr</code> - 目前只接受<code>C</code>和<code>packed</code>，<code>C</code>表示结构体兼容C ABI，<code>packed</code>表示移除字段间的padding。</li>
+</ul>
+<h4 id="宏的属性">宏的属性</h4>
+<ul>
+<li>
+<p><code>macro_use</code> - 把模块或库中定义的宏导出来</p>
+<ul>
+<li>
+<p>应用于<code>mod</code>上，则把此模块内定义的宏导出到它的父模块中</p>
+</li>
+<li>
+<p>应用于<code>extern crate</code>上，则可以接受一个列表，如</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[macro_use(debug, trace)]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> log;</span><br></pre></td></tr></table></figure>
+<p>则可以只导入列表中指定的宏，若不指定则导入所有的宏。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><code>macro_reexport</code> - 应用于<code>extern crate</code>上，可以再把这些导入的宏再输出出去给别的库使用。</p>
+</li>
+<li>
+<p><code>macro_export</code> - 应于在宏上，可以使这个宏可以被导出给别的库使用。</p>
+</li>
+<li>
+<p><code>no_link</code> - 应用于<code>extern crate</code>上，表示即使我们把它里面的库导入进来了，但是不要把这个库链接到目标文件中。</p>
+</li>
+</ul>
+<h4 id="其他属性">其他属性</h4>
+<ul>
+<li>
+<p><code>export_function</code> - 用于静态变量或函数，指定它们在目标文件中的符号名。</p>
+</li>
+<li>
+<p><code>link_section</code> - 用于静态变量或函数，表示应该把它们放到哪个段中去。</p>
+</li>
+<li>
+<p><code>no_mangle</code> - 可以应用于任意的Item，表示取消对它们进行命名混淆，直接把它们的名字作为符号写到目标文件中。</p>
+</li>
+<li>
+<p><code>simd</code> - 可以用于元组结构体上，并自动实现了数值运算符，这些操作会生成相应的SIMD指令。</p>
+</li>
+<li>
+<p><code>doc</code> - 为这个Item绑定文档，跟<code>///</code>的功能一样，用法是</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[doc = <span class="meta-string">&quot;This is a doc&quot;</span>]</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Foo</span></span> &#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="条件编译属性">条件编译属性</h4>
+<p>有时候，我们想针对不同的编译目标来生成不同的代码，比如在编写跨平台模块时，针对Linux和Windows分别使用不同的代码逻辑。</p>
+<p>条件编译基本上就是使用<code>cfg</code>这个属性，直接看例子</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[cfg(target_os = <span class="meta-string">&quot;macos&quot;</span>)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">cross_platform</span></span>() &#123;</span><br><span class="line">    <span class="comment">// Will only be compiled on Mac OS, including Mac OS X</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[cfg(target_os = <span class="meta-string">&quot;windows&quot;</span>)]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">cross_platform</span></span>() &#123;</span><br><span class="line">    <span class="comment">// Will only be compiled on Windows</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 若条件`foo`或`bar`任意一个成立，则编译以下的Item</span></span><br><span class="line"><span class="meta">#[cfg(any(foo, bar))]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">need_foo_or_bar</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 针对32位的Unix系统</span></span><br><span class="line"><span class="meta">#[cfg(all(unix, target_pointer_width = <span class="meta-string">&quot;32&quot;</span>))]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">on_32bit_unix</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 若`foo`不成立时编译</span></span><br><span class="line"><span class="meta">#[cfg(not(foo))]</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">needs_not_foo</span></span>() &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中，<code>cfg</code>可接受的条件有</p>
+<ul>
+<li><code>debug_assertions</code> - 若没有开启编译优化时就会成立。</li>
+<li><code>target_arch = &quot;...&quot;</code> - 目标平台的CPU架构，包括但不限于<code>x86</code>, <code>x86_64</code>, <code>mips</code>, <code>powerpc</code>, <code>arm</code>或<code>aarch64</code>。</li>
+<li><code>target_endian = &quot;...&quot;</code> - 目标平台的大小端，包括<code>big</code>和<code>little</code>。</li>
+<li><code>target_env = &quot;...&quot;</code> - 表示使用的运行库，比如<code>musl</code>表示使用的是MUSL的libc实现, <code>msvc</code>表示使用微软的MSVC，<code>gnu</code>表示使用GNU的实现。 但在部分平台这个数据是空的。</li>
+<li><code>target_family = &quot;...&quot;</code> - 表示目标操作系统的类别，比如<code>windows</code>和<code>unix</code>。这个属性可以直接作为条件使用，如<code>#[unix]</code>，<code>#[cfg(unix)]</code>。</li>
+<li><code>target_os = &quot;...&quot;</code> - 目标操作系统，包括但不限于<code>windows</code>, <code>macos</code>, <code>ios</code>, <code>linux</code>, <code>android</code>, <code>freebsd</code>, <code>dragonfly</code>, <code>bitrig</code>, <code>openbsd</code>, <code>netbsd</code>。</li>
+<li><code>target_pointer_width = &quot;...&quot;</code> - 目标平台的指针宽度，一般就是<code>32</code>或<code>64</code>。</li>
+<li><code>target_vendor = &quot;...&quot;</code> - 生产商，例如<code>apple</code>, <code>pc</code>或大多数Linux系统的<code>unknown</code>。</li>
+<li><code>test</code> - 当启动了单元测试时（即编译时加了<code>--test</code>参数，或使用<code>cargo test</code>）。</li>
+</ul>
+<p>还可以根据一个条件去设置另一个条件，使用<code>cfg_attr</code>，如</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[cfg_attr(a, b)]</span></span><br></pre></td></tr></table></figure>
+<p>这表示若<code>a</code>成立，则这个就相当于<code>#[cfg(b)]</code>。</p>
+<p>条件编译属性只可以应用于Item，如果想应用在非Item中怎么办呢？可以使用<code>cfg!</code>宏，如</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">cfg!</span>(target_arch = <span class="string">&quot;x86&quot;</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">cfg!</span>(target_arch = <span class="string">&quot;x86_64&quot;</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> <span class="built_in">cfg!</span>(target_arch = <span class="string">&quot;mips&quot;</span>) &#123;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种方式不会产生任何运行时开销，因为不成立的条件相当于里面的代码根本不可能被执行，编译时会直接被优化掉。</p>
+<h4 id="内联参数">内联参数</h4>
+<p>内联函数即建议编译器可以考虑把整个函数拷贝到调用者的函数体中，而不是生成一个<code>call</code>指令调用过去。这种优化对于短函数非常有用，有利于提高性能。</p>
+<p>编译器自己会根据一些默认的条件来判断一个函数是不是应该内联，若一个不应该被内联的函数被内联了，实际上会导致整个程序更慢。</p>
+<p>可选的属性有：</p>
+<ul>
+<li><code>#[inline]</code> - 建议编译器内联这个函数</li>
+<li><code>#[inline(always)]</code> - 要求编译器必须内联这个函数</li>
+<li><code>#[inline(never)]</code> - 要求编译器不要内联这个函数</li>
+</ul>
+<p>内联会导致在一个库里面的代码被插入到另一个库中去。</p>
+<h4 id="自动实现Trait">自动实现Trait</h4>
+<p>编译器提供一个编译器插件叫作<code>derive</code>，它可以帮你去生成一些代码去实现（impl）一些特定的Trait，如</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[derive(PartialEq, Clone)]</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Foo</span></span>&lt;T&gt; &#123;</span><br><span class="line">    a: <span class="built_in">i32</span>,</span><br><span class="line">    b: T,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译器会自动为你生成以下的代码</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span>&lt;T: <span class="built_in">PartialEq</span>&gt; <span class="built_in">PartialEq</span> <span class="keyword">for</span> Foo&lt;T&gt; &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">eq</span></span>(&amp;<span class="keyword">self</span>, other: &amp;Foo&lt;T&gt;) -&gt; <span class="built_in">bool</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.a == other.a &amp;&amp; <span class="keyword">self</span>.b == other.b</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">ne</span></span>(&amp;<span class="keyword">self</span>, other: &amp;Foo&lt;T&gt;) -&gt; <span class="built_in">bool</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.a != other.a || <span class="keyword">self</span>.b != other.b</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">impl</span>&lt;T: <span class="built_in">Clone</span>&gt; <span class="built_in">Clone</span> <span class="keyword">for</span> Foo&lt;T&gt; &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">clone</span></span>(&amp;<span class="keyword">self</span>) -&gt; Foo&lt;T&gt; &#123;</span><br><span class="line">        Foo &#123;</span><br><span class="line">            a: <span class="keyword">self</span>.a.clone(),</span><br><span class="line">            b: <span class="keyword">self</span>.b.clone(),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>目前<code>derive</code>仅支持标准库中部分的Trait。</p>
+<h3 id="编译器rustc参数">编译器rustc参数</h3>
+<p>Rust编译器程序的名字是<code>rustc</code>，使用它的方法很简单：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc [OPTIONS] INPUT</span><br></pre></td></tr></table></figure>
+<p>其中，<code>[OPTIONS]</code>表示编译参数，而<code>INPUT</code>则表示输入文件。而编译参数有以下可选：</p>
+<ul>
+<li>
+<p><code>-h, --help</code> - 输出帮助信息到标准输出；</p>
+</li>
+<li>
+<p><code>--cfg SPEC</code> - 传入自定义的条件编译参数，使用方法如</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">cfg!</span>(hello) &#123;</span><br><span class="line">        <span class="built_in">println!</span>(<span class="string">&quot;world!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上例所示，若<code>cfg!(hello)</code>成立，则运行程序就会输出<code>&quot;world&quot;</code>到标准输出。我们把这个文件保存为<code>hello.rs</code>然后编译它</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --cfg hello hello.rs</span><br></pre></td></tr></table></figure>
+<p>运行它就会看到屏幕中输出了<code>world!</code>。</p>
+</li>
+<li>
+<p><code>-L [KIND=]PATH</code> - 往链接路径中加入一个文件夹，并且可以指定这个路径的类型（Kind），这些类型包括</p>
+<ul>
+<li><code>dependency</code> - 在这个路径下找依赖的文件，比如说<code>mod</code>；</li>
+<li><code>crate</code> - 只在这个路径下找<code>extern crate</code>中定义的库；</li>
+<li><code>native</code> - 只在这个路径下找Native库；</li>
+<li><code>framework</code> - 只在OS X下有用，只在这个路径下找Framework；</li>
+<li><code>all</code> - 默认选项。</li>
+</ul>
+</li>
+<li>
+<p><code>-l [KIND=]NAME</code> - 链接一个库，这个库可以指定类型（Kind）</p>
+<ul>
+<li><code>static</code> - 静态库；</li>
+<li><code>dylib</code> - 动态库；</li>
+<li><code>framework</code> - OS X的Framework。</li>
+</ul>
+<p>如果不传，默认为<code>dylib</code>。</p>
+<p>此处举一个例子如何手动链接一个库，我们先创建一个文件叫<code>myhello.rs</code>，在里面写一个函数</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// myhello.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/// 这个函数仅仅向标签输出打印 Hello World!</span></span><br><span class="line"><span class="comment">/// 不要忘记要把它标记为 pub 哦。</span></span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">print_hello</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Hello World!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后把这个文件编译成一个静态库，<code>libmyhello.a</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --crate-type staticlib myhello.rs</span><br></pre></td></tr></table></figure>
+<p>然后再创建一个<code>main.rs</code>，链接这个库并打印出&quot;Hello World!&quot;</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.rs</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 指定链接库 myhello</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> myhello;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="comment">// 调用库函数</span></span><br><span class="line">    myhello::print_hello();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译<code>main.rs</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc -L. -lmyhello main.rs</span><br></pre></td></tr></table></figure>
+<p>运行<code>main</code>，就会看到屏幕输出&quot;Hello World!&quot;啦。</p>
+</li>
+<li>
+<p><code>--crate-type</code> - 指定编译输出类型，它的参数包括</p>
+<ul>
+<li><code>bin</code> - 二进行可执行文件</li>
+<li><code>lib</code> - 编译为库</li>
+<li><code>rlib</code> - Rust库</li>
+<li><code>dylib</code> - 动态链接库</li>
+<li><code>staticlib</code> - 静态链接库</li>
+</ul>
+</li>
+<li>
+<p><code>--crate-name</code> - 指定这个Crate的名字，默认是文件名，如<code>main.rs</code>编译成可执行文件时默认是<code>main</code>，但你可以指定它为<code>foo</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --crate-name foo main.rs</span><br></pre></td></tr></table></figure>
+<p>则会输出<code>foo</code>可执行文件。</p>
+</li>
+<li>
+<p><code>--emit</code> - 指定编译器的输出。编译器默认是输出一个可执行文件或库文件，但你可以选择输出一些其它的东西用于Debug</p>
+<ul>
+<li><code>asm</code> - 输出汇编</li>
+<li><code>llvm-bc</code> - <a target="_blank" rel="noopener" href="http://llvm.org/docs/BitCodeFormat.html">LLVM Bitcode</a>；</li>
+<li><code>llvm-ir</code> - <a target="_blank" rel="noopener" href="http://llvm.org/docs/LangRef.html">LLVM IR</a>，即LLVM中间码（LLVM Intermediate Representation）；</li>
+<li><code>obj</code> - Object File（就是<code>*.o</code>文件）；</li>
+<li><code>link</code> - 这个是要结合其它<code>--emit</code>参数使用，会执行Linker再输出结果；</li>
+<li><code>dep-info</code> - 文件依赖关系（Debug用，类似于Makefile一样的依赖）。</li>
+</ul>
+<p>以上参数可以同时使用，使用逗号分割，如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --emit asm,llvm-ir,obj main.rs</span><br></pre></td></tr></table></figure>
+<p>同时，在最后可以加一个<code>=PATH</code>来指定输出到一个特定文件，如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --emit asm=output.S,llvm-ir=output.ir main.rs</span><br></pre></td></tr></table></figure>
+<p>这样会把汇编生成到<code>output.S</code>文件中，把LLVM中间码输出到<code>output.ir</code>中。</p>
+</li>
+<li>
+<p><code>--print</code> - 打印一些信息，参数有</p>
+<ul>
+<li><code>crate-name</code> - 编译目标名；</li>
+<li><code>file-names</code> - 编译的文件名；</li>
+<li><code>sysroot</code> - 打印Rust工具链的根目录地址。</li>
+</ul>
+</li>
+<li>
+<p><code>-g</code> - 在目标文件中保存符号，这个参数等同于<code>-C debuginfo=2</code>。</p>
+</li>
+<li>
+<p><code>-O</code> - 开启优化，这个参数等同于<code>-C opt-level=2</code>。</p>
+</li>
+<li>
+<p><code>-o FILENAME</code> - 指定输出文件名，同样适用于<code>--emit</code>的输出。</p>
+</li>
+<li>
+<p><code>--out-dir DIR</code> - 指定输出的文件夹，默认是当前文件夹，且会忽略<code>-o</code>配置。</p>
+</li>
+<li>
+<p><code>--explain OPT</code> - 解释某一个编译错误，比如</p>
+<p>若你写了一个<code>main.rs</code>，使用了一个未定义变量<code>f</code></p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    f</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>编译它时编译器会报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">main.rs:2:5: 2:6 error: unresolved name &#96;f&#96; [E0425]</span><br><span class="line">main.rs:2     f</span><br><span class="line">              ^</span><br><span class="line">main.rs:2:5: 2:6 help: run &#96;rustc --explain E0425&#96; to see a detailed explanation</span><br><span class="line">error: aborting due to previous error</span><br></pre></td></tr></table></figure>
+<p>虽然错误已经很明显，但是你也可以让编译器解释一下，什么是<code>E0425</code>错误：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ rustc --explain E0425</span><br><span class="line">// 编译器打印的说明</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>--test</code> - 编译成一个单元测试可执行文件</p>
+</li>
+<li>
+<p><code>--target TRIPLE</code> - 指定目标平台，基本格式是<code>cpu-manufacturer-kernel[-os]</code>，例如</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 64位OS X</span></span><br><span class="line">$ rustc --target x86_64-apple-darwin</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><code>-W help</code> - 打印Linter的所有可配置选项和默认值。</p>
+</li>
+<li>
+<p><code>-W OPT, --warn OPT</code> - 设置某一个Linter选项为Warning。</p>
+</li>
+<li>
+<p><code>-A OPT, --allow OPT</code> - 设置某一个Linter选项为Allow。</p>
+</li>
+<li>
+<p><code>-D OPT, --deny OPT</code> - 设置某一个Linter选项为Deny。</p>
+</li>
+<li>
+<p><code>-F OPT, --forbit OPT</code> - 设置某一个Linter选项为Forbit。</p>
+</li>
+<li>
+<p><code>-C FLAG[=VAL], --codegen FLAG[=VAL]</code> - 目标代码生成的的相关参数，可以用<code>-C help</code>来查看配置，值得关注的几个是</p>
+<ul>
+<li><code>linker=val</code> - 指定链接器；</li>
+<li><code>linker-args=val</code> - 指定链接器的参数；</li>
+<li><code>prefer-dynamic</code> - 默认Rust编译是静态链接，选择这个配置将改为动态链接；</li>
+<li><code>debug-info=level</code> - Debug信息级数，<code>0</code> = 不生成，<code>1</code> = 只生成文件行号表，<code>2</code> = 全部生成；</li>
+<li><code>opt-level=val</code> - 优化级数，可选<code>0-3</code>；</li>
+<li><code>debug_assertion</code> - 显式开启<code>cfg(debug_assertion)</code>条件。</li>
+</ul>
+</li>
+<li>
+<p><code>-V, --version</code> - 打印编译器版本号。</p>
+</li>
+<li>
+<p><code>-v, --verbose</code> - 开启啰嗦模式（打印编译器执行的日志）。</p>
+</li>
+<li>
+<p><code>--extern NAME=PATH</code> - 用来指定外部的Rust库（<code>*.rlib</code>）名字和路径，名字应该与<code>extern crate</code>中指定的一样。</p>
+</li>
+<li>
+<p><code>--sysroot PATH</code> - 指定工具链根目录。</p>
+</li>
+<li>
+<p><code>-Z flag</code> - 编译器Debug用的参数，可以用<code>-Z help</code>来查看可用参数。</p>
+</li>
+<li>
+<p><code>--color auto|always|never</code> - 输出时对日志加颜色</p>
+<ul>
+<li><code>auto</code> - 自动选择加还是不加，如果输出目标是虚拟终端（TTY）的话就加，否则就不加；</li>
+<li><code>always</code> - 给我加！</li>
+<li><code>never</code> - 你敢加？</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cargo-toml参数配置">Cargo.toml参数配置</h3>
+<h4 id="package-段落">[package]段落</h4>
+<p>啥也不多说了，直接上例子，大家注意我在例子中的中文解释，个人觉得这样比较一目了然：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"> <span class="comment"># 软件包名称，如果需要在别的地方引用此软件包，请用此名称。</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;hello_world&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前版本号，这里遵循semver标准，也就是语义化版本控制标准。</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;0.1.0&quot;</span>    <span class="comment"># the current version, obeying semver</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 软件所有作者列表</span></span><br><span class="line"><span class="attr">authors</span> = [<span class="string">&quot;you@example.com&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 非常有用的一个字段，如果要自定义自己的构建工作流，</span></span><br><span class="line"><span class="comment"># 尤其是要调用外部工具来构建其他本地语言（C、C++、D等）开发的软件包时。</span></span><br><span class="line"><span class="comment"># 这时，自定义的构建流程可以使用rust语言，写在&quot;build.rs&quot;文件中。</span></span><br><span class="line"><span class="attr">build</span> = <span class="string">&quot;build.rs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显式声明软件包文件夹内哪些文件被排除在项目的构建流程之外，</span></span><br><span class="line"><span class="comment"># 哪些文件包含在项目的构建流程中</span></span><br><span class="line"><span class="attr">exclude</span> = [<span class="string">&quot;build/**/*.o&quot;</span>, <span class="string">&quot;doc/**/*.html&quot;</span>]</span><br><span class="line"><span class="attr">include</span> = [<span class="string">&quot;src/**/*&quot;</span>, <span class="string">&quot;Cargo.toml&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当软件包在向公共仓库发布时出现错误时，使能此字段可以阻止此错误。</span></span><br><span class="line"><span class="attr">publish</span> = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 关于软件包的一个简短介绍。</span></span><br><span class="line"><span class="attr">description</span> = <span class="string">&quot;...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面这些字段标明了软件包仓库的更多信息</span></span><br><span class="line"><span class="attr">documentation</span> = <span class="string">&quot;...&quot;</span></span><br><span class="line"><span class="attr">homepage</span> = <span class="string">&quot;...&quot;</span></span><br><span class="line"><span class="attr">repository</span> = <span class="string">&quot;...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 顾名思义，此字段指向的文件就是传说中的ReadMe，</span></span><br><span class="line"><span class="comment"># 并且，此文件的内容最终会保存在注册表数据库中。</span></span><br><span class="line"><span class="attr">readme</span> = <span class="string">&quot;...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 用于分类和检索的关键词。</span></span><br><span class="line"><span class="attr">keywords</span> = [<span class="string">&quot;...&quot;</span>, <span class="string">&quot;...&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 软件包的许可证，必须是cargo仓库已列出的已知的标准许可证。</span></span><br><span class="line"><span class="attr">license</span> = <span class="string">&quot;...&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 软件包的非标许可证书对应的文件路径。</span></span><br><span class="line"><span class="attr">license-file</span> = <span class="string">&quot;...&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="依赖的详细配置">依赖的详细配置</h4>
+<p>最直接的方式：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="attr">hammer</span> = <span class="string">&quot;0.5.0&quot;</span></span><br><span class="line"><span class="attr">color</span> = <span class="string">&quot;&gt; 0.6.0, &lt; 0.8.0&quot;</span></span><br></pre></td></tr></table></figure>
+<p>与平台相关的依赖定义格式不变，不同的是需要定义在[target]字段下。例如：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 注意，此处的cfg可以使用not、any、all等操作符任意组合键值对。</span></span><br><span class="line"><span class="comment"># 并且此用法仅支持cargo 0.9.0（rust 1.8.0）以上版本。</span></span><br><span class="line"><span class="comment"># 如果是windows平台，则需要此依赖。</span></span><br><span class="line"><span class="section">[target.&#x27;cfg(windows)&#x27;.dependencies]</span></span><br><span class="line"><span class="attr">winhttp</span> = <span class="string">&quot;0.4.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[target.&#x27;cfg(unix)&#x27;.dependencies]</span></span><br><span class="line"><span class="attr">openssl</span> = <span class="string">&quot;1.0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#如果是32位平台，则需要此依赖。</span></span><br><span class="line"><span class="section">[target.&#x27;cfg(target_pointer_width = &quot;32&quot;)&#x27;.dependencies]</span></span><br><span class="line"><span class="attr">native</span> = &#123; path = <span class="string">&quot;native/i686&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="section">[target.&#x27;cfg(target_pointer_width = &quot;64&quot;)&#x27;.dependencies]</span></span><br><span class="line"><span class="attr">native</span> = &#123; path = <span class="string">&quot;native/i686&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 另一种写法就是列出平台的全称描述</span></span><br><span class="line"><span class="section">[target.x86_64-pc-windows-gnu.dependencies]</span></span><br><span class="line"><span class="attr">winhttp</span> = <span class="string">&quot;0.4.0&quot;</span></span><br><span class="line"><span class="section">[target.i686-unknown-linux-gnu.dependencies]</span></span><br><span class="line"><span class="attr">openssl</span> = <span class="string">&quot;1.0.1&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果使用自定义平台，请将自定义平台文件的完整路径用双引号包含</span></span><br><span class="line"><span class="section">[target.&quot;x86_64/windows.json&quot;.dependencies]</span></span><br><span class="line"><span class="attr">winhttp</span> = <span class="string">&quot;0.4.0&quot;</span></span><br><span class="line"><span class="section">[target.&quot;i686/linux.json&quot;.dependencies]</span></span><br><span class="line"><span class="attr">openssl</span> = <span class="string">&quot;1.0.1&quot;</span></span><br><span class="line"><span class="attr">native</span> = &#123; path = <span class="string">&quot;native/i686&quot;</span> &#125;</span><br><span class="line"><span class="attr">openssl</span> = <span class="string">&quot;1.0.1&quot;</span></span><br><span class="line"><span class="attr">native</span> = &#123; path = <span class="string">&quot;native/x86_64&quot;</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># [dev-dependencies]段落的格式等同于[dependencies]段落，</span></span><br><span class="line"><span class="comment"># 不同之处在于，[dependencies]段落声明的依赖用于构建软件包，</span></span><br><span class="line"><span class="comment"># 而[dev-dependencies]段落声明的依赖仅用于构建测试和性能评估。</span></span><br><span class="line"><span class="comment"># 此外，[dev-dependencies]段落声明的依赖不会传递给其他依赖本软件包的项目</span></span><br><span class="line"><span class="section">[dev-dependencies]</span></span><br><span class="line"><span class="attr">iron</span> = <span class="string">&quot;0.2&quot;</span></span><br></pre></td></tr></table></figure>
+<h4 id="自定义编译器调用方式模板详细参数">自定义编译器调用方式模板详细参数</h4>
+<p>cargo内置五种编译器调用模板，分别为dev、release、test、bench、doc，分别用于定义不同类型生成目标时的编译器参数，如果我们自己想改变这些编译模板，可以自己定义相应字段的值，例如（注意：下述例子中列出的值均为此模板字段对应的系统默认值）：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开发模板, 对应`cargo build`命令</span></span><br><span class="line"><span class="section">[profile.dev]</span></span><br><span class="line"><span class="attr">opt-level</span> = <span class="number">0</span>  <span class="comment"># 控制编译器的 --opt-level 参数，也就是优化参数</span></span><br><span class="line"><span class="attr">debug</span> = <span class="literal">true</span>   <span class="comment"># 控制编译器是否开启 `-g` 参数</span></span><br><span class="line"><span class="attr">rpath</span> = <span class="literal">false</span>  <span class="comment"># 控制编译器的 `-C rpath` 参数</span></span><br><span class="line"><span class="attr">lto</span> = <span class="literal">false</span>    <span class="comment"># 控制`-C lto` 参数，此参数影响可执行文件和静态库的生成，</span></span><br><span class="line"><span class="attr">debug-assertions</span> = <span class="literal">true</span>  <span class="comment"># 控制调试断言是否开启</span></span><br><span class="line"><span class="attr">codegen-units</span> = <span class="number">1</span> <span class="comment"># 控制编译器的 `-C codegen-units` 参数。注意，当`lto = true`时，此字段值被忽略</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 发布模板, 对应`cargo build --release`命令</span></span><br><span class="line"><span class="section">[profile.release]</span></span><br><span class="line"><span class="attr">opt-level</span> = <span class="number">3</span></span><br><span class="line"><span class="attr">debug</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">rpath</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">lto</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">debug-assertions</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">codegen-units</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试模板，对应`cargo test`命令</span></span><br><span class="line"><span class="section">[profile.test]</span></span><br><span class="line"><span class="attr">opt-level</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">debug</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">rpath</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">lto</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">debug-assertions</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">codegen-units</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 性能评估模板，对应`cargo bench`命令</span></span><br><span class="line"><span class="section">[profile.bench]</span></span><br><span class="line"><span class="attr">opt-level</span> = <span class="number">3</span></span><br><span class="line"><span class="attr">debug</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">rpath</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">lto</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">debug-assertions</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">codegen-units</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文档模板，对应`cargo doc`命令</span></span><br><span class="line"><span class="section">[profile.doc]</span></span><br><span class="line"><span class="attr">opt-level</span> = <span class="number">0</span></span><br><span class="line"><span class="attr">debug</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">rpath</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">lto</span> = <span class="literal">false</span></span><br><span class="line"><span class="attr">debug-assertions</span> = <span class="literal">true</span></span><br><span class="line"><span class="attr">codegen-units</span> = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>需要注意的是，当调用编译器时，只有位于调用最顶层的软件包的模板文件有效，其他的子软件包或者依赖软件包的模板定义将被顶层软件包的模板覆盖。</p>
+<h4 id="features-段落">[features]段落</h4>
+<p>[features]段落中的字段被用于条件编译选项或者是可选依赖。例如：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[package]</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;awesome&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="section">[features]</span></span><br><span class="line"><span class="comment"># 此字段设置了可选依赖的默认选择列表，</span></span><br><span class="line"><span class="comment"># 注意这里的&quot;session&quot;并非一个软件包名称，</span></span><br><span class="line"><span class="comment"># 而是另一个featrue字段session</span></span><br><span class="line"><span class="attr">default</span> = [<span class="string">&quot;jquery&quot;</span>, <span class="string">&quot;uglifier&quot;</span>, <span class="string">&quot;session&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 类似这样的值为空的feature一般用于条件编译，</span></span><br><span class="line"><span class="comment"># 类似于`#[cfg(feature = &quot;go-faster&quot;)]`。</span></span><br><span class="line"><span class="attr">go-faster</span> = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此feature依赖于bcrypt软件包，</span></span><br><span class="line"><span class="comment"># 这样封装的好处是未来可以对secure-password此feature增加可选项目。</span></span><br><span class="line"><span class="attr">secure-password</span> = [<span class="string">&quot;bcrypt&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 此处的session字段导入了cookie软件包中的feature段落中的session字段</span></span><br><span class="line"><span class="attr">session</span> = [<span class="string">&quot;cookie/session&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="section">[dependencies]</span></span><br><span class="line"><span class="comment"># 必要的依赖</span></span><br><span class="line"><span class="attr">cookie</span> = <span class="string">&quot;1.2.0&quot;</span></span><br><span class="line"><span class="attr">oauth</span> = <span class="string">&quot;1.1.0&quot;</span></span><br><span class="line"><span class="attr">route-recognizer</span> = <span class="string">&quot;=2.1.0&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可选依赖</span></span><br><span class="line"><span class="attr">jquery</span> = &#123; version = <span class="string">&quot;1.0.2&quot;</span>, optional = <span class="literal">true</span> &#125;</span><br><span class="line"><span class="attr">uglifier</span> = &#123; version = <span class="string">&quot;1.5.3&quot;</span>, optional = <span class="literal">true</span> &#125;</span><br><span class="line"><span class="attr">bcrypt</span> = &#123; version = <span class="string">&quot;*&quot;</span>, optional = <span class="literal">true</span> &#125;</span><br><span class="line"><span class="attr">civet</span> = &#123; version = <span class="string">&quot;*&quot;</span>, optional = <span class="literal">true</span> &#125;</span><br></pre></td></tr></table></figure>
+<p>如果其他软件包要依赖使用上述awesome软件包，可以在其描述文件中这样写：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[dependencies.awesome]</span></span><br><span class="line"><span class="attr">version</span> = <span class="string">&quot;1.3.5&quot;</span></span><br><span class="line"><span class="attr">default-features</span> = <span class="literal">false</span> <span class="comment"># 禁用awesome 的默认features</span></span><br><span class="line"><span class="attr">features</span> = [<span class="string">&quot;secure-password&quot;</span>, <span class="string">&quot;civet&quot;</span>] <span class="comment"># 使用此处列举的各项features</span></span><br></pre></td></tr></table></figure>
+<p>使用features时需要遵循以下规则：</p>
+<ul>
+<li>feature名称在本描述文件中不能与出现的软件包名称冲突</li>
+<li>除了default feature，其他所有的features均是可选的</li>
+<li>features不能相互循环包含</li>
+<li>开发依赖包不能包含在内</li>
+<li>features组只能依赖于可选软件包</li>
+</ul>
+<p>features的一个重要用途就是，当开发者需要对软件包进行最终的发布时，在进行构建时可以声明暴露给终端用户的features，这可以通过下述命令实现：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cargo build --release --features &quot;shumway pdf&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="关于测试">关于测试</h4>
+<p>当运行cargo test命令时，cargo将会按做以下事情：</p>
+<ul>
+<li>编译并运行软件包源代码中被#[cfg(test)] 所标志的单元测试</li>
+<li>编译并运行文档测试</li>
+<li>编译并运行集成测试</li>
+<li>编译examples</li>
+</ul>
+<h4 id="配置构建目标">配置构建目标</h4>
+<p>所有的诸如[[bin]], [lib], [[bench]], [[test]]以及 [[example]]等字段，均提供了类似的配置，以说明构建目标应该怎样被构建。例如（下述例子中[lib]段落中各字段值均为默认值）：</p>
+<figure class="highlight toml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[lib]</span></span><br><span class="line"><span class="comment"># 库名称，默认与项目名称相同</span></span><br><span class="line"><span class="attr">name</span> = <span class="string">&quot;foo&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 此选项仅用于[lib]段落，其决定构建目标的构建方式，</span></span><br><span class="line"><span class="comment"># 可以取dylib, rlib, staticlib 三种值之一，表示生成动态库、r库或者静态库。</span></span><br><span class="line"><span class="attr">crate-type</span> = [<span class="string">&quot;dylib&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># path字段声明了此构建目标相对于cargo.toml文件的相对路径</span></span><br><span class="line"><span class="attr">path</span> = <span class="string">&quot;src/lib.rs&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 单元测试开关选项</span></span><br><span class="line"><span class="attr">test</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文档测试开关选项</span></span><br><span class="line"><span class="attr">doctest</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 性能评估开关选项</span></span><br><span class="line"><span class="attr">bench</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 文档生成开关选项</span></span><br><span class="line"><span class="attr">doc</span> = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 是否构建为编译器插件的开关选项</span></span><br><span class="line"><span class="attr">plugin</span> = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果设置为false，`cargo test`将会忽略传递给rustc的--test参数。</span></span><br><span class="line"><span class="attr">harness</span> = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<h3 id="no-std">no_std</h3>
+<p>OS提供系统调用来支持IO、网络、文件系统等的操作，Rust利用OS的特性来实现如发送消息到控制台、读取文件、打开URL等标准库（std）的操作。</p>
+<p>若OS不提供这些系统调用，则这种特性被称为no_std，对于Rust的no_std我们只能使用不依赖OS的特性，如<code>core crate</code></p>
+<p>no_std与std的区别在于：</p>
+<ul>
+<li>no_std下，不能使用std crate，但能使用大部分core crate中的模块</li>
+<li>不能使用与堆相关的模块(box, collections, string等)，因为Rust内存分配机制默认依赖于OS系统调用实现堆的分配</li>
+<li>如果写一个二进制crate，则必须实现一些lang items（rustc允许用户通过lang item来定制语言特性，而不是将所有操作都嵌入到编译器中）</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://justjjy.com/Rust-no-std">https://justjjy.com/Rust-no-std</a></p>
+<h3 id="外部crate">外部crate</h3>
+<h4 id="lazy-static">lazy_static</h4>
+<p>给静态变量延迟赋值的宏。</p>
+<p>使用这个宏,所有 <code>static</code>类型的变量可在执行的代码在运行时被初始化。 这包括任何需要堆分配,如<code>vector</code>或<code>hash map</code>,以及任何非常量函数调用。</p>
+<p>由于<code>const</code>和<code>static</code>在初始化时，必须赋予一个常量表达式的值，如果想要初始化动态的数组，vector，map，结果是编译不通过：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> VEC:<span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt; = <span class="built_in">vec!</span>[<span class="number">0x18u8</span>, <span class="number">0x11u8</span>];</span><br><span class="line"><span class="keyword">static</span> MAP: HashMap&lt;<span class="built_in">u32</span>, <span class="built_in">String</span>&gt; = HashMap::new();</span><br></pre></td></tr></table></figure>
+<p>使用 lazy_static 消除上面所有问题，在使用时需要解引用：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#[macro_use]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> lazy_static;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> std::collections::HashMap;</span><br><span class="line"></span><br><span class="line">lazy_static! &#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">ref</span> VEC:<span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt; = <span class="built_in">vec!</span>[<span class="number">0x18u8</span>, <span class="number">0x11u8</span>];</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">ref</span> MAP: HashMap&lt;<span class="built_in">u32</span>, <span class="built_in">String</span>&gt; = &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> map = HashMap::new();</span><br><span class="line">        map.insert(<span class="number">18</span>, <span class="string">&quot;hury&quot;</span>.to_owned());</span><br><span class="line">        map</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">ref</span> PAGE:<span class="built_in">u32</span> = mulit(<span class="number">18</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">mulit</span></span>(i: <span class="built_in">u32</span>) -&gt; <span class="built_in">u32</span> &#123;</span><br><span class="line">    i * <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, *PAGE);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, *VEC);</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, *MAP);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="创建全局静态可变变量">创建全局静态可变变量</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::&#123;collections::HashMap, sync::Mutex&#125;;</span><br><span class="line"></span><br><span class="line"><span class="meta">#[macro_use]</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">crate</span> lazy_static;</span><br><span class="line"></span><br><span class="line">lazy_static!&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">ref</span> ENCLAVE_ID_MAP: Mutex&lt;HashMap&lt;sgx_enclave_id_t, <span class="built_in">u32</span>&gt;&gt; = Mutex::new(HashMap::new());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ENCLAVE_ID_MAP.lock().unwrap().insert(eid1, <span class="number">1</span>);</span><br><span class="line">ENCLAVE_ID_MAP.lock().unwrap().insert(eid2, <span class="number">2</span>);</span><br><span class="line">ENCLAVE_ID_MAP.lock().unwrap().insert(eid3, <span class="number">3</span>);</span><br><span class="line"><span class="built_in">println!</span>(<span class="string">&quot;&#123;:?&#125;&quot;</span>, ENCLAVE_ID_MAP.lock().unwrap());</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年3月24日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/rust/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>rust</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2021/03/24/paper-reading/SGX-Container-LibOS/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>论文阅读-SGX容器相关</p>
+          <p class='content'>LibOS概念
+库操作系统 (Library OS) 的思想是，将应用程序所依赖的操作系统个性（操作系统个性是操作系统的应用程序编程接口(api)和应用程序可见语义的实现，用于构建应用程序的OS...</p>
+        </a>
+      
+      
+        <a class='next' href='/2021/03/09/instruction/makefile/'>
+          <p class='title'>Makefile学习<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>makefile概览
+规则的基本形式
+1234target ... : prerequisites ...    command    ...    ...
+
+target：可以是一个objec...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%97%AD%E5%8C%85"><span class="toc-text">闭包</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E7%94%A8%E5%87%BD%E6%95%B0%E8%B0%83%E7%94%A8"><span class="toc-text">通用函数调用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8C%85-crate-%E5%92%8C%E6%A8%A1%E5%9D%97-module"><span class="toc-text">包(crate)和模块(module)</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E5%B1%82%E6%A8%A1%E5%9D%97"><span class="toc-text">多层模块</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84"><span class="toc-text">路径</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E8%BD%AC%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B"><span class="toc-text">数组转基本类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B"><span class="toc-text">关联类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%8F"><span class="toc-text">宏</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%A4%8D"><span class="toc-text">重复</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%92%E5%BD%92"><span class="toc-text">递归</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%92%8C%E5%AF%BC%E5%87%BA"><span class="toc-text">导入和导出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unsafe"><span class="toc-text">unsafe</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">迭代器</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B6%88%E8%B4%B9%E8%80%85"><span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E9%80%82%E9%85%8D%E5%99%A8"><span class="toc-text">迭代适配器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#FFI"><span class="toc-text">FFI</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8ffi%E5%87%BD%E6%95%B0"><span class="toc-text">调用ffi函数</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BC%95%E5%85%A5libc%E5%BA%93"><span class="toc-text">引入libc库</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A3%B0%E6%98%8Effi%E5%87%BD%E6%95%B0"><span class="toc-text">声明ffi函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%B0%83%E7%94%A8ffi%E5%87%BD%E6%95%B0-v2"><span class="toc-text">调用ffi函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B0%81%E8%A3%85unsafe%EF%BC%8C%E6%9A%B4%E9%9C%B2%E5%AE%89%E5%85%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">封装unsafe，暴露安全接口</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%AF%B9%E5%BA%94"><span class="toc-text">数据结构对应</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%BB%93%E6%9E%84%E4%BD%93-Enum"><span class="toc-text">结构体&#x2F;Enum</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-text">回调函数</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text">字符串</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%A9%BA%E6%8C%87%E9%92%88"><span class="toc-text">空指针</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%86Rust%E7%BC%96%E8%AF%91%E6%88%90%E5%BA%93"><span class="toc-text">将Rust编译成库</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E7%BA%A6%E5%AE%9A%E5%92%8Cmangle"><span class="toc-text">调用约定和mangle</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Any"><span class="toc-text">使用Any</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7"><span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%9E%E6%80%A7%E8%AF%AD%E6%B3%95"><span class="toc-text">属性语法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Crate%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">Crate的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">模块的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">函数的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">全局静态变量的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#FFI%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">FFI的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8F%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="toc-text">宏的属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B6%E4%BB%96%E5%B1%9E%E6%80%A7"><span class="toc-text">其他属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E7%BC%96%E8%AF%91%E5%B1%9E%E6%80%A7"><span class="toc-text">条件编译属性</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%8F%82%E6%95%B0"><span class="toc-text">内联参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%AE%9E%E7%8E%B0Trait"><span class="toc-text">自动实现Trait</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8rustc%E5%8F%82%E6%95%B0"><span class="toc-text">编译器rustc参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Cargo-toml%E5%8F%82%E6%95%B0%E9%85%8D%E7%BD%AE"><span class="toc-text">Cargo.toml参数配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#package-%E6%AE%B5%E8%90%BD"><span class="toc-text">[package]段落</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BE%9D%E8%B5%96%E7%9A%84%E8%AF%A6%E7%BB%86%E9%85%8D%E7%BD%AE"><span class="toc-text">依赖的详细配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BC%96%E8%AF%91%E5%99%A8%E8%B0%83%E7%94%A8%E6%96%B9%E5%BC%8F%E6%A8%A1%E6%9D%BF%E8%AF%A6%E7%BB%86%E5%8F%82%E6%95%B0"><span class="toc-text">自定义编译器调用方式模板详细参数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#features-%E6%AE%B5%E8%90%BD"><span class="toc-text">[features]段落</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%B5%8B%E8%AF%95"><span class="toc-text">关于测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%9E%84%E5%BB%BA%E7%9B%AE%E6%A0%87"><span class="toc-text">配置构建目标</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#no-std"><span class="toc-text">no_std</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%96%E9%83%A8crate"><span class="toc-text">外部crate</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#lazy-static"><span class="toc-text">lazy_static</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%85%A8%E5%B1%80%E9%9D%99%E6%80%81%E5%8F%AF%E5%8F%98%E5%8F%98%E9%87%8F"><span class="toc-text">创建全局静态可变变量</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Rust高级特性";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

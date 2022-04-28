@@ -1,0 +1,2333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>Introduction To Modern Cryptography笔记 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="cryptography">
+  
+
+  
+    <meta name="description" content="正式的密码学证明">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Introduction To Modern Cryptography笔记
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Notes/">Notes</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:28:12+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：11.6k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：50分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Introduction To Modern Cryptography笔记" data-path="/2022/03/20/learning-notes/cryptography/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="Chapter-1-Introduction">Chapter 1: Introduction</h2>
+<h3 id="1-2-对称加密Setting">1.2 对称加密Setting</h3>
+<ul>
+<li>Kerckhoffs’ principle：要求加密算法的安全性只依赖于密钥的安全性，而加解密算法都应当可以公开</li>
+</ul>
+<h3 id="1-3-古典加密算法">1.3 古典加密算法</h3>
+<ul>
+<li>恺撒加密、移位加密、单字母替换、多字母移位</li>
+<li>密钥空间充分性原则：任何安全的加密方案必须拥有一个能够抵御穷举搜索的密钥空间</li>
+</ul>
+<h3 id="1-4-现代密码学原则">1.4 现代密码学原则</h3>
+<p><strong>原则1 Formal Defination</strong></p>
+<ul>
+<li>
+<p>安全性定义包含：</p>
+<ul>
+<li>
+<p>security guarantee</p>
+<blockquote>
+<p>regardless of any information an attacker already has, a ciphertext should leak no additional information about the underlying plaintext</p>
+</blockquote>
+</li>
+<li>
+<p>threat model    敌手的目标是要解密密文，得到明文</p>
+<ul>
+<li>Ciphertext-only attack 唯密文攻击：敌手只能得到密文【被动攻击】</li>
+<li>Known-plaintext attack 已知明文攻击：敌手能获得一个或多个明文-密文对【被动攻击】</li>
+<li>Chosen-plaintext attack 选择明文攻击：敌手可以选择明文，并获得加密后的密文【主动攻击】</li>
+<li>Chosen-ciphertext attack 选择密文攻击：敌手可以选择密文，并获得解密后的明文【主动攻击】</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>原则2 Precise Assumption</strong></p>
+<p><strong>原则3 Proofs of Security</strong></p>
+<h2 id="Chapter-2-Perfectly-Secret-Encryption">Chapter 2: Perfectly Secret Encryption</h2>
+<h3 id="2-1-符号定义">2.1 符号定义</h3>
+<ul>
+<li>加密方案的元素：
+<ul>
+<li>$\mathcal{M}$ ——有限消息空间，$|\mathcal{M}|&gt;1$
+<ul>
+<li>令 $M$ 是一个随机的消息 ，对于任意 $m\in\mathcal{M}$ ，$Pr[M=m]$ 表示 $M$ 与 $m$ 一致的概率</li>
+</ul>
+</li>
+<li>$\mathcal{K}$ ——有限密钥空间
+<ul>
+<li>令 $K$ 是 $\mathsf{Gen}$ 随机生成的密钥，对于任意 $k\in\mathcal{K}$ ，$Pr[K=k]$ 表示 $\mathsf{Gen}$ 生成的密钥为 $k$ 的概率</li>
+<li><strong>注</strong>：$K$ 和 $M$ 是独立的</li>
+</ul>
+</li>
+<li>$\mathcal{C}$ ——密文空间
+<ul>
+<li>令 $C$ 是一个随机变量，对于任意 $c\in\mathcal{C}$ ，$Pr[C=c]$ 表示 $\mathsf{Enc}$ 加密得到的密文为 $c$ 的概率</li>
+<li>给定 $\mathsf{Enc}$ ，$\mathcal{C}$ 的分布完全取决于 $\mathcal{M}$ 和 $\mathcal{K}$ 的分布</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>加密方案包含三个算法：
+<ul>
+<li>$\mathsf{Gen}$ ——密钥生成
+<ul>
+<li>密钥生成算法从 $\mathcal{K}$ 中均匀地选择一个密钥 $k$</li>
+</ul>
+</li>
+<li>$\mathsf{Enc}$ ——加密
+<ul>
+<li>输入 $k\in\mathcal{K}, m\in\mathcal{M}$ ，输出密文 $c\in\mathcal{C}$
+<ul>
+<li>对于概率性加密算法，记作 $c\leftarrow \mathsf{Enc}_{k}(m)$</li>
+<li>对于确定性加密算法，记作 $c:=\mathsf{Enc}_{k}(m)$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>$\mathsf{Dec}$ ——解密
+<ul>
+<li>输入 $k\in\mathcal{K},c\in\mathcal{C}$ ，输出消息 $m\in\mathcal{M}$
+<ul>
+<li>一般假设解密算法是确定性的，记作 $m:=\mathsf{Dec}_{k}©$</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Perfect Secrecy</strong>
+<ul>
+<li>定义2.3：加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是perfectly secret，如果对 $\mathcal{M}$ 上任意概率分布，任意明文 $m\in\mathcal{M}$ ，任意密文 $c\in\mathcal{C}$ 且 $Pr[C=c]&gt;0$ 有：$Pr[M=m|C=c]=Pr[M=m]$
+<ul>
+<li>等价定义：$Pr[C=c|M=m]=Pr[C=c]$</li>
+</ul>
+</li>
+<li>引理2.4：加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是perfectly secret，当且仅当对所有 $m, m’\in\mathcal{M}$ 和所有 $c\in\mathcal{C}$ 有：$Pr[\mathsf{Enc}<em>{k}(m)=c]=Pr[\mathsf{Enc}</em>{k}(m’)=c]$
+<ul>
+<li>说明密文不包含任何关于明文的信息，且不可能区分加密后的 $m$ 和 $m’$</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Perfect (adversarial) indistinguishability</strong>
+<ul>
+<li>定义敌手不可区分实验 $\mathsf{PrivK}^{eav}_{\mathcal{A},\Pi}$ (其中 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ )：
+<ol>
+<li>敌手 $\mathcal{A}$ 输出一对消息 $m_0,m_1\in\mathcal{M}$</li>
+<li>选择一个比特 $b\in{0,1}$ ，计算 $c\leftarrow \mathsf{Enc}_k(m_b)$ 并发送给 $\mathcal{A}$ 。称 $c$ 为挑战密文</li>
+<li>$\mathcal{A}$ 输出一个比特 $b’$</li>
+<li>若 $b=b’$ 则实验输出1，记作 $\mathsf{PrivK}^{eav}_{\mathcal{A},\Pi}=1$ ，此时 $\mathcal{A}$ 获胜；反之输出0</li>
+</ol>
+</li>
+<li>定义2.5：加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是perfectly indistinguishable，如果对所有 $\mathcal{A}$ 有： $Pr[\mathsf{PrivK}^{eav}_{\mathcal{A},\Pi}=1]=\frac{1}{2}$</li>
+<li>引理2.6：加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是perfectly secret，当且仅当它是perfectly indistinguishable</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-2-一次一密">2.2 一次一密</h3>
+<ul>
+<li>定义：取定整数 $l&gt;0$ ， $\mathcal{M},\mathcal{C},\mathcal{K}$ 都是长度为 $l$ 的二进制串，即 ${0,1}^l$
+<ul>
+<li>$\mathsf{Gen}$ ：根据均匀分布从 $\mathcal{K}={0,1}^l$ 中选择一个密钥</li>
+<li>$\mathsf{Enc}$ ：给定密钥 $k\in{0,1}^l$ 和消息 $m\in{0,1}^l$ ，输出密文 $c:=k\oplus m$</li>
+<li>$\mathsf{Dec}$ ：给定密钥 $k\in{0,1}^l$ 和密文 $c\in{0,1}^l$ ，输出消息 $m:=k\oplus c$</li>
+</ul>
+</li>
+<li>定理2.9：一次一密方案是perfectly secret</li>
+<li>局限性：
+<ul>
+<li>密钥必须和消息等长</li>
+<li>只有每次加密使用不同的密钥才安全</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-3-Perfect-Secrecy的局限性">2.3 Perfect Secrecy的局限性</h3>
+<ul>
+<li>定理2.10： $(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是perfectly secret加密方案，则 $|\mathcal{K}|&gt;|\mathcal{M}|$ 【反证】
+<ul>
+<li>Perfectly secret的加密方案中密钥空间必须大于消息空间</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-4-香农定理">2.4 香农定理</h3>
+<ul>
+<li>定理2.11(香农定理)：对于 $|\mathcal{M}|=|\mathcal{K}|=|\mathcal{C}|$ 的加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是perfectly secret，当且仅当：
+<ol>
+<li>每个密钥 $k\in\mathcal{K}$ 被 $\mathsf{Gen}$ 选择的概率为 $1/|\mathcal{K}|$</li>
+<li>对每个 $m\in\mathcal{M}$ 和 $c\in\mathcal{C}$ ，存在唯一的密钥 $k\in\mathcal{K}$ 使得 $\mathsf{Enc}_k(m)$ 输出 $c$</li>
+</ol>
+</li>
+</ul>
+<h2 id="Chapter-3-Private-Key-Encryption">Chapter 3: Private-Key Encryption</h2>
+<h3 id="3-1-计算安全">3.1 计算安全</h3>
+<ul>
+<li>放松perfect secrecy的限制：
+<ol>
+<li>仅对可行时间内的敌手保证安全（敌手可能在足够多的时间内可以破解）</li>
+<li>敌手有很小的概率破解</li>
+</ol>
+</li>
+</ul>
+<p><strong>形式化定义</strong></p>
+<ul>
+<li>具体定义
+<ul>
+<li>一个方案是 $(t,\varepsilon)$-安全 的，如果任何敌手在时间 $t$ 内破解该方案的概率最大为 $\varepsilon$</li>
+</ul>
+</li>
+<li>渐进定义
+<ul>
+<li>诚实各方使用一个共享的安全参数 $n$ (或记为 $1^n$ ) 来初始化加密方案，从而敌手的攻击时间和攻击成功的概率都是 $n$ 的函数：
+<ul>
+<li>敌手攻击时间：多项式时间，即存在多项式 $p$ ，对所有输入 $x\in{0,1}^*$ ，算法最多执行 $p(|x|)$ 步</li>
+<li>敌手的攻击成功概率可忽略
+<ul>
+<li>定义3.4：从自然数映射到非负实数的函数 $f$ 是可忽略(negligible)的，如果对所有正多项式 $p$ ，存在 $N$ ，使得对所有 $n&gt;N$ ，有 $f(n)&lt;\frac{1}{p(n)}$ 【将任意可忽略函数记作 $\mathsf{negl}$】</li>
+<li>命题3.6：令 $\mathsf{negl_1}$ 和 $\mathsf{negl_2}$ 为可忽略函数，则
+<ol>
+<li>$\mathsf{negl_3}(n)=\mathsf{negl_1}(n)+\mathsf{negl_2}(n)$ 是可忽略的</li>
+<li>对任意正多项式 $p$ ，$\mathsf{negl_4}(n)=p(n)\cdot \mathsf{negl_1}(n)$ 是可忽略的</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>一个方案是安全的，如果任何PPT (probabilistic polynomial-time概率多项式时间) 敌手破解该方案的概率可忽略</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-2-定义计算安全的加密">3.2 定义计算安全的加密</h3>
+<ul>
+<li>定义3.7：一个对称加密方案是一个PPT算法元组 $(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ ，满足：
+<ol>
+<li>$\mathsf{Gen}$ 的输入为 $1^n$ ，输出密钥 $k$ ，记作 $k\leftarrow \mathsf{Gen}(1^n)$ ，并假设任何 $k$ 满足 $|k|&gt;n$</li>
+<li>$\mathsf{Enc}$ 的输入为 $k$ 和 $m\in{0,1}^*$ ，输出密文 $c$ ，记作 $c\leftarrow \mathsf{Enc}_k(m)$</li>
+<li>$\mathsf{Dec}$ 的输入为 $k$ 和 $c$ ，输出消息 $m$ 或错误 $\bot$ (当输入为无效密文)，记作 $m:=\mathsf{Dec}_k©$</li>
+</ol>
+<ul>
+<li>算法满足 $\mathsf{Dec}_k(\mathsf{Enc}_k(m))=m$</li>
+</ul>
+</li>
+</ul>
+<h4 id="安全的基本定义">安全的基本定义</h4>
+<ul>
+<li>关于敌手能力的假设：
+<ul>
+<li>仅窃听信道（唯密文攻击）</li>
+<li>多项式时间</li>
+</ul>
+</li>
+<li>定义敌手不可区分实验 $\mathsf{PrivK}^\mathsf{eav}_{\mathcal{A},\Pi}(n)$ (其中 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ )：
+<ol>
+<li>敌手 $\mathcal{A}$ 根据输入 $1^n$ 输出一对消息 $m_0,m_1$ ，且 $|m_0|=|m_1|$</li>
+<li>计算 $k\leftarrow \mathsf{Gen}(1^n)$ ，选择一个比特 $b\in{0,1}$ ，计算 $c\leftarrow \mathsf{Enc}_k(m_b)$ 并发送给 $\mathcal{A}$ 。称 $c$ 为挑战密文</li>
+<li>$\mathcal{A}$ 输出一个比特 $b’$</li>
+<li>若 $b=b’$ 则实验输出1，记作 $\mathsf{PrivK}^\mathsf{eav}_{\mathcal{A},\Pi}(n)=1$ ，此时 $\mathcal{A}$ 获胜；反之输出0</li>
+</ol>
+</li>
+<li>定义3.8(3.9)：对称加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是<strong>EAV-安全</strong>的（对窃听敌手不可区分），如果对所有PPT敌手 $\mathcal{A}$ 有一个可忽略函数 $\mathsf{negl}$ ，使得对所有n：
+<ol>
+<li>$Pr[\mathsf{PrivK}^\mathsf{eav}_{\mathcal{A},\Pi}(n)=1]\leq \frac{1}{2}+\mathsf{negl}(n)$
+<ul>
+<li>该式说明 $\mathcal{A}$ 正确判断加密的消息是 $m_0$ 还是 $m_1$ 的概率小于等于 $\frac{1}{2}+\mathsf{negl}(n)$</li>
+</ul>
+</li>
+<li>$Pr[out_{\mathcal{A}}(\mathsf{PrivK}<sup>\mathsf{eav}_{\mathcal{A},\Pi}(n,0))=1]-Pr[out_{\mathcal{A}}(\mathsf{PrivK}</sup>\mathsf{eav}_{\mathcal{A},\Pi}(n,1))=1]\leq \mathsf{negl}(n)$
+<ul>
+<li>其中 $\mathsf{PrivK}^\mathsf{eav}<em>{\mathcal{A},\Pi}(n,b)$ 表示实验选择了 $m_b$ 进行加密； $out</em>{\mathcal{A}}(\mathsf{PrivK}^\mathsf{eav}_{\mathcal{A},\Pi}(n,b))$ 表示 $\mathcal{A}$ 在实验中的输出，即 $b’$</li>
+<li>该式说明 $\mathcal{A}$ 不能判断进行的实验是 $\mathsf{PrivK}^\mathsf{eav}<em>{\mathcal{A},\Pi}(n,0)$ 还是 $\mathsf{PrivK}^\mathsf{eav}</em>{\mathcal{A},\Pi}(n,1)$</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h4 id="语义安全">语义安全</h4>
+<ul>
+<li>不可区分意味着密文不会泄露任何一比特的明文
+<ul>
+<li>定理3.10： $\Pi=(\mathsf{Enc},\mathsf{Dec})$ 是一个对长度为 $l$ 的消息的对称加密方案，并且是EAV-安全的。则对所有PPT敌手 $\mathcal{A}$ 和任何 $i\in{1,…,l}$ ，存在一个可忽略函数 $\mathsf{negl}$ 使得：【其中 $m^i$ 表示消息的第 $i$ 比特；$\mathcal{A}(1^n,\mathsf{Enc}_k(m))$ 表示 $\mathcal{A}$ 收到挑战密文后的输出 $b’$ 】<br>
+$$Pr[\mathcal{A}(1<sup>n,\mathsf{Enc}_k(m))=m</sup>i]\leq\frac{1}{2}+\mathsf{negl}(n)$$</li>
+</ul>
+</li>
+<li>不可区分意味着没有敌手能从密文中学习到任何明文的函数
+<ul>
+<li>定理3.11：$\Pi=(\mathsf{Enc},\mathsf{Dec})$ 是一个对长度为 $l$ 的消息的对称加密方案，并且是EAV-安全的。则对所有PPT敌手 $\mathcal{A}$ 存在一个PPT算法 $\mathcal{A’}$ ，使得对任何 $S\subseteq {0,1}^l$ 和任何函数 $f: {0,1}^l\rightarrow{0,1}$ ，存在一个可忽略函数 $negl$ 使得：<br>
+$$<br>
+|Pr[\mathcal{A}(1<sup>n,\mathsf{Enc}_k(m))=f(m)]-Pr[\mathcal{A’}(1</sup>n)=f(m)]|\leq \mathsf{negl}(n)<br>
+$$</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-3-构建安全加密方案">3.3 构建安全加密方案</h3>
+<h4 id="伪随机生成器">伪随机生成器</h4>
+<p>伪随机生成器 $G$ 是一个高效、确定性的算法，用于将一个短的、均匀的字符串 (seed) 转变为一个长的、伪随机的字符串</p>
+<ul>
+<li>定义3.14：令 $l$ 为一个多项式，$G$ 为一个确定性多项式时间算法，使得对任何 $n$ 和输入 $s\in{0,1}^n$ ，输出 $G(s)$ 是一个长度为 $l(n)$ 的字符串。称 $G$ 是一个伪随机生成器，如果满足：
+<ol>
+<li>扩展性：对任意 $n$ 满足 $l(n)&gt;n$</li>
+<li>伪随机性：对任意PPT算法 $D$ ，存在一个可忽略函数使得：【其中 $r\in {0,1}^{l(n)}$】<br>
+$$<br>
+|Pr[D(G(s))=1]-Pr[D®=1]|\leq \mathsf{negl}(n)<br>
+$$</li>
+</ol>
+<ul>
+<li>称 $l$ 为 $G$ 的扩展系数</li>
+</ul>
+</li>
+<li>之所以生成的字符串是伪随机而不是均匀的，举例说明：$l(n)=2n$ 时，长度为 $2n$ 的字符串空间为 $2^{2n}$ ，选择任意一个 $r\in {0,1}^{2n}$ 的概率为 $1/2^{2n}$ ，是均匀的；但是由于 $s$ 的长度为 $n$ ，所以 $G(s)$ 的字符串空间为 $2^n$ ，选择到的概率为 $1/2^n$ ，不是均匀的</li>
+</ul>
+<h4 id="流密码">流密码</h4>
+<p>流密码是一对确定性算法 $(\mathsf{Init}, \mathsf{GetBits})$</p>
+<ul>
+<li>$\mathsf{Init}$ 输入seed $s$ 和可选的初始化向量 $IV$ ，输出初始状态 $st_0$</li>
+<li>$\mathsf{GetBits}$ 输入状态信息 $st_i$ ，输出一个比特 $y$ 并更新状态到 $st_{i+1}$</li>
+</ul>
+<p>算法3.16：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/qyC5GXi1vlcpYNf.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/qyC5GXi1vlcpYNf.png" srcset="data:image/png;base64,666" alt="image-20220301165707241" style="zoom: 60%;" />
+<h4 id="规约证明">规约证明</h4>
+<p>将证明一个敌手 $\mathcal{A}$ 成功破解一个方案 转换为 证明一个算法 $\mathcal{A’}$ 解决一个难题，具体步骤如下：</p>
+<ol>
+<li>选定一个敌手 $\mathcal{A}$ 攻击 $\Pi$ ，攻击成功的概率为 $\varepsilon(n)$ ；</li>
+<li>构建一个算法 $\mathcal{A’}$ ，它使用敌手 $\mathcal{A}$ 作为子程序来尝试解决问题 $X$ 。注意： $\mathcal{A’}$ 不知道 $\mathcal{A}$ 是如何工作的，它只知道 $\mathcal{A}$ 要攻击 $\Pi$ 。当输入一个问题 $X$ 的实例 $x$ 时， $\mathcal{A’}$ 为 $\mathcal{A}$ <strong>模拟</strong>一个 $\Pi$ 的实例，使得：
+<ol>
+<li>$\mathcal{A}$ 无法区分自己是作为 $\mathcal{A’}$ 的子程序在运行还是其本身在攻击 $\Pi$ ；</li>
+<li>如果 $\mathcal{A}$ 成功破解  $\mathcal{A’}$ 模拟的 $\Pi$ ，则  $\mathcal{A’}$ 能解决问题 $x$ ，其概率至少为 $1/p(n)$ ；</li>
+</ol>
+</li>
+<li>根据上一点， $\mathcal{A’}$ 解决 $X$ 的概率为 $\varepsilon(n)/p(n)$ 。若 $\varepsilon(n)$ 不是可忽略的，则 $\varepsilon(n)/p(n)$ 也不是可忽略的，从而得到一个算法 $\mathcal{A’}$ 以不可忽略的概率解决 $X$ ，与假设（ $X$ 是一个计算难题，无法在多项式时间内解决）矛盾；</li>
+<li>综上，如果 $X$ 确实是计算难题，则没有 $\mathcal{A}$ 能以不可忽略的概率破解 $\Pi$ 。换言之， $\Pi$ 是计算安全的。</li>
+</ol>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301191556727.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301191556727.png" srcset="data:image/png;base64,666" alt="image-20220301191556727" style="zoom: 50%;" />
+<h4 id="安全的定长加密方案">安全的定长加密方案</h4>
+<p>用生成器对密钥进行扩充，以达到一次一密的效果</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301195150132.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301195150132.png" srcset="data:image/png;base64,666" alt="image-20220301195150132" style="zoom: 50%;" />
+<p>具体构造3.17如下：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301195704054.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301195704054.png" srcset="data:image/png;base64,666" alt="image-20220301195704054" style="zoom:67%;" />
+<ul>
+<li>定理3.18：如果 $G$ 是伪随机生成器，则上述构造的加密方案是EAV-安全的</li>
+</ul>
+<hr>
+<p>规约证明3.18：</p>
+<p>使用 $\mathcal{A}$ 来构造一个判别器 $D$ ，将 $\mathcal{A}$ 正确选择 $\Pi$ 加密的消息的能力规约到 $D$ 分辨 $G$ 的输出和均匀字符串的能力，从而由 $G$ 的安全性能推导出 $\Pi$ 的安全性。</p>
+<p>$D$ 的构造如下，$D$ 的目标是分辨输入 $w$ 是随机串还是由伪随机生成器生成的：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301201750903.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220301201750903.png" srcset="data:image/png;base64,666" alt="image-20220301201750903" style="zoom:50%;" />
+<p>定义 $\widetilde{\Pi}=(\widetilde{\mathsf{Gen}},\widetilde{\mathsf{Enc}},\widetilde{\mathsf{Dec}})$ 为一次一密方案：</p>
+<ul>
+<li>$\widetilde{\mathsf{Gen}}(1^n)$ 输出长度为 $l(n)$ 的密钥 $k$ ；</li>
+<li>$\widetilde{\mathsf{Enc}}$ 使用 $k$ 加密长度为 $l(n)$ 的消息：$c:=k\oplus m$ ；</li>
+</ul>
+<p>根据一次一密的perfect secrecy：<br>
+$$<br>
+Pr[\mathsf{PrivK}^{eav}_{\mathcal{A},\widetilde{\Pi}}(n)=1]=\frac{1}{2} \tag{3.3}<br>
+$$</p>
+<p>对 $D$ 进行分析：</p>
+<ol>
+<li>若 $w$ 是从 ${0,1}^{l(n)}$ 中均匀选出的，则 $\mathcal{A}$ 作为 $D$ 的子程序运行的视图和在实验 $\mathsf{PrivK}^{eav}<em>{\mathcal{A},\widetilde{\Pi}}(n)$ 中的视图完全一致，即：<br>
+$$<br>
+Pr</em>{w\leftarrow {0,1}<sup>{l(n)}}[D(w)=1]=Pr[\mathsf{PrivK}</sup>{eav}_{\mathcal{A},\widetilde{\Pi}}(n)=1]=\frac{1}{2} \tag{3.4}<br>
+$$</li>
+<li>若 $w$ 是通过 $w=G(k),,k\in {0,1}^n$ 生成的，则 $\mathcal{A}$ 作为 $D$ 的子程序运行的视图和在实验 $\mathsf{PrivK}^{eav}<em>{\mathcal{A},\Pi}(n)$ 中的视图完全一致，即<br>
+$$<br>
+Pr</em>{k\leftarrow {0,1}<sup>n}[D(G(k))=1]=Pr[\mathsf{PrivK}</sup>{eav}_{\mathcal{A},\Pi}(n)=1] \tag{3.5}<br>
+$$</li>
+</ol>
+<p>由于 $G$ 是伪随机生成器，所以存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+|Pr_{w\leftarrow {0,1}^{l(n)}}[D(w)=1]-Pr_{k\leftarrow {0,1}^n}[D(G(k))=1]|\leq \mathsf{negl}(n)<br>
+$$</p>
+<p>根据公式 $(3.4),,(3.5)$ 得：<br>
+$$<br>
+|\frac{1}{2}-Pr[\mathsf{PrivK}^{eav}_{\mathcal{A},\Pi}(n)=1]|\leq \mathsf{negl}(n)<br>
+$$</p>
+<p>即 $Pr[\mathsf{PrivK}^{eav}_{\mathcal{A},\Pi}(n)=1]\leq \frac{1}{2}+\mathsf{negl}(n)$ ，从而方案 $\Pi$ 是EAV-安全的。</p>
+<hr>
+<h3 id="3-4-更强的安全概念">3.4 更强的安全概念</h3>
+<h4 id="多消息加密——修改安全目标">多消息加密——修改安全目标</h4>
+<ul>
+<li>多消息窃听实验 $\mathsf{PrivK}^\mathsf{mult}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ ，并输出一对相同长度的消息列表： $\vec{M_0}=(m_{0,1},…,m_{0,t})$ 和 $\vec{M_1}=(m_{1,1},…,m_{1,t})$ ，其中 $|m_{0,i}|=|m_{1,i}|$ ；</li>
+<li>$k\leftarrow \mathsf{Gen(1^n)}$ ，并随机选择 $b\in{0,1}$ 。对所有 $i$ ，计算 $c_i\leftarrow \mathsf{Enc}<em>k(m</em>{b,i})$ ，将 $\vec{C}=(c_1,…,c_t)$ 发送给 $\mathcal{A}$ ；</li>
+<li>$\mathcal{A}$ 输出一比特 $b’$ ；</li>
+<li>若 $b=b’$ 则实验输出1，$\mathcal{A}$ 获胜，反之输出0。</li>
+</ol>
+</li>
+<li>定义3.19：一个对称加密方案 $\Pi=(\mathsf{Gen,Enc,Dec})$ 是多消息EAV-安全的，如果对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{PrivK}^\mathsf{mult}_{\mathcal{A},\Pi}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$</li>
+<li>命题3.20：存在一个对称加密算法是EAV-安全的，但不是多消息EAV-安全的。【eg. 一次一密】</li>
+<li>定理3.21：如果 $\Pi$ 是一个无状态的加密方案且 $\mathsf{Enc}$ 是确定性算法，则 $\Pi$ 不可能是多消息EAV-安全的。</li>
+</ul>
+<h4 id="CPA-安全（选择明文攻击）——增强威胁模型">CPA-安全（选择明文攻击）——增强威胁模型</h4>
+<ul>
+<li>CPA不可区分实验 $\mathsf{PrivK}^\mathsf{cpa}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$k\leftarrow \mathsf{Gen(1^n)}$ ；</li>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ 并能够使用oracle $\mathsf{Enc}_k(\cdot)$，输出一对相同长度的消息 $m_0$ 和 $m_1$ ；</li>
+<li>随机选择 $b\in{0,1}$ ，计算 $c\leftarrow \mathsf{Enc}<em>k(m</em>{b})$ ，并发送给 $\mathcal{A}$ ；</li>
+<li>$\mathcal{A}$ 输出一比特 $b’$ ；</li>
+<li>若 $b=b’$ 则实验输出1，$\mathcal{A}$ 获胜，反之输出0。</li>
+</ol>
+</li>
+<li>定义3.22：对称加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是<strong>CPA-安全</strong>的（对选择明文攻击不可区分），如果对所有PPT敌手 $\mathcal{A}$ 有一个可忽略函数 $\mathsf{negl}$ ，使得对所有n：<br>
+$$Pr[\mathsf{PrivK}^\mathsf{cpa}_{\mathcal{A},\Pi}(n)=1]\leq \frac{1}{2}+\mathsf{negl}(n)$$</li>
+</ul>
+<h4 id="多消息加密的CPA-安全">多消息加密的CPA-安全</h4>
+<ul>
+<li>定义oracle $\mathsf{LR}_{k,b}(\cdot,\cdot)$ ：输入两个等长的消息 $m_0$ ，$m_1$ ，若 $b=0$ 输出 $c\leftarrow \mathsf{Enc}_k(m_0)$ ；若 $b=1$ 输出 $c\leftarrow \mathsf{Enc}_k(m_1)$</li>
+<li>LR-oracle实验 $\mathsf{PrivK}^\mathsf{LR-cpa}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$k\leftarrow \mathsf{Gen(1^n)}$ ；</li>
+<li>随机选择 $b\in{0,1}$ ；</li>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ 并能够使用oracle $\mathsf{LR}<em>{k,b}(\cdot,\cdot)$ 【 $\mathcal{A}$ 能通过请求 $\mathsf{LR}</em>{k,b}(m_{0,1},m_{1,1})$,…,$\mathsf{LR}<em>{k,b}(m</em>{0,t},m_{1,t})$ 来获取消息列表的加密结果，同时也可以通过请求 $\mathsf{LR}_{k,b}(m,m)$ 来获得 $\mathsf{Enc}_k(m)$ 】，输出一对相同长度的消息 $m_0$ 和 $m_1$ ；</li>
+<li>计算 $c\leftarrow \mathsf{Enc}<em>k(m</em>{b})$ ，并发送给 $\mathcal{A}$ ；</li>
+<li>$\mathcal{A}$ 输出一比特 $b’$ ；</li>
+<li>若 $b=b’$ 则实验输出1，$\mathcal{A}$ 获胜，反之输出0。</li>
+</ol>
+</li>
+<li>定义3.23：对称加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是多消息CPA-安全的，如果对所有PPT敌手 $\mathcal{A}$ 有一个可忽略函数 $\mathsf{negl}$ ，使得对所有n：<br>
+$$Pr[\mathsf{PrivK}^\mathsf{LR-cpa}_{\mathcal{A},\Pi}(n)=1]\leq \frac{1}{2}+\mathsf{negl}(n)$$</li>
+<li>定理3.24：任何CPA-安全的对称加密方案都是多消息CPA-安全的</li>
+</ul>
+<h3 id="3-5-构造CPA-安全的加密方案">3.5 构造CPA-安全的加密方案</h3>
+<h4 id="伪随机函数">伪随机函数</h4>
+<ul>
+<li>定义keyed函数 $F(k,x):{0,1}^<em>\times {0,1}^</em>\rightarrow {0,1}^<em>$ ，一般而言可以固定密钥 $k$ ，记作 $F_k(x)=F(k,x)$ ，而 $F_k(x):{0,1}^</em>\rightarrow {0,1}^*$ 。安全参数 $n$ 规定了密钥、输入、输出的长度，从而 $F_k(x)$ 是条件 $k\in{0,1}^n$ 下的一个将长度为 $n$ 的输入映射到长度为 $n$ 的输出的函数。
+<ul>
+<li>称函数 $F$ 是伪随机的，如果 $F_k(x)$ 与 $f:{0,1}^n\rightarrow {0,1}^n$ 不可区分【所有 $f$ 的集合记作 $\mathsf{Func}_n$】
+<ul>
+<li>可以将 $f$ 看作一个表，根据长度 $n$ 的输入查表得到长度 $n$ 的输出，输入可以固定顺序为 $0^n$ 到 $1^n$ ，则该表有 $2^n$ 行，每个输入对应的输出长度为 $n$ ，即每行长度为 $n$ ，因此函数 $f$ 可以看作一个长度为 $2^n\cdot n$ 的序列，从而 $f$ 的取值空间大小为 $2<sup>{2</sup>n\cdot n}$ 【$F_k$ 的取值空间为 $2^n$】</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>定义3.25：令 $F:{0,1}^<em>\times {0,1}^</em>\rightarrow {0,1}^*$ 为一个keyed函数。$F$ 是一个伪随机函数，如果对所有PPT判别器 $D$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+|Pr[D<sup>{F_k(\cdot)}(1</sup>n)=1]-Pr[D<sup>{f(\cdot)}(1</sup>n)=1]|\leq\mathsf{negl}(n)<br>
+$$
+<ul>
+<li>注：$D$ 并不知道具体的 $k$</li>
+</ul>
+</li>
+</ul>
+<h4 id="伪随机排列">伪随机排列</h4>
+<ul>
+<li>令 $\mathsf{Perm}_n$ 是 ${0,1}^n$ 的全排列，大小为 $(2^n)!$
+<ul>
+<li>若函数 $f\in\mathsf{Perm}_n$ ，说明不同输入映射到的输出是不同的</li>
+<li>$F$ 是一个keyed排列，如果 $F_k$ 的值是全排列； $F$ 是efficient的，如果可以在多项式时间内计算 $F_k(x)$ 和 $F_k^{-1}(y)$</li>
+<li>$F$ 是伪随机排列，如果 $F_k(x)$ 与 $f\in\mathsf{Perm}_n$ 不可区分</li>
+</ul>
+</li>
+<li>命题3.27：如果 $F$ 是一个伪随机排列且 $l_{in}(n)\geq n$ ，则 $F$ 也是一个伪随机函数</li>
+<li>定义3.28：令 $F:{0,1}^<em>\times {0,1}^</em>\rightarrow {0,1}^*$ 为一个keyed排列。$F$ 是一个强伪随机排列，如果对所有PPT判别器 $D$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+|Pr[D<sup>{F_k(\cdot),F_k</sup>{-1}(\cdot)}(1<sup>n)=1]-Pr[D</sup>{f(\cdot),f<sup>{-1}(\cdot)}(1</sup>n)=1]|\leq\mathsf{negl}(n)<br>
+$$</li>
+</ul>
+<h4 id="伪随机函数与伪随机生成器的关系">伪随机函数与伪随机生成器的关系</h4>
+<ul>
+<li>伪随机生成器 $G$ 可以由伪随机函数 $F$ 得到：$G(s)=F_s(1)||F_s(2)||…||F_s(l)$</li>
+<li>根据伪随机函数构造流密码3.29：</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303095334545.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303095334545.png" srcset="data:image/png;base64,666" alt="image-20220303095334545" style="zoom:50%;" />
+<h4 id="伪随机函数构造的CPA-安全加密">伪随机函数构造的CPA-安全加密</h4>
+<ul>
+<li><strong>证明基于伪随机函数的构造的安全性</strong>：首先假设构造中的伪随机函数被以一个随机函数替换，再通过规约证明来说明这个改变不会影响敌手成功的概率，最后再证明修改后的构造是安全的</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303100249230.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303100249230.png" srcset="data:image/png;base64,666" alt="image-20220303100249230" style="zoom:50%;" />
+<ul>
+<li>构造3.30：
+<ul>
+<li>缺点在于生成的密文长度是明文的两倍</li>
+</ul>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303100951250.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303100951250.png" srcset="data:image/png;base64,666" alt="image-20220303100951250" style="zoom:50%;" />
+<ul>
+<li>定理3.31：如果 $F$ 是一个伪随机函数，则上述构造是CPA-安全的【证明on P83】</li>
+</ul>
+<h3 id="3-6-工作模式">3.6 工作模式</h3>
+<h4 id="流密码的工作模式">流密码的工作模式</h4>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303152324480.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303152324480.png" srcset="data:image/png;base64,666" alt="image-20220303152324480" style="zoom:50%;" />
+<ul>
+<li>同步模式：有状态，需要通信双方同步，基于算法3.16和构造3.17
+<ol>
+<li>令发送方为A，接收方为B，双方计算 $\mathsf{st}_0:=\mathsf{Init}(k)$</li>
+<li>发送第一条长度为 $l_1$ 的消息 $m_1$ ，A根据 $\mathsf{st}<em>0$ 运行 $l_1$ 次 $\mathsf{GetBits}$ ，得到 $\mathsf{pad}<em>1\overset{def}{=}y_1,…,y</em>{l_1}$ 并更新状态到 $\mathsf{st}</em>{l_1}$ ，然后发送 $c_1:=\mathsf{pad}_1 \oplus m_1$ ；而B解密通过 $m_1:=\mathsf{pad}_1 \oplus c_1$</li>
+<li>发送第二条长度为 $l_2$ 的消息 $m_2$ ，A根据 $\mathsf{st}<em>{l_1}$ 运行 $l_2$ 次 $\mathsf{GetBits}$ ，得到 $\mathsf{pad}<em>2\overset{def}{=}y</em>{l_1+1},…,y</em>{l_1+l_2}$ 并更新状态到 $\mathsf{st}_{l_1+l_2}$ ，然后发送 $c_2:=\mathsf{pad}_2 \oplus m_2$ ；而B解密通过 $m_2:=\mathsf{pad}_2 \oplus c_2$ ，以此类推</li>
+</ol>
+</li>
+<li>自同步模式：无状态CPA-安全，基于构造3.30，其中的 $F_k(IV)\overset{def}{=}G_\infty(k,IV,1^l)$</li>
+</ul>
+<h4 id="分组密码的工作模式">分组密码的工作模式</h4>
+<p>使用分组密码构造CPA-安全的加密方案，改进构造3.30，使得密文长度减小。令 $F$ 为分组长度为 $n$ 的分组密码，需要加密的消息记为 $m=m_1,m_2,…,m_l$ 且 $m_i\in{0,1}^n$</p>
+<ul>
+<li>ECB模式（Electronic Code Book）：$c:=\langle F_k(m_1),…,F_k(m_l)\rangle$ ，它是确定性算法，因此不是CPA-安全的，同时它也不是EAV-安全的，因为每一个分组的block都相同</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303162800363.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303162800363.png" srcset="data:image/png;base64,666" alt="image-20220303162800363" style="zoom:50%;" />
+<ul>
+<li>
+<p>CBC模式（Cipher Block Chaining）：概率性算法，若 $F$ 是一个伪随机排列，则CBC-模式加密是CPA-安全的</p>
+<ul>
+<li>
+<p>缺点：加解密只能串行，不能并行，因为后面的block依赖于前面block的输出</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303164215246.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303164215246.png" srcset="data:image/png;base64,666" alt="image-20220303164215246" style="zoom:50%;" />
+</li>
+<li>
+<p>链式CBC：对一种选择明文攻击不安全，构造攻击如下：</p>
+<ul>
+<li>
+<p>假设敌手知道 $m_1\in{m_1<sup>0,m_1</sup>1}$ ，并且得到了密文 $IV,c_1,c_2,c_3$ ，接着构造 $m_4=IV\oplus m_1^0\oplus c_3$ ，得到输出 $c_4$ 。从而可以得出 $m_1=m_1^0$ 当且仅当 $c_4=c_1$ ，因此敌手可以从 ${m_1<sup>0,m_1</sup>1}$ 中选出正确的 $m_1$</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303165103210.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303165103210.png" srcset="data:image/png;base64,666" alt="image-20220303165103210" style="zoom:50%;" />
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>OFB模式（Output Feedback）：可以看作是自同步流密码，$F$ 不需要是一个伪随机排列，消息长度不需要进行填充，且每一步的状态都是保密的。若 $F$ 是一个伪随机函数，则OFB模式是CPA-安全的。虽然加解密都只能串行执行，但是加解密用的伪随机串可以提前计算</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303174616670.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303174616670.png" srcset="data:image/png;base64,666" alt="image-20220303174616670" style="zoom:50%;" />
+</li>
+<li>
+<p>CTR模式（Counter）：也可以看作自同步流密码，具体构造如下：</p>
+<ul>
+<li>
+<p>选择一个随机值 $\mathsf{ctr}\in{0,1}^n$ ，计算伪随机串 $y_i:=F_k(\mathsf{ctr}+i)$ 【其中 $\mathsf{ctr}+i$ 是整数模 $2^n$ 相加】，从而第 $i$ 个密文块为 $c_i:=y_i\oplus m_i$</p>
+</li>
+<li>
+<p>$F$ 不需要是一个伪随机排列，消息长度不需要进行填充，且每一步的状态都是保密的，加解密可以并行执行，且伪随机串可以提前计算</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303175738684.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220303175738684.png" srcset="data:image/png;base64,666" alt="image-20220303175738684" style="zoom:50%;" />
+</li>
+<li>
+<p>定理3.32：若 $F$ 是一个伪随机函数，则CRT模式是CPA-安全的。【证明on P93】</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="3-7-选择密文攻击">3.7 选择密文攻击</h3>
+<h4 id="CCA-安全">CCA-安全</h4>
+<ul>
+<li>CCA不可区分实验 $\mathsf{PrivK}^\mathsf{cca}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$k\leftarrow \mathsf{Gen(1^n)}$ ；</li>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ 并能够使用oracle $\mathsf{Enc}_k(\cdot)$ 和 $\mathsf{Dec}_k(\cdot)$ ，输出一对相同长度的消息 $m_0$ 和 $m_1$ ；</li>
+<li>随机选择 $b\in{0,1}$ ，计算 $c\leftarrow \mathsf{Enc}<em>k(m</em>{b})$ ，并发送给 $\mathcal{A}$ ；</li>
+<li>$\mathcal{A}$ 可以继续使用 $\mathsf{Enc}_k(\cdot)$ 和 $\mathsf{Dec}_k(\cdot)$ ，但不能对挑战密文使用 $\mathsf{Dec}_k(\cdot)$。最终 $\mathcal{A}$ 输出一比特 $b’$ ；</li>
+<li>若 $b=b’$ 则实验输出1，$\mathcal{A}$ 获胜，反之输出0。</li>
+</ol>
+</li>
+<li>定义3.33：对称加密方案 $\Pi=(\mathsf{Gen}, \mathsf{Enc}, \mathsf{Dec})$ 是<strong>CCA-安全</strong>的（对选择密文攻击不可区分），如果对所有PPT敌手 $\mathcal{A}$ 有一个可忽略函数 $\mathsf{negl}$ ，使得对所有n：<br>
+$$Pr[\mathsf{PrivK}^\mathsf{cca}_{\mathcal{A},\Pi}(n)=1]\leq \frac{1}{2}+\mathsf{negl}(n)$$</li>
+<li>注：任何CCA-安全的对称加密方案都是多消息CCA-安全的</li>
+<li>之前所讨论的所有加密方案都不是CCA安全的，例如对于构造3.30：敌手选择 $m_0=0<sup>n,,m_1=1</sup>n$ ，在收到密文 $c=\langle r,s\rangle$ 之后，敌手反转 $s$ 的第一位，并将新的密文 $c’=\langle r,s’\rangle$ 发送到 $\mathsf{Dec}_k(\cdot)$ 进行解密，若结果是 $10^{n-1}$ 说明 $b=0$ ，若结果是 $01^{n-1}$ 说明 $b=1$
+<ul>
+<li>CCA-安全的一个重要性质是non-malleability，即对于一个密文，若对其做一些修改，则解密要么无效要么结果与原本的结果毫无关系</li>
+</ul>
+</li>
+</ul>
+<h4 id="Padding-Oracle-Attacks">Padding-Oracle Attacks</h4>
+<p>攻击者只需要知道修改后的密文是否能够有效解密，具体攻击方法见P98</p>
+<h2 id="Chapter-4-Message-Authentication-Codes">Chapter 4: Message Authentication Codes</h2>
+<h3 id="4-2-MAC（消息认证码）定义">4.2 MAC（消息认证码）定义</h3>
+<ul>
+<li>定义4.1：一个MAC包含三个PPT算法 $(\mathsf{Gen},\mathsf{Mac},\mathsf{Vrfy})$ ：满足 $\mathsf{Vrfy}_k(m,\mathsf{Mac}_k(m))=1$
+<ul>
+<li>$\mathsf{Gen}$ 根据输入安全参数 $1^n$ ，输出密钥 $k,,|k|\geq n$</li>
+<li>$\mathsf{Mac}$ 根据输入密钥 $k$ 和消息 $m\in{0,1}^*$ ，输出一个标签 $t$ ，即 $t\leftarrow \mathsf{Mac}_k(m)$</li>
+<li>$\mathsf{Vrfy}$ 是确定性算法，根据输入密钥 $k$ 、消息 $m$ 和标签 $t$ ，输出一比特 $b$ ，即 $b:=\mathsf{Vrfy}_k(m,t)$ 。若 $b=1$ 说明验证通过</li>
+</ul>
+</li>
+<li>消息认证实验 $\mathsf{Mac{-}forge}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$k\leftarrow \mathsf{Gen}(1^n)$</li>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ 并能够使用oracle $\mathsf{Mac}_k(\cdot)$ 。敌手最终输出 $(m,t)$ 。令 $\mathcal{Q}$ 表示 $\mathcal{A}$ 对oracle的所有请求集合</li>
+<li>$\mathcal{A}$ 成功当且仅当(1). $\mathsf{Vrfy}_k(m,t)=1$ 和(2). $m\notin \mathcal{Q}$ ，此时实验输出1</li>
+</ol>
+</li>
+<li>定义4.2：MAC算法 $\Pi=(\mathsf{Gen},\mathsf{Mac},\mathsf{Vrfy})$ 是安全的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{Mac{-}forge}_{\mathcal{A},\Pi}(n)=1]\leq \mathsf{negl}(n)<br>
+$$
+<ul>
+<li>以上定义的安全的MAC算法不能抵抗重放攻击，因为它不对消息的状态进行验证，只要 $(m,t)$ 是有效的就可以通过验证</li>
+</ul>
+</li>
+<li>消息认证增强实验 $\mathsf{Mac{-}sforge}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$k\leftarrow \mathsf{Gen}(1^n)$</li>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ 并能够使用oracle $\mathsf{Mac}_k(\cdot)$ 。敌手最终输出 $(m,t)$ 。令 $\mathcal{Q}$ 表示所有的请求过的 $(m,t)$ 集合</li>
+<li>$\mathcal{A}$ 成功当且仅当(1). $\mathsf{Vrfy}_k(m,t)=1$ 和(2). $(m,t)\notin \mathcal{Q}$ ，此时实验输出1</li>
+</ol>
+</li>
+<li>定义4.3：MAC算法 $\Pi=(\mathsf{Gen},\mathsf{Mac},\mathsf{Vrfy})$ 是强安全的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{Mac{-}sforge}_{\mathcal{A},\Pi}(n)=1]\leq \mathsf{negl}(n)<br>
+$$</li>
+<li>命题4.4：令 $\Pi=(\mathsf{Gen},\mathsf{Mac},\mathsf{Vrfy})$ 是一个安全的MAC算法，则它也是强安全的</li>
+</ul>
+<h3 id="4-3-构造安全MAC">4.3 构造安全MAC</h3>
+<h4 id="固定长度MAC">固定长度MAC</h4>
+<ul>
+<li>
+<p>构造4.5：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220309154102645.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220309154102645.png" srcset="data:image/png;base64,666" alt="image-20220309154102645" style="zoom:50%;" />
+</li>
+<li>
+<p>定理4.6：若 $F$ 是一个伪随机函数，则构造4.5对于长度为 $n$ 的消息是安全的MAC【证明on P117】</p>
+</li>
+</ul>
+<h4 id="任意长度MAC">任意长度MAC</h4>
+<ul>
+<li>
+<p>构造4.7：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220309192522010.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220309192522010.png" srcset="data:image/png;base64,666" alt="image-20220309192522010" style="zoom:50%;" />
+</li>
+<li>
+<p>定理4.8：如果 $\Pi’$ 是安全的定长MAC，则构造4.7也是安全MAC【证明on P120】</p>
+</li>
+</ul>
+<h3 id="4-4-CBC-MAC">4.4 CBC-MAC</h3>
+<ul>
+<li>
+<p>基本构造4.11（定长CBC-MAC）：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220309203451905.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220309203451905.png" srcset="data:image/png;base64,666" alt="image-20220309203451905" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220310102020862.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220310102020862.png" srcset="data:image/png;base64,666" alt="image-20220310102020862" style="zoom:50%;" />
+</li>
+<li>
+<p>定理4.12：令 $\ell$ 为多项式，若 $F$ 是伪随机函数，则构造4.11是对长度为 $\ell(n)\cdot n$ 的消息的安全MAC</p>
+</li>
+<li>
+<p>构造任意长度的CBC-MAC</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220310102128970.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220310102128970.png" srcset="data:image/png;base64,666" alt="image-20220310102128970" style="zoom:50%;" />
+</li>
+<li>
+<p>*安全性证明on P125，包括：</p>
+<ul>
+<li>定理4.13</li>
+<li>断言4.14</li>
+<li>断言4.15</li>
+</ul>
+</li>
+</ul>
+<h3 id="4-5-认证加密">4.5 认证加密</h3>
+<h4 id="定义">定义</h4>
+<ul>
+<li>不可伪造加密实验 $\mathsf{Enc{-}Forge}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$k\leftarrow \mathsf{Gen}(1^n)$</li>
+<li>敌手 $\mathcal{A}$ 得到输入 $1^n$ 并能够使用加密oracle $\mathsf{Enc}_k(\cdot)$ 。敌手最终输出密文 $c$</li>
+<li>令 $m:=\mathsf{Dec}_k©$ ，令 $\mathcal{Q}$ 表示 $\mathcal{A}$ 对加密oracle的所有请求集合。实验输出1当且仅当(1) $m\neq\perp$ 和(2) $m\notin \mathcal{Q}$</li>
+</ol>
+<ul>
+<li>若敌手可以伪造一个密文，使其能够成功解密，则敌手获胜</li>
+</ul>
+</li>
+<li>定义4.16：一个对称加密方案 $\Pi$ 是不可伪造的，如果对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{Enc{-}Forge}_{\mathcal{A},\Pi}(n)=1]\leq\mathsf{negl}(n)<br>
+$$</li>
+<li>定义4.17：一个对称加密方案是一个认证加密方案，如果它既是CCA-安全的又是不可伪造的</li>
+</ul>
+<h4 id="一般构造">一般构造</h4>
+<ul>
+<li>
+<p>Encrypt-and-authenticate：<br>
+$$<br>
+c\leftarrow\mathsf{Enc}<em>{k_E}(m),,and,,t\leftarrow\mathsf{Mac}</em>{k_E}(m)<br>
+$$</p>
+<ul>
+<li>不能保证基本的安全性，因为MAC并没有机密性要求，从而可能泄露关于 $m$ 的信息</li>
+</ul>
+</li>
+<li>
+<p>Authenticate-then-encrypt：<br>
+$$<br>
+t\leftarrow\mathsf{Mac}<em>{k_E}(m),,and,,c\leftarrow\mathsf{Enc}</em>{k_E}(m||t)<br>
+$$</p>
+<ul>
+<li>不能保证一定是认证加密方案，例如对于CBC模式加密，将 $t$ 看作是对消息 $m$ 的填充，则对于解密失败存在两种情况：填充错误或MAC验证失败，但只要攻击者能分辨两种错误，就可以正确解密，如3.7节最后的Padding-Oracle Attacks所示</li>
+</ul>
+</li>
+<li>
+<p>Encrypt-then-authenticate：<br>
+$$<br>
+c\leftarrow\mathsf{Enc}<em>{k_E}(m),,and,,t\leftarrow\mathsf{Mac}</em>{k_E}©<br>
+$$</p>
+<ul>
+<li>
+<p>正式构造4.18如下：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220310214450995.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220310214450995.png" srcset="data:image/png;base64,666" alt="image-20220310214450995" style="zoom:50%;" />
+</li>
+<li>
+<p>定理4.19：令 $\Pi_E$ 是CPA-安全的对称加密方案， $\Pi_M$ 是强安全的MAC，则构造4.18是认证加密方案【证明on P136】</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-5-Hash-Functions-and-Applications">Chapter 5: Hash Functions and Applications</h2>
+<h3 id="5-1-定义">5.1 定义</h3>
+<h4 id="抗碰撞">抗碰撞</h4>
+<ul>
+<li>定义5.1：哈希函数是一对PPT算法 $(\mathsf{Gen},H)$ ，满足：
+<ul>
+<li>$\mathsf{Gen}$ 是一个概率算法，输入安全参数 $1^n$ ，输出密钥 $s$ 。假设 $1^n$ 隐含在 $s$ 中</li>
+<li>$H$ 根据输入密钥 $s$ 和字符串 $x\in{0,1}^*$ ，输出字符串 $H<sup>s(x)\in{0,1}</sup>{\ell(n)}$</li>
+</ul>
+</li>
+<li>collision-finding实验 $\mathsf{Hash{-}coll}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$s\leftarrow\mathsf{Gen}(1^n)$</li>
+<li>敌手 $\mathcal{A}$ 根据输入 $s$ 输出 $x,x’$</li>
+<li>实验输出1当且仅当 $x\neq x’$ 且 $H<sup>s(x)=H</sup>s(x’)$ ，此时称 $\mathcal{A}$ 找到了碰撞</li>
+</ol>
+</li>
+<li>定义5.2：哈希函数 $\Pi=(\mathsf{Gen},H)$ 是抗碰撞的，如果对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{Hash{-}coll}_{\mathcal{A},\Pi}(n)=1]\leq \mathsf{negl}(n)<br>
+$$</li>
+<li>在实际应用中，哈希函数通常是unkeyed的，即 $H: {0,1}<sup>*\rightarrow{0,1}</sup>\ell$ ，从理论的角度这是不安全的，因为所有哈希函数在生成的时候就硬编码了碰撞对 $(x,x’)$ ，但是实践中找到这样的碰撞对是困难的，因此unkeyed哈希函数还是计算安全的</li>
+</ul>
+<h4 id="较弱的安全概念">较弱的安全概念</h4>
+<ul>
+<li>弱抗碰撞性（抗第一原像）：给定 $s,x$ ，PPT敌手找到 $x’\neq x$ 使得 $H<sup>s(x’)=H</sup>s(x)$ 是不可行的</li>
+<li>单向性（抗第二原像）：给定 $s,y$ ，PPT敌手找到 $x$ 使得 $H^s(x)=y$ 是不可行的</li>
+<li>抗碰撞 =&gt; 弱抗碰撞 =&gt; 单向</li>
+</ul>
+<h3 id="5-2-域扩张：Merkle-Damgard变换">5.2 域扩张：Merkle-Damgard变换</h3>
+<p>用于将压缩函数扩展为完整的哈希函数，同时保持前者的抗碰撞性</p>
+<ul>
+<li>
+<p>将定长输入的哈希函数通过Merkle-Damgard变换转换为任意长度输入的哈希函数，构造5.3：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220311200724075.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220311200724075.png" srcset="data:image/png;base64,666" alt="image-20220311200724075" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220311203720834.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220311203720834.png" srcset="data:image/png;base64,666" alt="image-20220311203720834" style="zoom:50%;" />
+</li>
+<li>
+<p>定理5.4：如果 $(\mathsf{Gen},h)$ 是抗碰撞的，则 $(\mathsf{Gen},H)$ 也是抗碰撞的【证明on P157】【形式化证明on 练习5.4】</p>
+</li>
+</ul>
+<h3 id="5-3-使用哈希函数实现消息认证">5.3 使用哈希函数实现消息认证</h3>
+<h4 id="Hash-and-MAC">Hash-and-MAC</h4>
+<ul>
+<li>
+<p>构造5.5：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220312141612142.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220312141612142.png" srcset="data:image/png;base64,666" alt="image-20220312141612142" style="zoom:50%;" />
+</li>
+<li>
+<p>定理5.6：若 $\Pi$ 是对长 $\ell$ 的消息安全的MAC，且 $\Pi_H$ 是抗碰撞的，则构造5.5是对任意长消息安全的MAC【证明on P160】</p>
+</li>
+</ul>
+<h4 id="HMAC">HMAC</h4>
+<ul>
+<li>
+<p>构造5.7：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220312165332394.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220312165332394.png" srcset="data:image/png;base64,666" alt="image-20220312165332394" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220312165355002.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220312165355002.png" srcset="data:image/png;base64,666" alt="image-20220312165355002" style="zoom:50%;" />
+</li>
+</ul>
+<h3 id="5-5-Random-Oracle模型">5.5 Random-Oracle模型</h3>
+<ul>
+<li>向oracle查询 $x$ 并得到输出 $y$ ，$x$ 是保密的，甚至查询oracle这个事件本身也是保密的</li>
+<li>一致性：若对特定的输入 $x$ ，oracle输出 $y$ ，则之后再输入相同的 $x$ ，oracle仍然输出 $y$</li>
+<li>一些性质：
+<ul>
+<li>若 $x$ 没有发送到 $H$ 进行查询，则 $H(x)$ 的值是均匀随机的
+<ul>
+<li>即使 $x$ 不是随机的，甚至 $x$ 是已知的， $H(x)$ 的值也是均匀随机的</li>
+</ul>
+</li>
+<li>若 $\mathcal{A}$ 向 $H$ 请求 $x$ ，则规约过程可以看到这个请求，也能知道 $x$</li>
+<li>规约过程可以设置 $H(x)$ 的值，只要这个值是均匀随机分布的</li>
+</ul>
+</li>
+</ul>
+<h4 id="Random-Oracle实例">Random-Oracle实例</h4>
+<p>假设Random-Oracle将 $\ell_{in}$ 比特输入映射为 $\ell_{out}$ 比特输出，且 $\ell_{in},\ell_{out}&gt;n$</p>
+<ul>
+<li>Random-Oracle作伪随机生成器（$\ell_{in}&lt;\ell_{out}$）
+<ul>
+<li>$|Pr[\mathcal{A}<sup>{H(\cdot)}(y)=1]-Pr[\mathcal{A}</sup>{H(\cdot)}(H(x))=1]|\leq \mathsf{negl}(n)$ ，其中 $x\in{0,1}<sup>{\ell_{in}(n)},,y\in{0,1}</sup>{\ell{out}(n)}$</li>
+</ul>
+</li>
+<li>Random-Oracle作抗碰撞哈希函数（$\ell_{in}&gt;\ell_{out}$）
+<ul>
+<li>任何PPT敌手 $\mathcal{A}$ 成功进行如下实验的概率可忽略：
+<ol>
+<li>选择随机函数 $F$</li>
+<li>$\mathcal{A}$ 获胜，当他输出不同的 $x,x’$ 使得 $H(x)=H(x’)$</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-7-Theoretical-Constructions-of-Symmetric-Key-Primitives">Chapter 7: Theoretical Constructions of Symmetric-Key Primitives</h2>
+<h3 id="7-1-单向函数">7.1 单向函数</h3>
+<h4 id="定义-v2">定义</h4>
+<ul>
+<li>逆转实验 $\mathsf{Invert}_{\mathcal{A},f}(n)$ ：
+<ol>
+<li>随机均匀选择 $x\in{0,1}^n$ ，计算 $y:=f(x)$</li>
+<li>$\mathcal{A}$ 根据输入 $1^n$ 和 $y$ ，得到输出 $x’$</li>
+<li>当 $f(x’)=y$ 时，实验的输出为1，否则输出0</li>
+</ol>
+</li>
+<li>定义7.1：函数 $f:{0,1}<sup>*\rightarrow{0,1}</sup>*$ 是单向函数，若满足：
+<ol>
+<li>（计算简单）存在一个多项式时间算法 $M_f$ 来计算 $f$ ，即对所有 $x$ 有 $M_f(x)=f(x)$</li>
+<li>（求逆困难）对所有PPT算法 $\mathcal{A}$ 存在一个可忽略函数使得：<br>
+$$<br>
+Pr[\mathsf{Invert}_{\mathcal{A},f}(n)=1]\leq\mathsf{negl}(n)<br>
+$$</li>
+</ol>
+<ul>
+<li>对于2，可以将其简记为：<br>
+$$<br>
+\underset{x\leftarrow{0,1}<sup>n}{Pr}[\mathcal{A}(1</sup>n,f(x))\in f^{-1}(f(x))]\leq\mathsf{negl}(n)<br>
+$$</li>
+</ul>
+</li>
+<li>定义7.2：PPT算法组成的元组 $\Pi=(\mathsf{Gen},\mathsf{Samp},f)$ 是一个<strong>函数族</strong>，若满足：
+<ol>
+<li>参数生成算法 $\mathsf{Gen}$ 根据输入 $1^n$ ，输出参数 $I,,|I|\geq n$ 。$I$ 中的每一个值定义了函数 $f_I$ 的定义域 $\mathcal{D}_I$ 和值域 $\mathcal{R}_I$</li>
+<li>采样算法 $\mathsf{Samp}$ 根据输入 $1^n$ ，输出 $\mathcal{D}_I$ 的一个均匀分布的元素</li>
+<li>评估算法（确定性）$f$ 根据输入 $I$ 和 $x\in\mathcal{D}_I$ ，输出 $y\in\mathcal{R}_I$ ，记作 $y:=f_I(x)$</li>
+</ol>
+<ul>
+<li>$\Pi$ 是一个<strong>排列族</strong>，若对所有 $\mathsf{Gen}(1^n)$ 输出的 $I$ 的值，满足 $\mathcal{D}_I=\mathcal{R}_I$ 且函数 $f_I:\mathcal{D}_I\rightarrow\mathcal{D}_I$ 是双射（单射且满射）</li>
+</ul>
+</li>
+<li>对函数族定义逆转实验 $\mathsf{Invert}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>运行 $\mathsf{Gen}(1^n)$ 来获取 $I$ ，运行 $\mathsf{Samp}(I)$ 来获取随机均匀 $x\in\mathcal{D}_I$ ，最后计算 $y:=f_I(x)$</li>
+<li>$\mathcal{A}$ 根据输入 $I,,y$，输出 $x’$</li>
+<li>当 $f(x’)=y$ 时，实验的输出为1，否则输出0</li>
+</ol>
+</li>
+<li>定义7.3：函数族/排列族 $\Pi=(\mathsf{Gen},\mathsf{Samp},f)$ 是单向的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{Invert}_{\mathcal{A},\Pi}(n)=1]\leq\mathsf{negl}(n)<br>
+$$</li>
+</ul>
+<h4 id="硬核谓词">硬核谓词</h4>
+<ul>
+<li>定义7.4：函数 $\mathsf{hc}:{0,1}^*\rightarrow{0,1}$ 是函数 $f$ 的硬核谓词，若 $\mathsf{hc}$ 可以在多项式时间内计算，并且对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+\underset{x\leftarrow{0,1}<sup>n}{Pr}[\mathcal{A}(1</sup>n,f(x))=\mathsf{hc}(x)]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$
+<ul>
+<li>$\mathsf{hc}(x)$ 可以根据 $x$ 很容易算出，但很难根据 $f(x)$ 算出</li>
+</ul>
+</li>
+</ul>
+<h3 id="7-2-单向函数构造伪随机">7.2 单向函数构造伪随机</h3>
+<p>Step1：说明任何单向函数都存在硬核谓词</p>
+<ul>
+<li>定理7.5（Goldreich–Levin定理）：假设单向函数存在，则存在一个单向函数 $g$ 和一个 $g$ 硬核谓词 $\mathsf{hc}$
+<ul>
+<li>具体来说，令 $f$ 是一个单向函数，可以构造 $g(x,r)\overset{def}{=}(f(x),r),,|x|=|r|$ ，并定义：<br>
+$$<br>
+\mathsf{hc}(x,r)\overset{def}{=}\oplus^n_{i=1}x_i\cdot r_i<br>
+$$<br>
+Step2：说明单向排列的硬核谓词可以构造伪随机生成器</li>
+</ul>
+</li>
+<li>定理7.6：令 $f$ 是一个单向排列，$\mathcal{hc}$ 是 $f$ 的硬核谓词，则 $G(s)\overset{def}{=}f(s)||\mathsf{hc}(s)$ 是扩张因子 $\ell(n)=n+1$ 的伪随机生成器</li>
+<li>定理7.7：如果存在一个扩张因子 $\ell(n)=n+1$ 的伪随机生成器，则对任何多项式 $\mathsf{poly}$ 存在一个扩张因子为 $\mathsf{poly}(n)$ 伪随机生成器<br>
+Step3：根据伪随机生成器构造伪随机函数</li>
+<li>定理7.8：如果存在一个扩张因子 $\ell(n)=2n$ 的伪随机生成器，则存在一个伪随机函数</li>
+<li>定理7.9：如果存在一个伪随机函数，则存在一个强伪随机排列</li>
+<li>推论7.10：假设存在单向函数，则存在任何扩张因子的伪随机生成器，伪随机函数，强伪随机排列</li>
+<li>推论7.11：如果存在单向函数，则存在CCA-安全的对称加密方案以及安全的MAC</li>
+</ul>
+<h3 id="7-8-计算不可区分性">7.8 计算不可区分性</h3>
+<ul>
+<li>定义7.30：两个概率集合 $\mathcal{X}={X_n}<em>{n\in\mathbb{N}}$ 和 $\mathcal{Y}={Y_n}</em>{n\in\mathbb{N}}$ 是计算不可区分的，记作 $\mathcal{X}\overset{c}{\equiv}\mathcal{Y}$ ，若对所有PPT判别器 $D$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+|\underset{x\leftarrow X_n}{Pr}[D(1^n,x)=1]-\underset{y\leftarrow Y_n}{Pr}[D(1^n,y)=1]|\leq\mathsf{negl}(n)<br>
+$$
+<ul>
+<li>概率集合是无穷多概率分布的序列</li>
+<li>通常也会把 $\underset{x\leftarrow X_n}{Pr}[D(1^n,x)=1]$ 记作 $Pr[D(1^n,X_n)=1]$</li>
+<li>计算不可区分具有传递性，即：若 $\mathcal{X}\overset{c}{\equiv}\mathcal{Y},,\mathcal{Y}\overset{c}{\equiv}\mathcal{Z}$ ，则 $\mathcal{X}\overset{c}{\equiv}\mathcal{Z}$</li>
+</ul>
+</li>
+<li>使用计算不可区分定义伪随机生成器——定义7.31：令 $\ell(\cdot)$ 是一个多项式，令 $G$ 是一个确定性多项式时间算法，且对所有 $s$ 满足 $|G(s)|=\ell(|s|)$ 。$G$ 是伪随机生成器若满足：
+<ol>
+<li>（扩张）对所有 $n$ 满足 $\ell(n)&gt;n$</li>
+<li>（伪随机）集合 ${G(U_n)}<em>{n\in\mathbb{N}}$ 与 ${U</em>{\ell(n)}}_{n\in\mathbb{N}}$ 在计算上不可区分</li>
+</ol>
+<ul>
+<li>其中 $U_n$ 代表在 ${0,1}^n$ 上的均匀分布</li>
+</ul>
+</li>
+<li>令 $\mathcal{X}$ 和 $\mathcal{Y}$ 是计算不可区分的可采样概率集合，则对所有多项式 $p$ ，集合 $\overline{\mathcal{X}}={(X_n<sup>{(1)},…,X_n</sup>{p(n)})}<em>{n\in\mathbb{N}}$ 和 $\overline{\mathcal{Y}}={(Y_n<sup>{(1)},…,Y_n</sup>{p(n)})}</em>{n\in\mathbb{N}}$ 计算不可区分</li>
+</ul>
+<h2 id="Chapter-10-Key-Management-and-the-Public-Key-Revolution">Chapter 10: Key Management and the Public-Key Revolution</h2>
+<h3 id="10-3-密钥交换和Diffie-Hellman协议">10.3 密钥交换和Diffie-Hellman协议</h3>
+<ul>
+<li>
+<p>密钥交换实验 $\mathsf{KE}_{\mathcal{A},\Pi}^{\mathsf{eav}}(n)$ ：</p>
+<ol>
+<li>两个参与方使用 $1^n$ 来执行协议 $\Pi$ 。协议执行完会产生一个记录 $\mathsf{trans}$ ，包含双方交流的所有信息以及双方最终输出的密钥 $k$</li>
+<li>随机均匀选择 $b\in{0,1}$ 。若 $b=0$ 则令 $\hat{k}:=k$ ，否则随机均匀选择 $\hat{k}\in{0,1}^n$</li>
+<li>$\mathcal{A}$ 根据收到的 $\mathsf{trans}$ 和 $\hat{k}$ ，输出一比特 $b’$</li>
+<li>若 $b=b’$ 则实验输出1，否则输出0</li>
+</ol>
+</li>
+<li>
+<p>定义10.1：密钥交换协议 $\Pi$ 对窃听者安全，若对所有PPT敌手存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{KE}_{\mathcal{A},\Pi}^{\mathsf{eav}}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$</p>
+</li>
+<li>
+<p>构造10.2：（Diffie-Hellman协议）</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220315172030945.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220315172030945.png" srcset="data:image/png;base64,666" alt="image-20220315172030945" style="zoom:50%;" />
+<ul>
+<li>其中 $\mathbb{G}$ 是一个循环群，$q$ 是 $\mathbb{G}$ 的阶，$g$ 是  $\mathbb{G}$ 的生成元</li>
+</ul>
+</li>
+<li>
+<p>定理10.3：若 $\mathcal{G}$ 的决策Diffie-Hellman问题是困难的，则Diffie-Hellman协议对于窃听者是安全的【证明on P368】</p>
+<ul>
+<li>其中决策Diffie-Hellman问题指：任何敌手给定 $g,g<sup>x,g</sup>y$ 都不能将共享密钥 $g^{xy}$ 与随机均匀的值区分</li>
+</ul>
+</li>
+</ul>
+<h2 id="Chapter-11-Public-Key-Encryption">Chapter 11: Public-Key Encryption</h2>
+<h3 id="11-2-定义">11.2 定义</h3>
+<ul>
+<li>定义11.1：公钥加密方案是一个PPT算法的三元组 $(\mathsf{Gen},\mathsf{Enc},\mathsf{Dec})$ ：
+<ol>
+<li>$\mathsf{Gen}$ 根据输入的安全参数 $1^n$ ，输出一对密钥 $(pk,sk)$</li>
+<li>$\mathsf{Enc}$ 根据输入的公钥 $pk$ 和消息 $m$ ，输出密文 $c$ ，记作 $c\leftarrow\mathsf{Enc}_{pk}(m)$</li>
+<li>$\mathsf{Dec}$ 根据输入的私钥 $sk$ 和密文 $c$ ，输出消息 $m$ 或者失败 $\bot$ ，记作 $m:=\mathsf{Dec}_{sk}©$</li>
+</ol>
+</li>
+</ul>
+<h4 id="抵抗选择明文攻击">抵抗选择明文攻击</h4>
+<ul>
+<li>窃听不可区分实验 $\mathsf{PubK}^{\mathsf{eav}}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$(pk,sk)\leftarrow\mathsf{Gen}(1^n)$</li>
+<li>敌手 $\mathcal{A}$ 获得公钥 $pk$ ，并输出一对等长的消息 $m_0,,m_1$</li>
+<li>随机均匀选择 $b\in{0,1}$ ，计算 $c\leftarrow\mathsf{Enc}_{pk}(m_b)$ ，然后将挑战密文 $c$ 发送给 $\mathcal{A}$</li>
+<li>$\mathcal{A}$ 输出 $b’$ ，若 $b=b’$ 则实验输出1（敌手成功），否则输出0</li>
+</ol>
+</li>
+<li>定义11.2：一个公钥加密方案 $\Pi=(\mathsf{Gen},\mathsf{Enc},\mathsf{Dec})$ 对窃听攻击者不可区分，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{PubK}_{\mathcal{A},\Pi}^{\mathsf{eav}}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$</li>
+<li>命题11.3：若一个公钥加密方案对窃听攻击者不可区分，则它也是CPA-安全的
+<ul>
+<li>对于公钥加密而言，任何窃听敌手都可以获得公钥来加密明文</li>
+</ul>
+</li>
+<li>定理11.4：确定性公钥加密方案都不是CPA安全的</li>
+</ul>
+<h4 id="多消息加密">多消息加密</h4>
+<ul>
+<li>LR-oracle实验 $\mathsf{PubK}^{\mathsf{LR-cpa}}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$(pk,sk)\leftarrow\mathsf{Gen}(1^n)$</li>
+<li>随机均匀选择 $b\in{0,1}$</li>
+<li>敌手 $\mathcal{A}$ 获得输入 $pk$ ，并且可以访问oracle $\mathsf{LR}_{pk,b}(\cdot,\cdot)$</li>
+<li>敌手 $\mathcal{A}$ 输出一比特 $b’$</li>
+<li>若 $b=b’$ 则实验输出1（敌手成功），否则输出0</li>
+</ol>
+<ul>
+<li>其中oracle $\mathsf{LR}<em>{pk,b}(\cdot,\cdot)$ ：输入两个等长的消息 $m_0$ ，$m_1$ ，若 $b=0$ 输出 $c\leftarrow \mathsf{Enc}</em>{pk}(m_0)$ ；若 $b=1$ 输出 $c\leftarrow \mathsf{Enc}_{pk}(m_1)$</li>
+</ul>
+</li>
+<li>定义11.5：一个公钥加密方案 $\Pi=(\mathsf{Gen},\mathsf{Enc},\mathsf{Dec})$ 对窃听攻击者是多消息不可区分的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{PubK}_{\mathcal{A},\Pi}^{\mathsf{LR-cpa}}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$</li>
+<li>定理11.6：若一个公钥加密方案是CPA-安全的，则它也是多消息不可区分的【*证明on P383】</li>
+<li>断言11.7：$\Pi=(\mathsf{Gen},\mathsf{Enc},\mathsf{Dec})$ 是对一比特消息进行加密的公钥加密方案，$\Pi’=(\mathsf{Gen’},\mathsf{Enc’},\mathsf{Dec’})$ 是对任意长消息进行加密的公钥加密方案，构造如下：$\mathsf{Enc’}<em>{pk}(m)=\mathsf{Enc}</em>{pk}(m_1),…,\mathsf{Enc}<em>{pk}(m</em>{\ell})$ ，其中 $m=m_1\cdot\cdot\cdot m_{\ell}$ 。则如果 $\Pi$ 是CPA-安全的，$\Pi’$ 也是</li>
+</ul>
+<h4 id="抵抗选择密文攻击">抵抗选择密文攻击</h4>
+<ul>
+<li>CCA不可区分实验 $\mathsf{PubK}^{\mathsf{cca}}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$(pk,sk)\leftarrow\mathsf{Gen}(1^n)$</li>
+<li>敌手 $\mathcal{A}$ 获得 $pk$ ，并且可以访问解密oracle $\mathsf{Dec}_{sk}(\cdot)$ 。$\mathcal{A}$ 输出一对等长消息 $m_0,m_1$</li>
+<li>随机均匀选择 $b\in{0,1}$ ，计算 $c\leftarrow\mathsf{Enc}_{pk}(m_b)$ 并发送给 $\mathcal{A}$</li>
+<li>$\mathcal{A}$ 可以继续与解密oracle交互，但不能解密 $c$ 。最终 $\mathcal{A}$ 输出一比特 $b’$</li>
+<li>若 $b=b’$ 则实验输出1（敌手成功），否则输出0</li>
+</ol>
+</li>
+<li>定义11.8：一个公钥加密方案 $\Pi=(\mathsf{Gen},\mathsf{Enc},\mathsf{Dec})$ 是CCA-安全的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{PubK}_{\mathcal{A},\Pi}^{\mathsf{cca}}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$
+<ul>
+<li>若一个公钥加密方案是CCA-安全的，则它也是多消息CCA-安全的</li>
+</ul>
+</li>
+</ul>
+<h3 id="11-3-混合加密和KEM-DEM范式">11.3 混合加密和KEM/DEM范式</h3>
+<ul>
+<li>
+<p>定义11.9：一个密钥封装机制（KEM）是PPT算法的三元组 $(\mathsf{Gen},\mathsf{Encaps},\mathsf{Decaps})$ 使得：</p>
+<ol>
+<li>密钥生成算法 $\mathsf{Gen}$ 根据输入的安全参数 $1^n$ ，输出公私钥对 $(pk,sk)$</li>
+<li>密封算法 $\mathsf{Encaps}$ 根据输入的安全参数 $1^n$ 和公钥 $pk$ ，输出密文 $c$ 和密钥 $k\in{0,1}^{\ell(n)}$ ，其中 $\ell$ 是密钥长度。记作 $(c,k)\leftarrow\mathsf{Encaps}_{pk}(1^n)$</li>
+<li>确定性的解封算法 $\mathsf{Decaps}$ 根据输入的私钥 $sk$ 和密文 $c$ ，输出密钥 $k$ 或者一个特殊符号 $\bot$ 来表示解封失败。记作 $k:=\mathsf{Decaps}_{sk}©$</li>
+</ol>
+</li>
+<li>
+<p>构造11.10：</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220316153355300.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220316153355300.png" srcset="data:image/png;base64,666" alt="image-20220316153355300" style="zoom:50%;" />
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220316151745275.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/cryptography/image-20220316151745275.png" srcset="data:image/png;base64,666" alt="image-20220316151745275" style="zoom:50%;" />
+</li>
+</ul>
+<h4 id="CPA-安全">CPA-安全</h4>
+<ul>
+<li>令 $\Pi=(\mathsf{Gen},\mathsf{Encaps},\mathsf{Decaps})$ 是KEM，定义CPA不可区分实验 $\mathsf{KEM}^{\mathsf{cpa}}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$(pk,sk)\leftarrow\mathsf{Gen}(1^n)$ ，然后 $(c,k)\leftarrow\mathsf{Encaps}_{pk}(1^n)$ ，其中 $k\in{0,1}^n$</li>
+<li>随机均匀选择 $b\in{0,1}$ 。若 $b=0$ 则令 $\hat{k}:=k$ ，若 $b=1$ ，则随机均匀选择 $\hat{k}\in{0,1}^n$</li>
+<li>$\mathcal{A}$ 获得 $(pk,c,\hat{k})$ ，并输出 $b’$ 。若 $b=b’$ 则实验输出1（敌手成功），否则输出0</li>
+</ol>
+</li>
+<li>定义11.11：一个KEM $\Pi$ 是CPA-安全的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{KEM}_{\mathcal{A},\Pi}^{\mathsf{cpa}}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$</li>
+<li>定理11.12：若 $\Pi$ 是一个CPA-安全的KEM，$\Pi’$ 是一个对窃听攻击不可区分的对称加密方案，则构造11.10中的 $\Pi^{\mathsf{hy}}$ 是CPA-安全的公钥加密方案【证明on P394】</li>
+</ul>
+<h4 id="CCA-安全-v2">CCA-安全</h4>
+<ul>
+<li>令 $\Pi=(\mathsf{Gen},\mathsf{Encaps},\mathsf{Decaps})$ 是KEM，定义CCA不可区分实验 $\mathsf{KEM}^{\mathsf{cca}}_{\mathcal{A},\Pi}(n)$ ：
+<ol>
+<li>$(pk,sk)\leftarrow\mathsf{Gen}(1^n)$ ，然后 $(c,k)\leftarrow\mathsf{Encaps}_{pk}(1^n)$ ，其中 $k\in{0,1}^n$</li>
+<li>随机均匀选择 $b\in{0,1}$ 。若 $b=0$ 则令 $\hat{k}:=k$ ，若 $b=1$ ，则随机均匀选择 $\hat{k}\in{0,1}^n$</li>
+<li>$\mathcal{A}$ 获得 $(pk,c,\hat{k})$ 以及可以访问oracle $\mathsf{Decaps}_{sk}(\cdot)$ ，但不能请求解封挑战密文 $c$</li>
+<li>$\mathcal{A}$ 输出 $b’$ 。若 $b=b’$ 则实验输出1（敌手成功），否则输出0</li>
+</ol>
+</li>
+<li>定义11.13：一个KEM $\Pi$ 是CCA-安全的，若对所有PPT敌手 $\mathcal{A}$ 存在一个可忽略函数 $\mathsf{negl}$ 使得：<br>
+$$<br>
+Pr[\mathsf{KEM}_{\mathcal{A},\Pi}^{\mathsf{cca}}(n)=1]\leq\frac{1}{2}+\mathsf{negl}(n)<br>
+$$</li>
+<li>定理11.14：若 $\Pi$ 是一个CCA-安全的KEM，$\Pi’$ 是一个CCA-安全的对称加密方案，则构造11.10中的 $\Pi^{\mathsf{hy}}$ 是CCA-安全的公钥加密方案</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2022年3月20日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/cryptography/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>cryptography</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2022/04/13/paper-reading/oblivious-db/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>论文阅读-Oblivious Database相关</p>
+          <p class='content'>不经意数据库相关研究
+关键是隐藏访问模式：隐藏访问内容+访问时间/访问次数/访问顺序等
+ObliDB
+威胁模型：
+
+读取并篡改不可信内存
+暂停和恢复Enclave执行
+观察到对不可信内存的访问模...</p>
+        </a>
+      
+      
+        <a class='next' href='/2022/03/19/lookup/markdown-math/'>
+          <p class='title'>Markdown数学符号补充<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>对typora-数学符号进行补充
+
+\overset{def}{=}    $\overset{def}{=}$
+\underset{x\leftarrow{0,1}^n}{Pr}    $ \...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-1-Introduction"><span class="toc-text">Chapter 1: Introduction</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86Setting"><span class="toc-text">1.2 对称加密Setting</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-%E5%8F%A4%E5%85%B8%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95"><span class="toc-text">1.3 古典加密算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-%E7%8E%B0%E4%BB%A3%E5%AF%86%E7%A0%81%E5%AD%A6%E5%8E%9F%E5%88%99"><span class="toc-text">1.4 现代密码学原则</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-2-Perfectly-Secret-Encryption"><span class="toc-text">Chapter 2: Perfectly Secret Encryption</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-%E7%AC%A6%E5%8F%B7%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1 符号定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-%E4%B8%80%E6%AC%A1%E4%B8%80%E5%AF%86"><span class="toc-text">2.2 一次一密</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-Perfect-Secrecy%E7%9A%84%E5%B1%80%E9%99%90%E6%80%A7"><span class="toc-text">2.3 Perfect Secrecy的局限性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-%E9%A6%99%E5%86%9C%E5%AE%9A%E7%90%86"><span class="toc-text">2.4 香农定理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-3-Private-Key-Encryption"><span class="toc-text">Chapter 3: Private-Key Encryption</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8"><span class="toc-text">3.1 计算安全</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-%E5%AE%9A%E4%B9%89%E8%AE%A1%E7%AE%97%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86"><span class="toc-text">3.2 定义计算安全的加密</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%AE%9A%E4%B9%89"><span class="toc-text">安全的基本定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AF%AD%E4%B9%89%E5%AE%89%E5%85%A8"><span class="toc-text">语义安全</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-%E6%9E%84%E5%BB%BA%E5%AE%89%E5%85%A8%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88"><span class="toc-text">3.3 构建安全加密方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">伪随机生成器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81"><span class="toc-text">流密码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E7%BA%A6%E8%AF%81%E6%98%8E"><span class="toc-text">规约证明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E7%9A%84%E5%AE%9A%E9%95%BF%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88"><span class="toc-text">安全的定长加密方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-%E6%9B%B4%E5%BC%BA%E7%9A%84%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5"><span class="toc-text">3.4 更强的安全概念</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86%E2%80%94%E2%80%94%E4%BF%AE%E6%94%B9%E5%AE%89%E5%85%A8%E7%9B%AE%E6%A0%87"><span class="toc-text">多消息加密——修改安全目标</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CPA-%E5%AE%89%E5%85%A8%EF%BC%88%E9%80%89%E6%8B%A9%E6%98%8E%E6%96%87%E6%94%BB%E5%87%BB%EF%BC%89%E2%80%94%E2%80%94%E5%A2%9E%E5%BC%BA%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-text">CPA-安全（选择明文攻击）——增强威胁模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86%E7%9A%84CPA-%E5%AE%89%E5%85%A8"><span class="toc-text">多消息加密的CPA-安全</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-5-%E6%9E%84%E9%80%A0CPA-%E5%AE%89%E5%85%A8%E7%9A%84%E5%8A%A0%E5%AF%86%E6%96%B9%E6%A1%88"><span class="toc-text">3.5 构造CPA-安全的加密方案</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0"><span class="toc-text">伪随机函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E6%8E%92%E5%88%97"><span class="toc-text">伪随机排列</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0%E4%B8%8E%E4%BC%AA%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E5%99%A8%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text">伪随机函数与伪随机生成器的关系</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BC%AA%E9%9A%8F%E6%9C%BA%E5%87%BD%E6%95%B0%E6%9E%84%E9%80%A0%E7%9A%84CPA-%E5%AE%89%E5%85%A8%E5%8A%A0%E5%AF%86"><span class="toc-text">伪随机函数构造的CPA-安全加密</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-6-%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">3.6 工作模式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E5%AF%86%E7%A0%81%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">流密码的工作模式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E5%AF%86%E7%A0%81%E7%9A%84%E5%B7%A5%E4%BD%9C%E6%A8%A1%E5%BC%8F"><span class="toc-text">分组密码的工作模式</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-7-%E9%80%89%E6%8B%A9%E5%AF%86%E6%96%87%E6%94%BB%E5%87%BB"><span class="toc-text">3.7 选择密文攻击</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CCA-%E5%AE%89%E5%85%A8"><span class="toc-text">CCA-安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Padding-Oracle-Attacks"><span class="toc-text">Padding-Oracle Attacks</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-4-Message-Authentication-Codes"><span class="toc-text">Chapter 4: Message Authentication Codes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-2-MAC%EF%BC%88%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81%E7%A0%81%EF%BC%89%E5%AE%9A%E4%B9%89"><span class="toc-text">4.2 MAC（消息认证码）定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-3-%E6%9E%84%E9%80%A0%E5%AE%89%E5%85%A8MAC"><span class="toc-text">4.3 构造安全MAC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BA%E5%AE%9A%E9%95%BF%E5%BA%A6MAC"><span class="toc-text">固定长度MAC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%BB%E6%84%8F%E9%95%BF%E5%BA%A6MAC"><span class="toc-text">任意长度MAC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-4-CBC-MAC"><span class="toc-text">4.4 CBC-MAC</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-5-%E8%AE%A4%E8%AF%81%E5%8A%A0%E5%AF%86"><span class="toc-text">4.5 认证加密</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%80%E8%88%AC%E6%9E%84%E9%80%A0"><span class="toc-text">一般构造</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-5-Hash-Functions-and-Applications"><span class="toc-text">Chapter 5: Hash Functions and Applications</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-%E5%AE%9A%E4%B9%89"><span class="toc-text">5.1 定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%97%E7%A2%B0%E6%92%9E"><span class="toc-text">抗碰撞</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BE%83%E5%BC%B1%E7%9A%84%E5%AE%89%E5%85%A8%E6%A6%82%E5%BF%B5"><span class="toc-text">较弱的安全概念</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%9F%9F%E6%89%A9%E5%BC%A0%EF%BC%9AMerkle-Damgard%E5%8F%98%E6%8D%A2"><span class="toc-text">5.2 域扩张：Merkle-Damgard变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E4%BD%BF%E7%94%A8%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E5%AE%9E%E7%8E%B0%E6%B6%88%E6%81%AF%E8%AE%A4%E8%AF%81"><span class="toc-text">5.3 使用哈希函数实现消息认证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hash-and-MAC"><span class="toc-text">Hash-and-MAC</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HMAC"><span class="toc-text">HMAC</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-5-Random-Oracle%E6%A8%A1%E5%9E%8B"><span class="toc-text">5.5 Random-Oracle模型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Random-Oracle%E5%AE%9E%E4%BE%8B"><span class="toc-text">Random-Oracle实例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-7-Theoretical-Constructions-of-Symmetric-Key-Primitives"><span class="toc-text">Chapter 7: Theoretical Constructions of Symmetric-Key Primitives</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#7-1-%E5%8D%95%E5%90%91%E5%87%BD%E6%95%B0"><span class="toc-text">7.1 单向函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%9A%E4%B9%89-v2"><span class="toc-text">定义</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A1%AC%E6%A0%B8%E8%B0%93%E8%AF%8D"><span class="toc-text">硬核谓词</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-2-%E5%8D%95%E5%90%91%E5%87%BD%E6%95%B0%E6%9E%84%E9%80%A0%E4%BC%AA%E9%9A%8F%E6%9C%BA"><span class="toc-text">7.2 单向函数构造伪随机</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-8-%E8%AE%A1%E7%AE%97%E4%B8%8D%E5%8F%AF%E5%8C%BA%E5%88%86%E6%80%A7"><span class="toc-text">7.8 计算不可区分性</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-10-Key-Management-and-the-Public-Key-Revolution"><span class="toc-text">Chapter 10: Key Management and the Public-Key Revolution</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#10-3-%E5%AF%86%E9%92%A5%E4%BA%A4%E6%8D%A2%E5%92%8CDiffie-Hellman%E5%8D%8F%E8%AE%AE"><span class="toc-text">10.3 密钥交换和Diffie-Hellman协议</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter-11-Public-Key-Encryption"><span class="toc-text">Chapter 11: Public-Key Encryption</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#11-2-%E5%AE%9A%E4%B9%89"><span class="toc-text">11.2 定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%B5%E6%8A%97%E9%80%89%E6%8B%A9%E6%98%8E%E6%96%87%E6%94%BB%E5%87%BB"><span class="toc-text">抵抗选择明文攻击</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E6%B6%88%E6%81%AF%E5%8A%A0%E5%AF%86"><span class="toc-text">多消息加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8A%B5%E6%8A%97%E9%80%89%E6%8B%A9%E5%AF%86%E6%96%87%E6%94%BB%E5%87%BB"><span class="toc-text">抵抗选择密文攻击</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#11-3-%E6%B7%B7%E5%90%88%E5%8A%A0%E5%AF%86%E5%92%8CKEM-DEM%E8%8C%83%E5%BC%8F"><span class="toc-text">11.3 混合加密和KEM&#x2F;DEM范式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#CPA-%E5%AE%89%E5%85%A8"><span class="toc-text">CPA-安全</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CCA-%E5%AE%89%E5%85%A8-v2"><span class="toc-text">CCA-安全</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Introduction To Modern Cryptography笔记";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

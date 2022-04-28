@@ -1,0 +1,1454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>Wasmi sgx 工作流程 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="rust,sgx">
+  
+
+  
+    <meta name="description" content="Wasmi sgx 工作流程">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Wasmi sgx 工作流程
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Notes/">Notes</a><span class="sep"></span><a class="category-link" href="/categories/Rust/">Rust</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:36:13+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：2.6k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：11分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="Wasmi sgx 工作流程" data-path="/2021/03/08/learning-notes/wasmi-sgx/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h3 id="初始化enclave">初始化enclave</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init_enclave() -&gt; SgxResult&lt;SgxEnclave&gt;</span><br></pre></td></tr></table></figure>
+<p>底层调用rsgx_create_enclave【通过file_name和launch_token来初始化一个enclave实例】，参数如下：</p>
+<blockquote>
+<ul>
+<li>
+<p>file_name：经过编译后的enclave签名文件（<a target="_blank" rel="noopener" href="http://enclave.signed.so">enclave.signed.so</a>）</p>
+</li>
+<li>
+<p>debug：</p>
+<ul>
+<li>0 - 不开启debug</li>
+<li>1 - 开启debug，enclave中的数据代码可以被enclave外的程序访问，用于调试</li>
+</ul>
+</li>
+<li>
+<p>launch_token：初始化enclave时可以传入全0 buffer，函数会创建一个有效token与enclave对应，并更新该参数。之后如果要重新创建这个enclave，可以再使用这个token</p>
+</li>
+<li>
+<p>launch_token_updated：</p>
+<ul>
+<li>0 - token没有被自动更新</li>
+<li>1 - token被自动更新</li>
+</ul>
+</li>
+<li>
+<p>misc_attr：misc选择和enclave属性             {暂时不清楚作用}</p>
+</li>
+</ul>
+</blockquote>
+<p>init_enclave()返回一个SgxEnclave结构</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">SgxEnclave</span></span> &#123;</span><br><span class="line">    id: sgx_enclave_id_t,</span><br><span class="line">    debug: <span class="built_in">i32</span>,</span><br><span class="line">    path: PathBuf,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="初始化sgxwasm的SpecDriver">初始化sgxwasm的SpecDriver</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgx_enclave_wasm_init</span></span>(enclave: &amp;SgxEnclave) -&gt; <span class="built_in">Result</span>&lt;(),<span class="built_in">String</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>调用ECall函数sgxwasm_init()，传入两个隐参数：</p>
+<blockquote>
+<ul>
+<li>enclave_id：通过enclave.geteid()获取</li>
+<li>retval：ECall函数的返回值，由Intel定义，不用在ECall函数中手动修改</li>
+</ul>
+</blockquote>
+<p>在Enclave中会通过lazy_static的方式建立一个全局变量SPECDRIVER（带有互斥量）</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lazy_static!&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">ref</span> SPECDRIVER: SgxMutex&lt;SpecDriver&gt; </span><br><span class="line">    	= SgxMutex::new(SpecDriver::new());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sgxwasm_init()在SPECDRIVER中新建一个SpecDriver</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">SpecDriver</span></span> &#123;</span><br><span class="line">    spec_module: SpecModule,</span><br><span class="line">    instances: HashMap&lt;<span class="built_in">String</span>, ModuleRef&gt;,</span><br><span class="line">    last_module: <span class="built_in">Option</span>&lt;ModuleRef&gt;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 标准模块，是从wasm外部导入函数所使用的外部环境</span></span><br><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">SpecModule</span></span> &#123;</span><br><span class="line">    table: TableRef,</span><br><span class="line">    memory: MemoryRef,</span><br><span class="line">    global_i32: GlobalRef,</span><br><span class="line">    global_f32: GlobalRef,</span><br><span class="line">    global_f64: GlobalRef,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ModuleRef是ModuleInstance的引用</span></span><br><span class="line"><span class="comment">// ModuleInstance是一个wasm模块实例</span></span><br><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">ModuleInstance</span></span> &#123;</span><br><span class="line">    signatures: RefCell&lt;<span class="built_in">Vec</span>&lt;Arc&lt;Signature&gt;&gt;&gt;,</span><br><span class="line">    tables: RefCell&lt;<span class="built_in">Vec</span>&lt;TableRef&gt;&gt;,</span><br><span class="line">    funcs: RefCell&lt;<span class="built_in">Vec</span>&lt;FuncRef&gt;&gt;,</span><br><span class="line">    memories: RefCell&lt;<span class="built_in">Vec</span>&lt;MemoryRef&gt;&gt;,</span><br><span class="line">    globals: RefCell&lt;<span class="built_in">Vec</span>&lt;GlobalRef&gt;&gt;,</span><br><span class="line">    exports: RefCell&lt;BTreeMap&lt;<span class="built_in">String</span>, ExternVal&gt;&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="在Enclave外加载wast文件">在Enclave外加载wast文件</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wasm_main_loop(wast_file: &amp;<span class="built_in">str</span>, enclave: &amp;SgxEnclave) -&gt; <span class="built_in">Result</span>&lt;(), <span class="built_in">String</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>首先对读入的wast_file文本进行分析（使用ScriptParser），读取每一行的指令到结构Command中：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">Command</span></span>&lt;F32 = <span class="built_in">f32</span>, F64 = <span class="built_in">f64</span>&gt; &#123;</span><br><span class="line">    <span class="comment">/// 行号</span></span><br><span class="line">    <span class="keyword">pub</span> line: <span class="built_in">u64</span>,</span><br><span class="line">    <span class="comment">/// 指令类型</span></span><br><span class="line">    <span class="keyword">pub</span> kind: CommandKind&lt;F32, F64&gt;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对每一行指令匹配CommandKind，并执行对应的操作：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">enum</span> <span class="title">CommandKind</span></span>&lt;F32 = <span class="built_in">f32</span>, F64 = <span class="built_in">f64</span>&gt; &#123;</span><br><span class="line">    <span class="comment">// 定义、验证、实例化一个module</span></span><br><span class="line">    Module &#123;</span><br><span class="line">        <span class="comment">// wasm二进制模块 </span></span><br><span class="line">        module: ModuleBinary,</span><br><span class="line">        <span class="comment">// 模块名称，可以将wasm模块注册到name</span></span><br><span class="line">        name: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保特定的指令会产生特定的结果</span></span><br><span class="line">    AssertReturn &#123;</span><br><span class="line">        <span class="comment">// 执行的指令</span></span><br><span class="line">        action: Action&lt;F32, F64&gt;,</span><br><span class="line">        <span class="comment">/// 预期的指令执行结果</span></span><br><span class="line">        expected: <span class="built_in">Vec</span>&lt;Value&lt;F32, F64&gt;&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保指定的指令产生NaN</span></span><br><span class="line">    AssertReturnCanonicalNan &#123;</span><br><span class="line">        <span class="comment">//  执行的指令</span></span><br><span class="line">        action: Action&lt;F32, F64&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保指定的指令产生 NaN with 1 in MSB of fraction field</span></span><br><span class="line">    AssertReturnArithmeticNan &#123;</span><br><span class="line">        <span class="comment">// 执行的指令</span></span><br><span class="line">        action: Action&lt;F32, F64&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保指定的指令产生trap</span></span><br><span class="line">    AssertTrap &#123;</span><br><span class="line">        <span class="comment">// 执行的指令</span></span><br><span class="line">        action: Action&lt;F32, F64&gt;,</span><br><span class="line">        <span class="comment">// 错误信息</span></span><br><span class="line">        message: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保特定的模块是无效的</span></span><br><span class="line">    AssertInvalid &#123;</span><br><span class="line">        <span class="comment">// 无效的模块</span></span><br><span class="line">        module: ModuleBinary,</span><br><span class="line">        <span class="comment">// 错误信息</span></span><br><span class="line">        message: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保特定的模块不能被decode</span></span><br><span class="line">    AssertMalformed &#123;</span><br><span class="line">        module: ModuleBinary,</span><br><span class="line">        <span class="comment">// 错误信息</span></span><br><span class="line">        message: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保特定的模块不能被实例化</span></span><br><span class="line">    AssertUninstantiable &#123;</span><br><span class="line">        <span class="comment">// 不能被实例化的模块</span></span><br><span class="line">        module: ModuleBinary,</span><br><span class="line">        <span class="comment">// 错误信息</span></span><br><span class="line">        message: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保特定的指令在资源耗尽的时候执行</span></span><br><span class="line">    AssertExhaustion &#123;</span><br><span class="line">        action: Action&lt;F32, F64&gt;,</span><br><span class="line">        <span class="comment">// 错误信息</span></span><br><span class="line">        message: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 确保特定的模块不能被链接</span></span><br><span class="line">    AssertUnlinkable &#123;</span><br><span class="line">        module: ModuleBinary,</span><br><span class="line">        <span class="comment">// 错误信息</span></span><br><span class="line">        message: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将已经注册过的模块改名</span></span><br><span class="line">    Register &#123;</span><br><span class="line">        <span class="comment">// 需要改名的模块名，若爲None则将使用最后定义的模块</span></span><br><span class="line">        name: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 新名称</span></span><br><span class="line">        as_name: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 执行指定指令</span></span><br><span class="line">    PerformAction(Action&lt;F32, F64&gt;),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="指令Action">指令Action</h4>
+<p>wasm模块中的指令：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">enum</span> <span class="title">Action</span></span>&lt;F32 = <span class="built_in">f32</span>, F64 = <span class="built_in">f64</span>&gt; &#123;</span><br><span class="line">    <span class="comment">// 调用函数</span></span><br><span class="line">    Invoke &#123;</span><br><span class="line">        <span class="comment">// 模块名称，若爲None，则取最后定义的模块</span></span><br><span class="line">        module: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 函数名</span></span><br><span class="line">        field: <span class="built_in">String</span>,</span><br><span class="line">        <span class="comment">// 需要传递给函数的参数</span></span><br><span class="line">        args: <span class="built_in">Vec</span>&lt;Value&lt;F32, F64&gt;&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 读取全局变量</span></span><br><span class="line">    Get &#123;</span><br><span class="line">        <span class="comment">// 模块名称，若爲None，则取最后定义的模块</span></span><br><span class="line">        module: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 指令作用在字段field上</span></span><br><span class="line">        field: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sgxwasm中定义的指令：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">enum</span> <span class="title">SgxWasmAction</span></span> &#123;</span><br><span class="line">    <span class="comment">// 调用函数</span></span><br><span class="line">    Invoke &#123;</span><br><span class="line">        <span class="comment">// 模块名称，若爲None，则取最后定义的模块</span></span><br><span class="line">        module: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 函数名</span></span><br><span class="line">        field: <span class="built_in">String</span>,</span><br><span class="line">        <span class="comment">// 需要传递给函数的参数</span></span><br><span class="line">        args: <span class="built_in">Vec</span>&lt;BoundaryValue&gt;</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 读取全局变量</span></span><br><span class="line">    Get &#123;</span><br><span class="line">        <span class="comment">// 模块名称，若爲None，则取最后定义的模块</span></span><br><span class="line">        module: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 指令作用在字段field上</span></span><br><span class="line">        field: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 加载模块</span></span><br><span class="line">    LoadModule &#123;</span><br><span class="line">        <span class="comment">// 模块名称，若爲None，则取最后定义的模块</span></span><br><span class="line">        name: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 二进制模块</span></span><br><span class="line">        module: <span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 尝试加载一个模块</span></span><br><span class="line">    TryLoad &#123;</span><br><span class="line">        <span class="comment">// 二进制模块</span></span><br><span class="line">        module: <span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 将已经注册过的模块改名</span></span><br><span class="line">    Register &#123;</span><br><span class="line">        <span class="comment">// 模块名称，若爲None，则取最后定义的模块</span></span><br><span class="line">        name: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">        <span class="comment">// 新名称</span></span><br><span class="line">        as_name: <span class="built_in">String</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="CommandKind-Module">CommandKind::Module</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载一个模块</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgx_enclave_wasm_load_module</span></span>(module : <span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;,</span><br><span class="line">    						    name   : &amp;<span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">                                enclave : &amp;SgxEnclave)</span><br><span class="line">	-&gt; <span class="built_in">Result</span>&lt;(), <span class="built_in">String</span>&gt;</span><br></pre></td></tr></table></figure>
+<p>创建一个SgxWasmAction::LoadModule结构，再调用sgx_enclave_wasm_invoke()</p>
+<h4 id="CommandKind-AssertReturn">CommandKind::AssertReturn</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据wasm的Action执行指令</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgx_enclave_wasm_run_action</span></span>(action: &amp;Action, enclave: &amp;SgxEnclave) -&gt; <span class="built_in">Result</span>&lt;<span class="built_in">Option</span>&lt;RuntimeValue&gt;, InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>先匹配Action：</p>
+<ul>
+<li>如果是Action::Invoke，那么创建一个SgxWasmAction::Invoke结构并交给sgx_enclave_wasm_invoke()</li>
+<li>如果是Action::Get，那么创建一个SgxWasmAction::Get结构并交给sgx_enclave_wasm_invoke()</li>
+</ul>
+<p>然后根据sgx_enclave_wasm_invoke()的返回结果来判断输出是否是我们想要的</p>
+<p>**备注：**对于另外一些CommandKind（包括CommandKind::AssertReturnCanonicalNan、CommandKind::AssertReturnArithmeticNan、CommandKind::AssertExhaustion、CommandKind::AssertTrap），过程同CommandKind::AssertReturn，只不过是对返回值的判断有所不同</p>
+<p>**备注2：**对于CommandKind::PerformAction，只需匹配和执行Action，不需要后面的判断</p>
+<h4 id="CommandKind-AssertInvalid">CommandKind::AssertInvalid</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 尝试加载一个模块</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgx_enclave_wasm_try_load</span></span>(module : &amp;[<span class="built_in">u8</span>], enclave : &amp;SgxEnclave) -&gt; <span class="built_in">Result</span>&lt;(), InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>先创建一个SgxWasmAction::TryLoad结构，再交给sgx_enclave_wasm_invoke()</p>
+<p>**备注：**对于另外一些CommandKind（包括CommandKind::AssertMalformed、CommandKind::AssertUnlinkable、CommandKind::AssertUninstantiable），由于这些类型的SgxWasmAction都不能加载可用的模块，所以只能尝试加载模块</p>
+<h4 id="CommandKind-Register">CommandKind::Register</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注册一个模块</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgx_enclave_wasm_register</span></span>(name : <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;,</span><br><span class="line">                             as_name : <span class="built_in">String</span>,</span><br><span class="line">                             enclave : &amp;SgxEnclave) </span><br><span class="line">	-&gt; <span class="built_in">Result</span>&lt;(), InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>创建一个SgxWasmAction::Register结构，再交给sgx_enclave_wasm_invoke()</p>
+<h4 id="调用函數sgx-enclave-wasm-invoke">调用函數sgx_enclave_wasm_invoke()</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 根据SgxWasmAction通过ECall执行指定的指令</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgx_enclave_wasm_invoke</span></span>(req_str : <span class="built_in">String</span>,</span><br><span class="line">                           result_max_len : <span class="built_in">usize</span>,</span><br><span class="line">                           enclave : &amp;SgxEnclave) -&gt; (<span class="built_in">Result</span>&lt;<span class="built_in">Option</span>&lt;BoundaryValue&gt;, InterpreterError&gt;, sgx_status_t)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>req_str：将SgxWasmAction序列化得到</li>
+<li>result_max_len：返回结果的最大长度</li>
+</ul>
+<p>sgx_enclave_wasm_invoke()调用ECall函数sgxwasm_run_action()</p>
+<h3 id="安全函数sgxwasm-run-action">安全函数sgxwasm_run_action()</h3>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">sgxwasm_run_action</span></span>(req_bin : *<span class="keyword">const</span> <span class="built_in">u8</span>, req_length: <span class="built_in">usize</span>,</span><br><span class="line">                      result_bin : *<span class="keyword">mut</span> <span class="built_in">u8</span>, result_max_len: <span class="built_in">usize</span>) -&gt; sgx_status_t</span><br></pre></td></tr></table></figure>
+<ul>
+<li>req_bin：需要执行的SgxWasmAction请求</li>
+<li>req_length：请求长度</li>
+<li>result_bin：返回的内容</li>
+<li>result_max_len：返回值的最大长度</li>
+</ul>
+<p>首先通过req_bin和req_length来在Enclave中创建一个安全的SgxWasmAction结构action_req，再对其进行匹配：</p>
+<h4 id="SgxWasmAction-Invoke">SgxWasmAction::Invoke</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用函数</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">wasm_invoke</span></span>(module: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;, field: <span class="built_in">String</span>, args: <span class="built_in">Vec</span>&lt;RuntimeValue&gt;)</span><br><span class="line">	-&gt; <span class="built_in">Result</span>&lt;<span class="built_in">Option</span>&lt;RuntimeValue&gt;, InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>首先获取全局的SPECDRIVER存入变量program，根据module的值在SpecDriver.instances中查找对应名字的模块，如果module的值爲None，则通过SpecDriver.last_module返回最后注册的模块，得到一个ModuleRef结构module通过module的invoke_export()方法调用导出函数：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module.invoke_export(&amp;field, &amp;args, program.spec_module())</span><br></pre></td></tr></table></figure>
+<ul>
+<li>&amp;field：函数名</li>
+<li>&amp;args：传入函数的参数</li>
+<li>program.spec_module()：externals，导入wasm函数的外部环境，实现Externals trait</li>
+</ul>
+<p>invoke_export()方法通过函数名查找导出函数，得到FuncRef类型的func_instance，并使用 <code>FuncInstance::invoke(&amp;func_instance, args, externals)</code> 调用函数，FuncInstance结构是一个函数实例，在wasm中，函数的定义方式有两种：在wasm模块中定义或者从宿主环境导入，分别对应FuncInstanceInternal::Internal和FuncInstanceInternal::Host</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">FuncInstance</span></span>(FuncInstanceInternal);</span><br><span class="line"></span><br><span class="line"><span class="meta">#[derive(Clone)]</span></span><br><span class="line"><span class="keyword">pub</span>(<span class="keyword">crate</span>) <span class="class"><span class="keyword">enum</span> <span class="title">FuncInstanceInternal</span></span> &#123;</span><br><span class="line">    Internal &#123;</span><br><span class="line">        signature: Arc&lt;Signature&gt;,</span><br><span class="line">        module: Weak&lt;ModuleInstance&gt;,</span><br><span class="line">        body: Arc&lt;FuncBody&gt;,</span><br><span class="line">    &#125;,</span><br><span class="line">    Host &#123;</span><br><span class="line">        signature: Signature,</span><br><span class="line">        host_func_index: <span class="built_in">usize</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在FuncInstance::invoke()调用函数时，首先判断传入参数是否符合函数籤名，然后匹配函数的定义方式FuncInstanceInternal</p>
+<ul>
+<li>
+<p>Internal：初始化一个Interpreter，然后调用 <code>interpreter.start_execution(externals)</code> 执行函数（更底层的内容可能会写在下一章）</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">struct</span> <span class="title">Interpreter</span></span> &#123;</span><br><span class="line">    value_stack: ValueStack,</span><br><span class="line">    call_stack: CallStack,</span><br><span class="line">    return_type: <span class="built_in">Option</span>&lt;ValueType&gt;,</span><br><span class="line">    state: InterpreterState,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>Host：调用 <code>externals.invoke_index(*host_func_index, args.into())</code> ，externals即爲invoke_export()方法传入的第三参数：导入函数的外部环境。这里的externals就是SpecModule，它实现的Externals trait如下：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">impl</span> Externals <span class="keyword">for</span> SpecModule &#123;</span><br><span class="line">    <span class="function"><span class="keyword">fn</span> <span class="title">invoke_index</span></span>(</span><br><span class="line">        &amp;<span class="keyword">mut</span> <span class="keyword">self</span>,</span><br><span class="line">        index: <span class="built_in">usize</span>,</span><br><span class="line">        args: RuntimeArgs,</span><br><span class="line">    ) -&gt; <span class="built_in">Result</span>&lt;<span class="built_in">Option</span>&lt;RuntimeValue&gt;, Trap&gt; &#123;</span><br><span class="line">        <span class="keyword">match</span> index &#123;</span><br><span class="line">            PRINT_FUNC_INDEX =&gt; &#123;</span><br><span class="line">                <span class="built_in">println!</span>(<span class="string">&quot;print: &#123;:?&#125;&quot;</span>, args);</span><br><span class="line">                <span class="literal">Ok</span>(<span class="literal">None</span>)</span><br><span class="line">            &#125;</span><br><span class="line">            _ =&gt; <span class="built_in">panic!</span>(<span class="string">&quot;SpecModule doesn&#x27;t provide function at index &#123;&#125;&quot;</span>, index),</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="SgxWasmAction-Get">SgxWasmAction::Get</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">wasm_get</span></span>(module : <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;, field : <span class="built_in">String</span>)</span><br><span class="line">            -&gt; <span class="built_in">Result</span>&lt;<span class="built_in">Option</span>&lt;RuntimeValue&gt;, InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>首先获取全局的SPECDRIVER存入变量program，根据module的值在SpecDriver.instances中查找对应名字的模块，如果module的值爲None，则通过SpecDriver.last_module返回最后注册的模块，得到一个ModuleRef结构module</p>
+<p>然后通过 <code>module.export_by_name(&amp;field)</code> 获得一个wasm的运行时的实体引用ExternVal，可能的值包括：函数、Table、Memory、全局变量</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="class"><span class="keyword">enum</span> <span class="title">ExternVal</span></span> &#123;</span><br><span class="line">    Func(FuncRef),</span><br><span class="line">    Table(TableRef),</span><br><span class="line">    Memory(MemoryRef),</span><br><span class="line">    Global(GlobalRef),</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着匹配module的该导出实体是否爲Global，若不是，返回None</p>
+<h4 id="SgxWasmAction-LoadModule">SgxWasmAction::LoadModule</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 加载一个模块到SpecDriver中</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">wasm_load_module</span></span>(name: <span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;, module: <span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;)</span><br><span class="line">                    -&gt; <span class="built_in">Result</span>&lt;(), InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>首先获取全局的SPECDRIVER存入变量spec_driver，然后通过 <code>try_load_module(&amp;module[..])</code> 获得一个parity_wasm库的Module类型的module，接着通过 <code>ModuleInstance::new(&amp;module, &amp;**spec_driver)</code> 的方式新建一个NotStartedModuleRef实例，并使用 <code>run_start(spec_driver.spec_module())</code> 方法将其转变爲ModuleRef类型</p>
+<p>最后将该实例通过 <code>spec_driver.add_module(name, instance.clone())</code> 存放入spec_driver中，将SpecDriver.last_module改爲该模块，并在SpecDriver.instances中插入该模块与其名字的键值对</p>
+<h4 id="SgxWasmAction-TryLoad">SgxWasmAction::TryLoad</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 尝试加载一个模块，不加载到SpecDriver中</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">wasm_try_load</span></span>(wasm: <span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt;) -&gt; <span class="built_in">Result</span>&lt;(), InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>首先获取全局的SPECDRIVER存入变量spec_driver，然后通过 <code>try_load_module(&amp;module[..])</code> 获得一个parity_wasm库的Module类型的module，接着通过 <code>ModuleInstance::new(&amp;module, &amp;ImportsBuilder::default())</code> 的方式新建一个NotStartedModuleRef实例instance，尝试对其使用 <code>run_start(spec_driver.spec_module())</code>方法，若成功，返回Ok(())，若失败，返回错误</p>
+<h4 id="SgxWasmAction-Register">SgxWasmAction::Register</h4>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 使用as_name注册一个新模块</span></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">wasm_register</span></span>(name: &amp;<span class="built_in">Option</span>&lt;<span class="built_in">String</span>&gt;, as_name: <span class="built_in">String</span>)</span><br><span class="line">                    -&gt; <span class="built_in">Result</span>&lt;(), InterpreterError&gt;</span><br></pre></td></tr></table></figure>
+<p>首先获取全局的SPECDRIVER存入变量spec_driver，根据module的值在SpecDriver.instances中查找对应名字name的模块，如果name的值爲None，则通过SpecDriver.last_module返回最后注册的模块</p>
+<p>最后将该模块通过 <code>spec_driver.add_module(name, instance.clone())</code> 存放入spec_driver中，将SpecDriver.last_module改爲该模块，并在SpecDriver.instances中插入该模块与其名字的键值对</p>
+<h3 id="函数执行Interpreter底层">函数执行Interpreter底层</h3>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年3月8日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/rust/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>rust</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sgx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sgx</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2021/03/09/instruction/makefile/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>Makefile学习</p>
+          <p class='content'>makefile概览
+规则的基本形式
+1234target ... : prerequisites ...    command    ...    ...
+
+target：可以是一个objec...</p>
+        </a>
+      
+      
+        <a class='next' href='/2021/03/03/instruction/rustup-channel/'>
+          <p class='title'>Rust更换项目编译的Channel<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>查看可用的Channel：
+1rustup toolchain list
+在项目根目录输入命令修改本项目的编译环境：
+1rustup override set nightly
+</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96enclave"><span class="toc-text">初始化enclave</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96sgxwasm%E7%9A%84SpecDriver"><span class="toc-text">初始化sgxwasm的SpecDriver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9C%A8Enclave%E5%A4%96%E5%8A%A0%E8%BD%BDwast%E6%96%87%E4%BB%B6"><span class="toc-text">在Enclave外加载wast文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4Action"><span class="toc-text">指令Action</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CommandKind-Module"><span class="toc-text">CommandKind::Module</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CommandKind-AssertReturn"><span class="toc-text">CommandKind::AssertReturn</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CommandKind-AssertInvalid"><span class="toc-text">CommandKind::AssertInvalid</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CommandKind-Register"><span class="toc-text">CommandKind::Register</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B8sgx-enclave-wasm-invoke"><span class="toc-text">调用函數sgx_enclave_wasm_invoke()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E5%87%BD%E6%95%B0sgxwasm-run-action"><span class="toc-text">安全函数sgxwasm_run_action()</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#SgxWasmAction-Invoke"><span class="toc-text">SgxWasmAction::Invoke</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SgxWasmAction-Get"><span class="toc-text">SgxWasmAction::Get</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SgxWasmAction-LoadModule"><span class="toc-text">SgxWasmAction::LoadModule</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SgxWasmAction-TryLoad"><span class="toc-text">SgxWasmAction::TryLoad</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SgxWasmAction-Register"><span class="toc-text">SgxWasmAction::Register</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8CInterpreter%E5%BA%95%E5%B1%82"><span class="toc-text">函数执行Interpreter底层</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Wasmi sgx 工作流程";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>

@@ -1,0 +1,1679 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.1.5'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+  <title>论文阅读-SGX容器相关 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="sgx">
+  
+
+  
+    <meta name="description" content="论文阅读-SGX容器相关">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/Schenk75/Source/logos/steroids.svg">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+</head>
+
+<body>
+  
+
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/taiga.svg'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fab fa-stack-overflow fa-fw'></i>主页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+  <div id="l_body">
+    <div id="l_cover">
+  
+    
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
+          
+            <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Schenk - Blog</p>
+    
+    
+      <p class="subtitle">SJTUer | Cuber</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <i class='fas fa-folder-open fa-fw'></i><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <i class='fas fa-tags fa-fw'></i><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <i class='fas fa-archive fa-fw'></i><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <i class='fas fa-link fa-fw'></i><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <i class='fas fa-info-circle fa-fw'></i><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+    <div id='safearea'>
+      <div class='body-wrapper' id="pjax-container">
+        
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        论文阅读-SGX容器相关
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Paper-Reading/">Paper Reading</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:44:33+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年4月28日</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：8.3k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：29分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="论文阅读-SGX容器相关" data-path="/2021/03/24/paper-reading/SGX-Container-LibOS/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  <h2 id="LibOS概念">LibOS概念</h2>
+<p>库操作系统 (Library OS) 的思想是，将应用程序所依赖的操作系统个性（操作系统个性是操作系统的应用程序编程接口(api)和应用程序可见语义的实现，用于构建应用程序的OS服务）作为库在应用程序的地址空间中运行。一个小的、固定的抽象集将库OS连接到主机OS内核，提供了更好的系统安全性和更快速的OS组件独立演化的可能性。</p>
+<h2 id="SCONE-Secure-Linux-Containers-with-Intel-SGX">SCONE: Secure Linux Containers with Intel SGX</h2>
+<blockquote>
+<p>SCONE是一个屏蔽的执行框架，它使未经修改的应用程序能够利用SGX提供的隔离。使用SCONE，程序会根据修改后的标准C库(SCONE libc)重新编译，这有助于系统调用的执行。应用程序的地址空间仅被限定为enclave内存，而不受信任的内存只能通过系统调用接口访问。特殊的包装器复制enclave内部和外部的系统调用参数，并提供以透明的加密方式保护任何数据的功能，否则这些数据可能会以明文形式离开enclave边界(所谓的shield)。</p>
+</blockquote>
+<p>SCONE是一种Docker的安全容器机制，它使用Intel CPU的SGX可信执行支持来保护容器进程免受外部攻击。</p>
+<p>SCONE的特征：</p>
+<ul>
+<li>支持安全策略和透明认证</li>
+<li>原生应用程序支持：不过仍然建议将已有的应用进行重新编译再放入SCONE</li>
+<li>不仅支持静态链接，也支持动态链接：共享库可以在应用程序开始运行后被加载，共享库被SCONE文件系统shield保护</li>
+<li>支持fork</li>
+</ul>
+<h3 id="威胁模型">威胁模型</h3>
+<p>我们假设有一个强大而活跃的对手，他拥有对系统和物理硬件的超级用户访问权。它们可以控制整个软件栈，包括特权代码，如容器引擎、操作系统内核和其他系统软件。这使对手能够重播、记录、修改和删除任何网络数据包或文件系统访问。</p>
+<h3 id="设计权衡">设计权衡</h3>
+<ul>
+<li>
+<p>为了在容器中安全执行Linux进程，应该在enclave中放置怎么样的系统支持?</p>
+</li>
+<li>
+<p>不同的设计方案会影响：</p>
+<ul>
+<li>容器的安全属性，包括TCB的大小和对外公开的接口</li>
+<li>SGX固有限制对性能的影响</li>
+</ul>
+</li>
+</ul>
+<h4 id="可选设计方案">可选设计方案</h4>
+<h5 id="外部容器接口">外部容器接口</h5>
+<p><img src="SGX-Container-LibOS.assets%5Cimage-20201221170158242.png" class="lazyload" data-srcset="SGX-Container-LibOS.assets%5Cimage-20201221170158242.png" srcset="data:image/png;base64,666" alt="image-20201221170158242"></p>
+<p>要在安全容器中执行未修改的进程，容器必须支持C标准库(libc)接口，从而必须使用系统调用，这不能在enclave内部执行，因此安全容器必须向主机OS公开外部接口。关键的决策变成了(a)外部接口和(b)在enclave中实现接口所需的TCB的大小。</p>
+<p>图1a显示了一个先前的设计方案，它通过在enclave中放置一个完整的Windows library OS来最小化外部接口。这种方法的一个好处是，它只公开一个包含22个调用的小外部接口，因为一个进程的大部分系统支持可以由库操作系统提供。然而，库OS增加了enclave内部的TCB大小。此外，由于库OS引入了额外的抽象(例如，执行I/O时)，它可能会增加性能开销。</p>
+<p>图1b的设计是外部接口用于执行应用程序发出的所有libc库调用。这对接口的安全性要求很高。这种方法的一个好处是，它在enclave内部产生了最小的TCB—只有一个很小的shim C库需要将libc调用中继到enclave外部的宿主libc库。</p>
+<p>图1c的设计是前两者取中值，在libc实现执行的系统调用级别上定义了外部接口</p>
+<h5 id="系统调用的开销">系统调用的开销</h5>
+<p>有效的系统调用支持是安全容器的关键需求。因此，安全容器设计不能仅仅简单的使用线程转换来支持系统调用。</p>
+<h5 id="内存访问开销">内存访问开销</h5>
+<p>出于性能原因，安全容器设计应该减少对enclave内存的访问。理想情况下，它应该尽可能多地使用不可信的非enclave内存，而不损害提供的安全保证。</p>
+<h3 id="SCONE设计">SCONE设计</h3>
+<p><img src="SGX-Container-LibOS.assets%5Cimage-20201221182902149.png" class="lazyload" data-srcset="SGX-Container-LibOS.assets%5Cimage-20201221182902149.png" srcset="data:image/png;base64,666" alt="image-20201221182902149"></p>
+<ul>
+<li>SCONE将一个基于系统调用的外部接口暴露给OS，在将参数传递给应用程序之前，执行完整性检查并将所有基于内存的返回值复制到enclave内部</li>
+<li>SCONE支持M:N线程来避免不必要的enclave转换，当应用程序线程发出系统调用时，SCONE检查是否有另一个应用程序线程可以唤醒并执行，直到系统调用的结果可用为止</li>
+<li>SCONE为容器提供了一个到主机OS的异步系统调用接口，使用共享内存来传递系统调用的参数和返回值，并发出执行系统调用的信号，系统调用由SCONE内核模块中运行的独立线程执行，因此在执行系统调用时，enclave中的线程不需要退出</li>
+<li>SCONE集成了现有的Docker容器环境，并确保安全的容器与标准Linux容器兼容</li>
+</ul>
+<h4 id="外部接口防护">外部接口防护</h4>
+<p><strong>文件系统防护</strong></p>
+<p>保护文件的完整性和机密性。容器映像创建者定义三组不相交的文件路径前缀：</p>
+<ol>
+<li>
+<p>未受保护的文件的前缀</p>
+</li>
+<li>
+<p>加密和经过身份验证的文件的前缀</p>
+</li>
+<li>
+<p>经过身份验证的文件的前缀</p>
+</li>
+</ol>
+<p>当文件被打开时，防护层确定文件名的最长匹配前缀。根据匹配情况，对文件进行身份验证、加密或直接传递给主机操作系统。</p>
+<p>SCONE还通过其文件系统防护支持专用的安全临时文件系统。防护层保证了临时文件的完整性和机密性：临时文件系统维护非enclave内存中被修改的文件的状态。</p>
+<p><strong>网络防护</strong></p>
+<p>使用TLS为容器服务建立安全通道，封装了所有的套接字操作，并将它们重定向到一个网络防护层。在建立新连接时，网络防护层将执行TLS握手并对通过套接字传输的任何数据进行加/解密。</p>
+<p>这种方法不需要客户端或服务端更改，私钥和证书是从容器的文件系统中读取的，因此，它们受到文件系统防护层的保护。</p>
+<p><strong>控制台防护</strong></p>
+<p>容器环境允许授权的进程附加到stdin、stdout和stderr控制台流。为了确保发送到这些流的应用程序数据的机密性，SCONE支持对它们进行透明加密。控制台流是单向的，这意味着它们无法受到网络防护层的保护，因为网络防护层的底层TLS实现需要双向流。控制台防护通过基于刷新模式将流分割成可变大小的块来加密流。通过为每个块分配一个唯一的标识符（由授权的SCONE客户端检查)，可以保护流免受重播和重新排序攻击。</p>
+<h4 id="异步系统调用">异步系统调用</h4>
+<p>同步系统调用的缺点：由于SGX不允许系统调用从一个enclave内部发出，必须通过对enclave之外的函数的调用来实现。这意味着执行线程必须将基于内存的参数复制到非enclave内存，退出enclave并执行外部函数来发出系统调用。当系统调用返回时，线程必须重新进入enclave，并将基于内存的结果复制回enclave。效率很低</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20210207121202437.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20210207121202437.png" srcset="data:image/png;base64,666" alt="image-20210207121202437"></p>
+<p>因此，SCONE提供了一个异步系统调用接口。该接口由两个无锁的、多生产者-多消费者队列组成：一个请求队列和一个响应队列。系统调用是通过将请求放入请求队列来发出的。SCONE内核模块中的一个操作系统线程接收并处理这些请求。当系统调用返回时，操作系统线程将结果放入响应队列。</p>
+<h2 id="Ryoan-A-Distributed-Sandbox-for-Untrusted-Computation-on-Secret-Data">Ryoan: A Distributed Sandbox for Untrusted Computation on Secret Data</h2>
+<p>Ryoan提供了一个安全的分布式沙箱，利用SGX来保护沙箱实例免受潜在恶意计算平台的攻击，受保护的沙箱实例限制了不可信的数据处理模块，允许用户在数据处理服务中对数据保密，而不需要信任提供服务的第三方平台</p>
+<h2 id="Graphene-SGX-A-Practical-Library-OS-for-Unmodified-Applications-on-SGX">Graphene-SGX: A Practical Library OS for Unmodified Applications on SGX</h2>
+<p>Graphene-SGX为SGX提供一个端口来增强SGX的功能，如对动态加载库的完整性支持和安全多线程的支持</p>
+<p>将LibOS进程实现为Enclave-Isolated进程（EIP），每个EIP由一个Enclave内的一个LibOS实例托管，即n个EIP需要n个LibOS实例和n个Enclave。</p>
+<p>不足（Occlum中提出）：</p>
+<ul>
+<li>由于Enclave创建的成本很高，进程创建非常昂贵</li>
+<li>EIP之间的进程间通信（IPC）很昂贵，因为EIP完全被Enclave边界隔离，必须通过不可信内存来传输加密的消息来彼此通信</li>
+<li>在多个LibOS实例之间同步时困难的，因为多个LibOS会存在于多个Enclave中</li>
+</ul>
+<h3 id="设计考量">设计考量</h3>
+<p><strong>功能性</strong></p>
+<p>在一个极端，像Haven这样的LibOS将操作系统的大多数应用程序支持代码拖到enclave中。在另一个极端，只有薄薄一层shim，如SCONE和Panoply封装了一个API层(系统调用表)。在enclave中添加更多代码会增加TCB的大小，但可以减少enclave和不受信任的OS之间的接口和攻击面的大小和复杂性。</p>
+<p>在设计时需要考虑：</p>
+<ol>
+<li>进出enclave十分消耗资源</li>
+<li>EPC的大小有限</li>
+</ol>
+<p><strong>防护层的复杂性</strong></p>
+<p>SGX硬件可以将应用程序与不受信任的操作系统隔离，但SGX本身无法保护需要从操作系统获得功能的应用程序。Iago攻击是来自不受信任的操作系统对应用程序的语义攻击，通过未经检查的系统调用返回值损害SGX应用程序。</p>
+<p>因此，任何SGX框架都必须提供一些防护支持，以验证或拒绝来自不受信任的操作系统的输入。防护层的复杂性与接口的复杂性直接相关：由于一个LibOS或shim可以减少enclave  API的大小或复杂性，Iago攻击成功的概率就降低了。</p>
+<p><strong>应用程序代码的复杂性</strong></p>
+<p>将应用程序运行在Enclave中，可以有以下方法：</p>
+<ol>
+<li>修改应用程序，以减少运行时所需的时间</li>
+<li>对不受信任的操作系统开放和屏蔽更多接口</li>
+<li>将更多的功能引入到shim或LibOS中</li>
+</ol>
+<h3 id="设计大纲">设计大纲</h3>
+<h4 id="威胁模型-v2">威胁模型</h4>
+<p>不可信的组件包括：</p>
+<ol>
+<li>英特尔CPU之外的硬件</li>
+<li>操作系统、hypervisor和其他系统软件</li>
+<li>在同一主机上执行的其他应用程序，包括不相关的enclave</li>
+<li>驻留在应用程序进程中但enclave之外的用户空间组件</li>
+</ol>
+<p>可信组件包括：</p>
+<ol>
+<li>英特尔CPU</li>
+<li>Enclave中的代码，包括LibOS、未经修改的应用程序及其支持库</li>
+<li>Intel SGX SDK提供的enclave：aesmd。它用来验证enclave签名中的属性并批准enclave创建。除了aesmd和驱动，不信任Intel SGX SDK</li>
+</ol>
+<h4 id="多进程应用">多进程应用</h4>
+<p>在每个进程中运行一个单独的LibOS实例来支持多进程应用程序。每个LibOS实例通过消息传递来协调状态。例如，通过fork创建第二个enclave，并通过消息传递复制父enclave的内容</p>
+<h3 id="屏蔽Linux抽象">屏蔽Linux抽象</h3>
+<h4 id="动态加载">动态加载</h4>
+<p>为了运行未经修改的Linux二进制文件，Graphene-SGX实现了动态加载和运行时链接。在Linux系统中二进制文件大都是动态链接的，但静态链接在SGX框架中很流行，因为它很简单，便于使用硬件enclave度量。动态链接需要动态加载器中的根信任，然后动态加载器必须度量库。对于Haven，enclave度量仅验证Haven本身的完整性，并且同样的度量适用于在相同的Haven二进制文件上运行的任何应用程序。</p>
+<p>Graphene-SGX扩展了Haven模型，为任何可执行库和动态链接库的组合生成唯一签名。下图显示了一个enclave的结构和动态加载过程。Graphene-SGX从一个不受信任的平台适配层(pal-sgx)开始，该层调用SGX驱动程序来初始化enclave。enclave的初始状态决定了CPU随后验证的度量结果，它包括一个屏蔽库(<a target="_blank" rel="noopener" href="http://libshield.so">libshield.so</a>)、要运行的可执行文件和一个清单文件（指定了enclave中的属性和可加载二进制文件）。然后屏蔽库加载一个Linux LibOS (<a target="_blank" rel="noopener" href="http://libLinux.so">libLinux.so</a>)和标准C库(<a target="_blank" rel="noopener" href="http://ld-linux-x86-64.xn--solibc-j76j.so">ld-linux-x86-64.so和libc.so</a>)。在enclave初始化之后，加载程序继续加载其他库，这些库由屏蔽库检查。如果SHA-256哈希值与清单不匹配，屏蔽层将拒绝打开库。</p>
+<p>清单包括所有组件的完整性度量以及签名，这个清单对于每个应用程序都是唯一的，并作为enclave初始化的一部分进行度量。这种策略需要信任Graphene-SGX(in-enclave)引导加载程序和屏蔽模块，从而能够根据清单正确加载二进制文件，并拒绝OS提供的任何错误二进制文件。这并不比放置在Haven的动态加载器中的信任级别差，但不同点在于Graphene能区分不同的应用程序，甚至相同应用程序的使用不同库的实例。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20210207213328332.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20210207213328332.png" srcset="data:image/png;base64,666" alt="image-20210207213328332"></p>
+<p><strong>存储权限</strong></p>
+<p>默认情况下，Linux链接器格式(ELF)经常将代码和链接数据(例如跳转目标)放在同一个页面中。库在链接期间将可执行页面临时标记为可写，然后将该页面保护为仅执行页面。这种行为在当前的Linux共享库中普遍存在，但是可以在编译时更改，将可写的部分填充到单独的页面上。</p>
+<p>SGX1不能在enclave初始化之后更改页面权限。为了支持这种ELF行为，我们目前将所有enclave页面映射为可读、可写和可执行。这可能会导致一些安全风险，例如enclave中的代码注入攻击。在一些情况下，这也会损害功能，例如，一些JVM实现使用页面错误来同步线程。</p>
+<p><strong>依赖位置的可执行文件</strong></p>
+<p>SGX要求所有的enclave大小都是2的幂，并且起始地址从与enclave大小对齐的虚拟地址开始。大多数Linux可执行文件被编译成依赖于位置的，通常从地址0x400000开始。挑战在于，要创建包含此地址且大于4MB的enclave将必须包含地址0。</p>
+<p>我们认为在enclave中包含地址0是一个正面的结果，但并不是严格必要的，因为我们不愿意在空指针后面的代码中进行强声明。Graphene-SGX仍然可以在enclave中将该地址标记为未映射。因此，空指针仍然会导致页面错误。另一方面，如果地址0在enclave之外，则存在不受信任的OS将该地址映射到危险数据的风险，从而破坏enclave的完整性。</p>
+<h2 id="Occlum-Secure-and-Efficient-Multitasking-Inside-a-Single-Enclave-of-Intel-SGX">Occlum: Secure and Efficient Multitasking Inside a Single Enclave of Intel SGX</h2>
+<p>Occlum设计了一种新的软件故障隔离技术（SFI Software Fault Isolation）用于沙箱不可信模块的软件检测，通过SFI隔离流程（SIP）实现LibOS，从而能够安全共享Enclave的单个地址空间，并且实现既安全又高效的多任务处理</p>
+<p><strong>在SGX中添加LibOS的目的在于</strong>：</p>
+<blockquote>
+<p>SGX开发人员需要将SGX保护的应用程序分成enclave和非enclave两部分，这导致了需要大量的工作来重构SGX的遗留代码。最近的工作试图通过在enclave中引入库操作系统(LibOSes)来尽量减少工作量。通过LibOS提供系统调用，遗留代码可以在enclave中运行，而不需要修改。</p>
+</blockquote>
+<h2 id="AccTEE-A-WebAssembly-based-Two-way-Sandbox-for-Trusted-Resource-Accounting">AccTEE: A WebAssembly-based Two-way Sandbox for Trusted Resource Accounting</h2>
+<p>远程计算通常在沙箱环境中进行：</p>
+<ul>
+<li>隔离执行以保护主机环境免受未经授权的访问</li>
+<li>控制和限制资源使用</li>
+</ul>
+<p>数据所有者和计算提供者存在相互的不信任，因为：</p>
+<ul>
+<li>数据所有者会失去对代码和数据的控制权</li>
+<li>不能确定代码执行环境的完整性</li>
+<li>资源使用审计缺少双方信任</li>
+</ul>
+<p>AccTEE结合SGX和WebAssembly实现一个双向沙箱，在保证代码和数据的机密性和完整性的同时，进行<strong>细粒度地资源核算</strong>（通过计算WebAssembly指令，内存分配以及I/O操作）。</p>
+<ul>
+<li>SGX：保护代码和数据不被计算提供者未经授权访问</li>
+<li>WebAssembly：防止数据所有者未经授权访问计算提供者的机器</li>
+</ul>
+<h3 id="背景">背景</h3>
+<h4 id="使用场景">使用场景</h4>
+<ul>
+<li>
+<p>志愿计算 缺点：</p>
+<ul>
+<li>通过计量捐赠的CPU时间来决定贡献，而不考虑内存、IO或CPU性能</li>
+<li>多次执行每个任务来保证结果的完整性，浪费资源</li>
+<li>志愿者可以获得数据和代码</li>
+</ul>
+<p>通过AccTEE可以保护结果的完整性，避免多次执行浪费资源；也可以跟踪资源使用情况，防止有作弊行为。</p>
+</li>
+<li>
+<p>补偿计算：参与者提供他们私有机器的空闲资源，并以此获得奖励，例如加密货币。但计算资源提供者和基础设施提供者相互不信任，可能存在基础设施提供者恶意修改计算资源提供者的贡献值。<br>
+通过AccTEE，计算资源提供者可以保护自己的贡献不被恶意修改。</p>
+</li>
+<li>
+<p>无服务计算：由功能即服务（Function-as-a-Service FaaS）驱动，开发人员不需要管理服务器，只需要编写和提交函数代码，由云提供商来设置函数的执行上下文，衡量并行函数实例的数量，连接函数的输入输出。但会存在代码所有者和计算提供者间的不信任。</p>
+</li>
+<li>
+<p>Pay-by-Computation：网络内容提供者主要依靠在线广告获得运营资金，但是用户想方设法删除广告，浏览器也有了拦截广告的技术，因此需要一种替代的，侵入性较小的机制来补充网络内容提供者。<br>
+通过AccTEE，用户通过使用空闲资源在后台运行短期任务来换取网站的访问权，由双向沙箱来保护任务的机密性和完整性。</p>
+</li>
+</ul>
+<h4 id="WebAssembly">WebAssembly</h4>
+<p>WASM是一种新型的、平台无关的二进制指令格式，其目标是一种安全、快速和可移植的低级代码格式。</p>
+<p>在技术层面，WebAssembly代表了一个基于软件故障隔离的单向沙箱，WebAssembly模块通过不相邻的内存空间相互隔离：代码的内存空间、执行栈、执行环境数据结构和堆是分开的，从而防止任意代码执行以及WebAssembly模块自身数据之外的数据损坏。</p>
+<p>除了内存隔离之外WASM还提供一个受保护的调用堆栈，它只包含固定大小的变量，更复杂的结构存放在线性存储器的栈中，以防止缓冲区溢出。</p>
+<p>WASM提供人类可读的格式WAT，等同于二进制格式。</p>
+<p>AccTEE构建在WASM的内置软件故障隔离之上，以防止程序干扰核算系统。</p>
+<h4 id="威胁模型-v3">威胁模型</h4>
+<p>假设代码数据所有者和计算提供者都是强大的攻击者，可以进行任意行为，所有参与的执行平台都是不可信的。但是信任Intel和SGX。</p>
+<h3 id="AccTEE设计">AccTEE设计</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224124309585.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224124309585.png" srcset="data:image/png;base64,666" alt="image-20201224124309585" style="zoom:80%;" />
+<h4 id="系统需求">系统需求</h4>
+<ul>
+<li>系统支持各种高级编程语言</li>
+<li>平台独立性：核算的结果独立于平台，平台只需要将workload代码转换为可执行指令</li>
+<li>双向隔离：workload隔离于平台环境，平台提供者不能干涉代码执行</li>
+<li>可信资源核算：双方都不能干预核算机制</li>
+<li>代码和数据的完整性和机密性</li>
+<li>低性能开销</li>
+</ul>
+<h4 id="资源核算方法">资源核算方法</h4>
+<p>AccTEE使用中间代码来获得平台独立性，具体来说，使用WebAssembly来支持更多的语言：对于相同的(确定性的)任务和输入参数，在不同的硬件平台，甚至不同的WebAssembly运行时，执行的WebAssembly指令的数量是相同的。</p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224143822466.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224143822466.png" srcset="data:image/png;base64,666" alt="image-20201224143822466" style="zoom:80%;" />
+<ul>
+<li>
+<p>execution sandbox防止不可信的数据和代码访问主机或干预资源核算</p>
+</li>
+<li>
+<p>accounting enclave(AE)防止不可信主机窃听数据代码或操控资源核算</p>
+<ul>
+<li>accounting enclave基于WASM提供的基于语言的隔离实现</li>
+</ul>
+</li>
+<li>
+<p>instrumentation enclave(IE)和AE通过Enclave度量来确保代码正确执行</p>
+</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224150147495.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224150147495.png" srcset="data:image/png;base64,666" alt="image-20201224150147495" style="zoom:80%;" />
+<p>总体工作流程：</p>
+<ul>
+<li>将应用程序编译为WebAssembly</li>
+<li>度量WebAssembly代码（在IE中），并输出度量后的WebAssembly代码和一个认证（确保输出是由该IE生成）</li>
+<li>IE的输出作为AE的输入，AE在认证通过后执行代码，并生成资源核算日志</li>
+</ul>
+<h4 id="I-O操作">I/O操作</h4>
+<p>wasm没有为I/O操作指定接口，因此wasm代码被嵌入到运行时系统中，该系统将必要的原语暴露为wasm代码可以调用的函数。</p>
+<p>SGX Enclave中不允许系统调用，必须退出Enclave后才能执行不可信的I/O操作。AccTEE依赖SGX-LKL来执行遗留二进制文件，SGX-LKL处理Enclave内部的系统调用，但是直接访问外部资源的系统调用（如I/O）是不受信任的。</p>
+<h4 id="Accounting-Enclave">Accounting Enclave</h4>
+<p>AccTEE跟踪三种资源类型，其衡量方式如下：</p>
+<ul>
+<li>CPU使用：执行的WASM指令的数量</li>
+<li>内存</li>
+<li>I/O使用：各种I/O通道发送和接收的字节数</li>
+</ul>
+<h5 id="CPU">CPU</h5>
+<p>通过维护一个计数器（指令计数器）来跟踪CPU的使用情况，每执行一条wasm指令就递增。</p>
+<p>AccTEE将一个全局计数器变量添加到原始wasm代码中，初始化为0，同时也在每个代码块的最后添加wasm指令来增加计数器的值。</p>
+<p>wasm指令有不同的复杂度，在计数时需要加权。指令访问内存的成本取决于内存访问模式和访问范围：线性访问便宜而随机访问昂贵，但由于访问内存的指令的成本是无法预测的，所以AccTEE采用峰值内存来估计内存访问的成本。</p>
+<p>指令计数器的<strong>优化</strong>：</p>
+<ul>
+<li>flow-based（基于数据流）：不用每个代码块都进行计数，当一个代码块有多个父节点时，可以在这个代码块加上所有父节点计数的最小值，在父节点上只要加上差值即可，如下图所示</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224205520524.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224205520524.png" srcset="data:image/png;base64,666" alt="image-20201224205520524" style="zoom:80%;" />
+<ul>
+<li>loop-based（基于循环）：将指令计数器的增量移出循环，不要在每个循环中都增加，而是退出循环之后增加一次。</li>
+</ul>
+<h5 id="内存">内存</h5>
+<p>每个wasm模块都可以访问一块线性内存（连续的一段内存，使用模块定义的大小初始化，但可以动态增长到某个最大值，并且只能增长不能减小），因此AccTEE使用线性内存的大小来计算workload消耗的内存，包含两个策略：</p>
+<ul>
+<li>在代码执行结束时将所有线性内存相加得到内存使用峰值</li>
+<li>将指令计数器和线性内存大小相结合，实现细粒度的内存计算</li>
+</ul>
+<h5 id="I-O">I/O</h5>
+<p>在AccTEE上下文中，wasm运行时时受信任的部分，因此可以通过检测运行时的I/O函数流入和流出wasm模块的字节数来测定。</p>
+<h3 id="AccTEE实现">AccTEE实现</h3>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224212307674.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201224212307674.png" srcset="data:image/png;base64,666" alt="image-20201224212307674" style="zoom:80%;" />
+<ul>
+<li>
+<p>使用SGX-LKL来在Enclave中运行未修改的二进制文件。<strong>【创新点：可以进行修改？】</strong></p>
+</li>
+<li>
+<p>关于wasm的执行环境，采用Node.js JavaScript运行时，底层使用Chrome的JavaScript引擎V8来执行JavaScript和WebAssembly。<strong>【可替代方案：WAVM、wasmi】</strong></p>
+<ul>
+<li>V8引擎需要“粘合代码”来在JavaScript和wasm执行上下文之间架起桥梁，粘合代码通常是专门为相应的WebAssembly代码定制的，并与之一起生成</li>
+<li>基于Emscripten提供的主模块和副模块的分离。main模块提供了一个接口，包含了它导入的所有标准库函数，并生成所有必要的JavaScript粘合代码。每个附加模块(也称为side模块)只从main模块中导入所需的标准库函数。加载side模块时不需要额外的粘合代码。在我们的框架中，我们只是静态地包含了一个提供所有标准库函数及其粘合代码的main模块，而每个动态加载的模块都是一个从main模块中导入所需功能的side模块。编译和实例化每个side模块的代码直接集成到框架中</li>
+</ul>
+</li>
+</ul>
+<h3 id="AccTEE评估">AccTEE评估</h3>
+<p>SGX HW模式开销比SIM模式和SGX-LKL模式下大得多？（是由于EPC页切换带来的开销？）<br>
+表现为当workload超过可用的EPC内存（93MB）时，性能显著下降。</p>
+<h2 id="A-Practical-Intel-SGX-Setting-for-Linux-Containers-in-the-Cloud">A Practical Intel SGX Setting for Linux Containers in the Cloud</h2>
+<p>将SGX部署到云环境应该满足：</p>
+<ul>
+<li>
+<p>对远程认证的有限支持：SGX的一个非常重要的特性是能够向第三方(如云用户)证明SGX应用程序的身份和完整性，但原生的Haven和SCONE都没有提供对CPU远程认证的支持；</p>
+</li>
+<li>
+<p>SGX的应用安全：将整个应用包含在一个安全的enclave中的那些解决方案 (Haven, Graphene-SGX, SCONE) 都不一定保证安全，因为它们都扩大TCB，并且可能包含现存的应用或库中的漏洞；</p>
+</li>
+<li>
+<p>限制EPC内存：当前最大的EPC大小是128MB，用户可用的大约是93MB。虽然Linux上支持EPC页面交换，但这会导致相当大的性能损失。EPC限制还意味着云提供商需要保护EPC免受(恶意的)过度使用，这是现有解决方案没有考虑到的一个因素。SGX2甚至允许在enclave运行时期间动态地分配EPC页面，从而加剧了EPC内存消耗；</p>
+</li>
+<li>
+<p>对应用程序的支持：为了减小enclave内部的TCB(可信计算基), Intel强制要求对程序进行分区，这使得SGX的编程变得困难。</p>
+</li>
+</ul>
+<p>提出lxcsgx：</p>
+<ul>
+<li>为容器化应用程序启用SGX远程认证</li>
+<li>在Linux内核中强制每个容器的EPC内存使用进行控制，以防止(恶意的)资源过度使用</li>
+<li>实现一个GCC插件来帮助程序分区，以减少enclave中的TCB，并更好地支持可伸缩性</li>
+<li>使用SGX实现软件TPM，为遗留应用程序提供快速的硬件TPM替换以及套接字api</li>
+<li>基于lxcsgx改进并评估Nginx/OpenSSL和Memcached</li>
+</ul>
+<h3 id="Motivation">Motivation</h3>
+<p>Haven、Graphene-SGX、SCONE等提供一种方案来使用户不需要仔细划分SGX程序，但代价是增加了PCB和Enclave大小，忽视远程认证、EPC大小的硬件限制。</p>
+<h4 id="非官方SDK的不足">非官方SDK的不足</h4>
+<ul>
+<li>不提供远程认证，就不能像远程用户提供保证（应用程序是否确实在Enclave中运行以及Enclave是否具有正确的度量）</li>
+<li>Enclave中的运行时存在安全问题：Enclave内部使用的传统加密库（如OpenSSL）会受到侧信道攻击，Graphene-SGX和SCONE直接将glibc和musl放入Enclave中，存在包含不安全的函数的问题；相比而言，所有危险的函数都从Intel的可信C库中移除，对于敏感的函数则使用硬件指令完成</li>
+</ul>
+<h4 id="程序分区">程序分区</h4>
+<p>程序分区要求开发人员找出代码中最安全敏感的部分，放入SGX的可信区域，从而减小TCB。由于系统调用不允许在Enclave内部进行，所以任何不需要分区的方案都依赖于额外的中间层（如LibOS）来模拟系统调用，然而这样会增大TCB。</p>
+<p>程序分区的另一个好处是在加载时和运行时都可以减少EPC内存的消耗。</p>
+<h4 id="EPC内存控制">EPC内存控制</h4>
+<p>在一台云服务器上只能使用128MB的EPC内存来支持多用户，可能存在的内存泄露会导致SGX内核驱动程序交换其他用户的Enclave，并且也有可能存在恶意用户对EPC内存发起DoS攻击。</p>
+<p>lxcsgx强制对每个容器的EPC内存使用进行控制以防止以上问题。</p>
+<h4 id="软件TPM">软件TPM</h4>
+<p>Enclave不能由不同的进程共享从而减少EPC内存消耗，每个进程都需要分配一个新的虚拟地址区域来加载相同的Enclave，会映射到不同的EPC页面，即EPC页面是不能共享的。</p>
+<p>SGX所需的功能（加密、随机数生成、安全存储等）通常在多个应用之间共享，因此可以在通用平台服务上创建一个单一的Enclave，同时为不同的应用程序服务。</p>
+<p>lxcsgx使用了tpmsgx将SGX通用加密服务实例化为软件tpm，提供给开发者套接字api。</p>
+<h3 id="设计实现">设计实现</h3>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201225115620945.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/SGX-Container-LibOS/image-20201225115620945.png" srcset="data:image/png;base64,666" alt="image-20201225115620945"></p>
+<h4 id="威胁模型-v4">威胁模型</h4>
+<ul>
+<li>
+<p>我们并不一定信任云提供商，它可能对破坏其客户的托管容器的机密性感兴趣。恶意的云提供商还可能主动尝试破坏托管容器的机密性和完整性；</p>
+</li>
+<li>
+<p>Linux内核和运行在云服务器上的LXC程序都不受信任；</p>
+</li>
+<li>
+<p>我们不认为DoS攻击是由ring 0攻击者发起的(例如，防止用户使用Intel SGX)</p>
+</li>
+<li>
+<p>不考虑来自ring 0攻击者的控制通道攻击或来自ring 3攻击者的侧通道攻击</p>
+</li>
+</ul>
+<h4 id="LXC应用的远程认证">LXC应用的远程认证</h4>
+<p>由于LXC/Docker无法挂载非filebackend的套接字，所以容器化应用程序无法直接使用SGX提供的使用QE的远程认证。</p>
+<p>解决方案：</p>
+<ul>
+<li>为Linux内核添加一个新特性以支持容器的抽象UNIX套接字传递</li>
+<li>为了使LXC能够使用内核提供的抽象UNIX套接字直通特性，我们向LXC添加了一个名为lxcsgx.sgx.sock的新配置</li>
+</ul>
+<h4 id="控制EPC内存使用">控制EPC内存使用</h4>
+<p>计算每个容器分配的EPC页面数量，如果请求超过EPC额度的页面，则拒绝分配。然而，找到负责每个EPC分配请求的相应容器并非易事，因为容器对底层Linux内核是透明的，内核只看到进程。</p>
+<p>我们使用<strong>网络名称空间</strong>作为容器的唯一标识符，因为它由在容器内运行的所有应用程序共享。在大多数情况下，容器配置了不同的虚拟网卡(LXC中的veth)，因此具有不同的网络名称空间。当一个网络名称空间被多个容器共享时，EPC控制将应用于名称空间中的每个容器。</p>
+<ul>
+<li>SGX内核驱动程序实现：SGX内核驱动程序负责EPC内存管理，包括分配、交换和回收。在每次尝试EPC页面分配(EADD)时，我们使用SGX驱动程序维护的enclave所有者信息找到请求进程的PID。给定PID，我们找到相应的网络名称空间并检索EPC控制记录。如果激活了记录，并且请求的EPC使用在限制内，则允许分配，并增加使用计数。类似地，对于EPC页回收，我们减少相应EPC控制记录的当前使用计数。</li>
+<li>LXC实现：为了利用EPC控制机制，将另外两个新配置(lxyz .sgx. EPC . limitandlxyz .sgx. EPC .control)添加到LXC中</li>
+</ul>
+<h4 id="tpmsgx：软件TPM">tpmsgx：软件TPM</h4>
+<h2 id="MPTEE-Bringing-Flexible-and-Efficient-Memory-Protection-to-Intel-SGX">MPTEE: Bringing Flexible and Efficient Memory Protection to Intel SGX</h2>
+<blockquote>
+<p>内存保护扩展（MPX）现在在Linux上已失效。如果使用GCC 9.1及更高版本，它实际上已经无效，因为去年删除了编译器端支持，而现在在Linux 5.6中取消了内核支持。</p>
+<p>内存保护扩展是英特尔设计的，用于在运行时检查指针引用，以避免缓冲区溢出以及Skylake和更新的处理器的其他潜在相关漏洞。但是，英特尔一直没有保持对MPX软件的支持，他们表示，未来的英特尔CPU可能会删除MPX功能。 MPX从未真正与基于编译器的消毒器一起真正起飞，它更优雅地解决了相同领域的问题，不需要专门的硬件支持。</p>
+</blockquote>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2021年3月24日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/sgx/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>sgx</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/2021/04/09/learning-notes/eos%E5%85%A5%E9%97%A8/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>EOS入门</p>
+          <p class='content'>
+简介
+平台和工具链
+
+Nodeos
+
+EOSIO节点守护进程的核心
+处理区块链数据持久层、点对点网络和智能合约调度
+在开发环境中，可以使用nodeos建立单节点区块链网络
+
+Cleos
+
+命令...</p>
+        </a>
+      
+      
+        <a class='next' href='/2021/03/24/learning-notes/rust-advance/'>
+          <p class='title'>Rust高级特性<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>闭包
+在函数中返回闭包：
+
+
+为了从函数返回一些东西，Rust 需要知道返回类型的大小，而不能直接返回一个trait，因此可以返回一个Box指针
+
+
+在函数中定义的变量放入闭包中返回，会因为移出...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#LibOS%E6%A6%82%E5%BF%B5"><span class="toc-text">LibOS概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SCONE-Secure-Linux-Containers-with-Intel-SGX"><span class="toc-text">SCONE: Secure Linux Containers with Intel SGX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E6%9D%83%E8%A1%A1"><span class="toc-text">设计权衡</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%AF%E9%80%89%E8%AE%BE%E8%AE%A1%E6%96%B9%E6%A1%88"><span class="toc-text">可选设计方案</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E5%AE%B9%E5%99%A8%E6%8E%A5%E5%8F%A3"><span class="toc-text">外部容器接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E7%9A%84%E5%BC%80%E9%94%80"><span class="toc-text">系统调用的开销</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E8%AE%BF%E9%97%AE%E5%BC%80%E9%94%80"><span class="toc-text">内存访问开销</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SCONE%E8%AE%BE%E8%AE%A1"><span class="toc-text">SCONE设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E6%8E%A5%E5%8F%A3%E9%98%B2%E6%8A%A4"><span class="toc-text">外部接口防护</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8"><span class="toc-text">异步系统调用</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Ryoan-A-Distributed-Sandbox-for-Untrusted-Computation-on-Secret-Data"><span class="toc-text">Ryoan: A Distributed Sandbox for Untrusted Computation on Secret Data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Graphene-SGX-A-Practical-Library-OS-for-Unmodified-Applications-on-SGX"><span class="toc-text">Graphene-SGX: A Practical Library OS for Unmodified Applications on SGX</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E8%80%83%E9%87%8F"><span class="toc-text">设计考量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%A4%A7%E7%BA%B2"><span class="toc-text">设计大纲</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B-v2"><span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%9A%E8%BF%9B%E7%A8%8B%E5%BA%94%E7%94%A8"><span class="toc-text">多进程应用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%8F%E8%94%BDLinux%E6%8A%BD%E8%B1%A1"><span class="toc-text">屏蔽Linux抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD"><span class="toc-text">动态加载</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Occlum-Secure-and-Efficient-Multitasking-Inside-a-Single-Enclave-of-Intel-SGX"><span class="toc-text">Occlum: Secure and Efficient Multitasking Inside a Single Enclave of Intel SGX</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AccTEE-A-WebAssembly-based-Two-way-Sandbox-for-Trusted-Resource-Accounting"><span class="toc-text">AccTEE: A WebAssembly-based Two-way Sandbox for Trusted Resource Accounting</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WebAssembly"><span class="toc-text">WebAssembly</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B-v3"><span class="toc-text">威胁模型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AccTEE%E8%AE%BE%E8%AE%A1"><span class="toc-text">AccTEE设计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E9%9C%80%E6%B1%82"><span class="toc-text">系统需求</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%A0%B8%E7%AE%97%E6%96%B9%E6%B3%95"><span class="toc-text">资源核算方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#I-O%E6%93%8D%E4%BD%9C"><span class="toc-text">I&#x2F;O操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Accounting-Enclave"><span class="toc-text">Accounting Enclave</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#CPU"><span class="toc-text">CPU</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%85%E5%AD%98"><span class="toc-text">内存</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#I-O"><span class="toc-text">I&#x2F;O</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AccTEE%E5%AE%9E%E7%8E%B0"><span class="toc-text">AccTEE实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AccTEE%E8%AF%84%E4%BC%B0"><span class="toc-text">AccTEE评估</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-Practical-Intel-SGX-Setting-for-Linux-Containers-in-the-Cloud"><span class="toc-text">A Practical Intel SGX Setting for Linux Containers in the Cloud</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Motivation"><span class="toc-text">Motivation</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%9E%E5%AE%98%E6%96%B9SDK%E7%9A%84%E4%B8%8D%E8%B6%B3"><span class="toc-text">非官方SDK的不足</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%A8%8B%E5%BA%8F%E5%88%86%E5%8C%BA"><span class="toc-text">程序分区</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EPC%E5%86%85%E5%AD%98%E6%8E%A7%E5%88%B6"><span class="toc-text">EPC内存控制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%BD%AF%E4%BB%B6TPM"><span class="toc-text">软件TPM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E8%AE%A1%E5%AE%9E%E7%8E%B0"><span class="toc-text">设计实现</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B-v4"><span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LXC%E5%BA%94%E7%94%A8%E7%9A%84%E8%BF%9C%E7%A8%8B%E8%AE%A4%E8%AF%81"><span class="toc-text">LXC应用的远程认证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%A7%E5%88%B6EPC%E5%86%85%E5%AD%98%E4%BD%BF%E7%94%A8"><span class="toc-text">控制EPC内存使用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#tpmsgx%EF%BC%9A%E8%BD%AF%E4%BB%B6TPM"><span class="toc-text">tpmsgx：软件TPM</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MPTEE-Bringing-Flexible-and-Efficient-Memory-Protection-to-Intel-SGX"><span class="toc-text">MPTEE: Bringing Flexible and Efficient Memory Protection to Intel SGX</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+        
+        
+          <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="论文阅读-SGX容器相关";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.add("show");
+  
+</script>
+
+        
+      </div>
+      
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <div class='copyright'>
+        <p><a target="_blank" rel="noopener" href="https://github.com/Schenk75/Schenk75.github.io">Copyright © 2020 Schenk</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+      <a id="s-top" class="fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    </div>
+  </div>
+  <div>
+    <script>
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/********************脚本懒加载函数********************************/
+function loadScript(src, cb) {
+var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+var script = document.createElement('script');
+script.setAttribute('type','text/javascript');
+if (cb) script.onload = cb;
+script.setAttribute('src', src);
+HEAD.appendChild(script);
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    setTimeout(function() {
+      loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+    }, 1);
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+</script>
+
+
+<!-- internal -->
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+  
+    <script>
+      window.FPConfig = {
+        delay: 0,
+        ignoreKeywords: [],
+        maxRPS: 5,
+        hoverDelay: 25
+      };
+    </script>
+    <script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+  
+
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+    var clipboard = new ClipboardJS('.btn-copy', {
+        target: function (trigger) {
+            return trigger.nextElementSibling
+        }
+    });
+    function wait(callback, seconds) {
+        var timelag = null;
+        timelag = window.setTimeout(callback, seconds)
+    }
+    function pjax_initCopyCode() {
+		if($(".highlight .code pre").length+$(".article pre code").length==0)return;
+        var copyHtml = '';
+        copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+        copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+        copyHtml += '</button>';
+        $(".highlight .code pre").before(copyHtml);
+        $(".article pre code").before(copyHtml);
+        clipboard.off('success').on('success', function (e) {
+            let $btn = $(e.trigger);
+            $btn.addClass('copied');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-check-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPIED';
+            wait(function () {
+                $icon.removeClass('fa-check-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        });
+        clipboard.off('error').on('error', function (e) {
+            e.clearSelection();
+            let $btn = $(e.trigger);
+            $btn.addClass('copy-failed');
+            let $icon = $($btn.find('i'));
+            $icon.removeClass('fa-copy');
+            $icon.addClass('fa-times-circle');
+            let $span = $($btn.find('span'));
+            $span[0].innerText = 'COPY FAILED';
+            wait(function () {
+                $icon.removeClass('fa-times-circle');
+                $icon.addClass('fa-copy');
+                $span[0].innerText = 'COPY'
+            }, 2000)
+        })
+    }
+    $(function () {
+        pjax_initCopyCode()
+    });
+</script>
+
+
+
+
+
+
+
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/tools/busuanzi.pure.mini.js" data-pjax></script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/app.min.js"></script>
+
+
+
+
+  
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-theme-volantis@4.1.5/source/js/search.min.js"></script>
+
+  
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+document.addEventListener("DOMContentLoaded", listenSearch);
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://example.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://example.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+
+
+
+    
+      
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          "#l_cover",
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      // 关于百度统计对 SPA 页面的处理：
+      // 方案一：百度统计>管理>单页应用设置中，打开开启按钮即可对SPA进行统计。 https://tongji.baidu.com/web/help/article?id=324
+      // 方案二：取消注释下列代码。 https://tongji.baidu.com/web/help/article?id=235
+      // 
+
+      // 关于谷歌统计对 SPA 页面的处理：
+      // 当应用以动态方式加载内容并更新地址栏中的网址时，也应该更新通过 gtag.js 存储的网页网址。
+      // https://developers.google.cn/analytics/devguides/collection/gtagjs/single-page-applications?hl=zh-cn
+      
+
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+          if (typeof $.fancybox == "undefined") {
+            SCload_fancybox();
+          } else {
+            pjax_fancybox();
+          }
+        
+        
+        
+        
+        
+          pjax_initCopyCode();
+        
+        
+        
+        
+        
+      } catch (e) {
+        console.log(e);
+      }
+	  
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+
+    
+  </div>
+</body>
+</html>
