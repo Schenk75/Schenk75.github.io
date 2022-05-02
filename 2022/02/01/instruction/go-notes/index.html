@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:13:35+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-02T14:35:06+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年4月28日</p>
+    <p>更新于：2022年5月2日</p>
   </a>
 </div>
 
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：493字</p>
+      <p>字数：899字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：2分钟</p>
+      <p>时长：3分钟</p>
     </a>
   </div>
 
@@ -472,21 +472,34 @@
   <blockquote>
 <p>开发go程序过程中遇到的问题以及解决方法</p>
 </blockquote>
-<h4 id="hash">hash</h4>
+<h3 id="hash">hash</h3>
 <p>使用 <code>crypto.sha256</code> 可以获得文件哈希：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">fileName := <span class="string">&quot;main.go&quot;</span></span><br><span class="line">file, err := os.Open(fileName)</span><br><span class="line"><span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">defer</span> file.Close()</span><br><span class="line"></span><br><span class="line">hash := sha256.New()</span><br><span class="line"><span class="keyword">if</span> _, err = io.Copy(hash, file); err != <span class="literal">nil</span> &#123;</span><br><span class="line">    log.Fatal(err)</span><br><span class="line">&#125;</span><br><span class="line">sum := hash.Sum(<span class="literal">nil</span>)</span><br><span class="line">fmt.Printf(<span class="string">&quot;Sum: %x\n&quot;</span>, sum)</span><br></pre></td></tr></table></figure>
 <p>最终得到的哈希值 <code>sum</code> 的类型是 <code>[]byte</code> ，若想要得到 <code>string</code> 类型的哈希值不能通过 <code>string(sum)</code> 的方式强制转换，而需要使用以下方法转换：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hash := hex.EncodeToString(sum)</span><br></pre></td></tr></table></figure>
-<h4 id="json">json</h4>
+<h3 id="json">json</h3>
 <p>使用 <code>json.Marshal</code> 方法可以将 <code>struct</code> 转换为字符串，但其中的特殊html字符会被转义成unicode，例如 <code>&amp;</code> 会被转义为 <code>\u0026</code> ，若不想被转义，则需要通过以下方法转换：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">bf := bytes.NewBuffer([]<span class="keyword">byte</span>&#123;&#125;)</span><br><span class="line">jsonEncoder := json.NewEncoder(bf)</span><br><span class="line">jsonEncoder.SetEscapeHTML(<span class="literal">false</span>)</span><br><span class="line">jsonEncoder.Encode(fdata.Data)</span><br><span class="line">fileData := bf.String()</span><br><span class="line">fmt.Println(f)</span><br></pre></td></tr></table></figure>
-<h4 id="slice">slice</h4>
+<h3 id="slice">slice</h3>
+<h4 id="拷贝">拷贝</h4>
 <p>切片是底层数组的视图，实际指向一段地址</p>
 <p>eg. 在将arr放入res，底层是将指向arr切片地址的指针放入res中。若不改变arr大小，仅改变arr中元素的值，会导致之前放入res中的arr产生变化（在递归中会碰到这样的问题）</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">arr := []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">res := [][]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">res = <span class="built_in">append</span>(res, arr)</span><br><span class="line"><span class="comment">// 改变arr中的值，不做扩容</span></span><br><span class="line">arr[<span class="number">2</span>] = <span class="number">4</span></span><br><span class="line">res = <span class="built_in">append</span>(res, arr)</span><br><span class="line"><span class="comment">// arr扩容</span></span><br><span class="line">arr = <span class="built_in">append</span>(arr, <span class="number">5</span>)</span><br><span class="line">res = <span class="built_in">append</span>(res, arr)</span><br><span class="line">fmt.Println(res)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：[[1 2 4] [1 2 4] [1 2 4 5]]</span></span><br></pre></td></tr></table></figure>
 <p>正确的做法是进行深拷贝：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">arr := []<span class="keyword">int</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;</span><br><span class="line">res := [][]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">tmp := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(arr))</span><br><span class="line"><span class="built_in">copy</span>(tmp, arr)</span><br><span class="line">res = <span class="built_in">append</span>(res, tmp)</span><br><span class="line"><span class="comment">// 改变arr中的值，不做扩容</span></span><br><span class="line">arr[<span class="number">2</span>] = <span class="number">4</span></span><br><span class="line">tmp = <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(arr))</span><br><span class="line"><span class="built_in">copy</span>(tmp, arr)</span><br><span class="line">res = <span class="built_in">append</span>(res, tmp)</span><br><span class="line"><span class="comment">// arr扩容</span></span><br><span class="line">arr = <span class="built_in">append</span>(arr, <span class="number">5</span>)</span><br><span class="line">tmp = <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="built_in">len</span>(arr))</span><br><span class="line"><span class="built_in">copy</span>(tmp, arr)</span><br><span class="line">res = <span class="built_in">append</span>(res, tmp)</span><br><span class="line">fmt.Println(res)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：[[1 2 3] [1 2 4] [1 2 4 5]]</span></span><br></pre></td></tr></table></figure>
-<h4 id="package">package</h4>
+<h4 id="垃圾回收">垃圾回收</h4>
+<p>底层的数组会被保存在内存中，直到它不再被引用。但是有时候可能会因为一个slice的小的内存引用而导致底层整个数组处于被使用的状态，这会延迟自动内存回收器对底层数组的回收</p>
+<p>例如假设切片里存放的是指针对象，那么下面删除末尾的元素后，被删除的元素依然被切片底层数组引用，从而导致不能及时被自动垃圾回收器回收（这要依赖回收器的实现方式）：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a []*<span class="keyword">int</span>&#123; ... &#125;</span><br><span class="line">a = a[:<span class="built_in">len</span>(a)<span class="number">-1</span>]    <span class="comment">// 被删除的最后一个元素依然被引用, 可能导致GC操作被阻碍</span></span><br></pre></td></tr></table></figure>
+<p>修复如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a []*<span class="keyword">int</span>&#123; ... &#125;</span><br><span class="line">a[<span class="built_in">len</span>(a)<span class="number">-1</span>] = <span class="literal">nil</span> <span class="comment">// GC回收最后一个元素内存</span></span><br><span class="line">a = a[:<span class="built_in">len</span>(a)<span class="number">-1</span>]  <span class="comment">// 从切片删除最后一个元素</span></span><br></pre></td></tr></table></figure>
+<p>另外，若对于一个很大的临时数组，只需要读取其中的一小部分，读取后整个数组不再需要放在var内存中，则应该传值到一个新的数组，而不是直接使用slice引用：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bigArr []<span class="keyword">int</span>&#123; ... &#125;</span><br><span class="line">a := <span class="built_in">append</span>([]<span class="keyword">int</span>&#123;&#125;, bigArr[<span class="number">1</span>:<span class="number">3</span>]...)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="map">map</h3>
+<h4 id="拷贝-v2">拷贝</h4>
+<p>与slice类似，map也是一个指针，若要进行深拷贝，需要对逐个键值对进行拷贝：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;<span class="number">1</span>: <span class="string">&quot;a&quot;</span>, <span class="number">2</span>: <span class="string">&quot;b&quot;</span>, <span class="number">3</span>: <span class="string">&quot;c&quot;</span>&#125;</span><br><span class="line">mCopy := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">    mCopy[k] = v</span><br><span class="line">&#125;</span><br><span class="line">m[<span class="number">4</span>] = <span class="string">&quot;d&quot;</span></span><br><span class="line">fmt.Println(m)</span><br><span class="line">fmt.Println(mCopy)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：map[1:a 2:b 3:c 4:d]</span></span><br><span class="line"><span class="comment">//		map[1:a 2:b 3:c]</span></span><br></pre></td></tr></table></figure>
+<h3 id="package">package</h3>
 <p>同一目录下的同级文件属于一个包，main.go可以直接调用其他文件中的函数，但是在运行的时候需要使用 <code>go run .</code></p>
 
   
@@ -593,7 +606,7 @@ Setup命令
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#json"><span class="toc-text">json</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#json"><span class="toc-text">json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D"><span class="toc-text">拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-text">垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-text">map</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D-v2"><span class="toc-text">拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li></ol>
     </div>
   </section>
 
