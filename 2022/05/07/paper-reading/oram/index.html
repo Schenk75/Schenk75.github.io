@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2021/8 - Schenk - Blog</title>
+  <title>论文阅读-ORAM相关 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="oram">
   
 
+  
+    <meta name="description" content="论文阅读-ORAM相关">
   
 
   <!-- feed -->
@@ -58,7 +60,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur floatable " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -309,7 +311,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -380,70 +382,311 @@
         
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
-      
+    
+    
+      <h1 class="title">
+        论文阅读-ORAM相关
+      </h1>
+      <div class='new-meta-box'>
         
           
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/08/16/paper-reading/paper-secure-mpc/">
-        论文阅读-Secure Multiparty Computation from SGX
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      论文Secure Multiparty Computation from SGX阅读笔记
-    
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/ORAM/">ORAM</a><span class="sep"></span><a class="category-link" href="/categories/Paper-Reading/">Paper Reading</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2021-08-16</time>
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-08T10:57:25+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年5月8日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Paper-Reading/">Paper Reading</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：1.1k字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：4分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="论文阅读-ORAM相关" data-path="/2022/05/07/paper-reading/oram/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <h2 id="不经意随机访问机研究综述">不经意随机访问机研究综述</h2>
+<p>敌手：</p>
+<ul>
+<li>通过用户的访问模式(access pattern)来推断存储数据的重要性</li>
+<li>可以通过匹配前后两个连续的访问模式来推断数据查询之间的关联关系，甚至是加密数据的内容</li>
+</ul>
+<p>ORAM：隐藏对真实数据块的访问，使得攻击者不能区分每一次访问是真实的还是随机的</p>
+<h3 id="ORAM">ORAM</h3>
+<ul>
+<li>
+<p>保证：</p>
+<ul>
+<li>
+<p>任意数据块不会永久驻留在某一个物理地址中，即确保任意两次访问不会产生关联</p>
+</li>
+<li>
+<p>将每一次读写访问细化成一次读取加一次写回的原子操作</p>
+</li>
+</ul>
+</li>
+<li>
+<p>保护：</p>
+<ol>
+<li>访问数据块的位置</li>
+<li>数据块请求的顺序</li>
+<li>对相同数据块的访问频率</li>
+<li>具体的读写访问方式</li>
+</ol>
+</li>
+<li>
+<p>定义：ORAM是客户端与服务器的交互协议</p>
+<ul>
+<li>安全性：访问模式计算不可区分</li>
+<li>正确性：使用ORAM和不使用的返回结果不同的概率是一个可忽略函数</li>
+</ul>
+</li>
+<li>
+<p>设计重点：</p>
+<ul>
+<li>ORAM初始化</li>
+<li>ORAM数据访问</li>
+</ul>
+</li>
+<li>
+<p>特性：</p>
+<ul>
+<li>低效性</li>
+<li>安全性</li>
+<li>用途广</li>
+</ul>
+</li>
+<li>
+<p>模型：</p>
+<ul>
+<li>简单模型</li>
+<li>平方根模型</li>
+<li>层次模型</li>
+<li>分区模型</li>
+<li>树状模型</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507173548217.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507173548217.png" srcset="data:image/png;base64,666" alt="image-20220507173548217"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507174439721.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507174439721.png" srcset="data:image/png;base64,666" alt="image-20220507174439721"></p>
+<h3 id="ORAM性能优化">ORAM性能优化</h3>
+<h4 id="客户端与服务器平均带宽优化">客户端与服务器平均带宽优化</h4>
+<ul>
+<li>基于布谷鸟哈希的优化策略</li>
+<li>基于服务器计算的优化策略</li>
+<li>基于映射表的优化策略</li>
+<li>基于k 叉树的优化策略</li>
+</ul>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507191308462.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507191308462.png" srcset="data:image/png;base64,666" alt="image-20220507191308462"></p>
+<h4 id="客户端与服务器最坏情况带宽优化">客户端与服务器最坏情况带宽优化</h4>
+<ul>
+<li>基于de-amortization 的优化策略</li>
+<li>基于树状模型的优化策略</li>
+<li>基于改进混洗操作的优化策略（优化不经意排序算法）</li>
+<li>基于改进驱逐操作的优化策略</li>
+</ul>
+<h4 id="客户端存储开销优化">客户端存储开销优化</h4>
+<ul>
+<li>基于迭代构造的优化策略</li>
+<li>基于隐私信息检索的优化策略</li>
+<li>基于布隆过滤器的优化策略</li>
+</ul>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507193838322.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/image-20220507193838322.png" srcset="data:image/png;base64,666" alt="image-20220507193838322" style="zoom:80%;" />
+<h4 id="服务器存储开销优化">服务器存储开销优化</h4>
+<p>通过设计可变大小的数据块集合或者是增加(减少)部分数据块集合大小</p>
+<h4 id="客户端与服务器交互轮数优化">客户端与服务器交互轮数优化</h4>
+<ul>
+<li>基于映射表的优化策略</li>
+<li>基于混淆分支函数的设计</li>
+</ul>
+<h2 id="Path-ORAM">Path-ORAM</h2>
+<p><a target="_blank" rel="noopener" href="https://research.kudelskisecurity.com/2020/04/22/an-introduction-to-oblivious-ram-oram/">An Introduction to Oblivious RAM (ORAM) – Kudelski Security Research</a></p>
+<p>树的每个节点是一个bucket，其中包含固定个数的block，每个block使用 <em>C</em> 的对称密钥加密</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_02.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_02.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>position map初始化为随机值</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_04.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_04.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>开始执行data request</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_07.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_07.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>整个从根节点到叶子节点的branch返回给 <em>C</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_09.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_09.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>每个block包含id和data，id在整棵树中唯一（但是dummy block的id都相同）</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/05_pathoram_12.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/05_pathoram_12.png" srcset="data:image/png;base64,666" alt="img"></p>
+<p>shuffle：</p>
+<ol>
+<li>position map保证我们需要的block在这个branch中</li>
+<li>若block是空的，不对其操作</li>
+<li>非空block与当前branch中距离root最远的空block交换，使得它的leaf path与当前branch有交集</li>
+<li>若在操作过程中发现目标block，position map中它的id替换成一个新的随机值</li>
+<li>若没有发现空block，则需要shuffle的block会暂时保存在 <em>C</em> 本地的overflow stash，并在branch中替换为空block</li>
+<li>所有block操作完成后，将暂存在overflow stash中的block分配到branch中新创建的空block中，然后清空stash</li>
+<li>最后，将整个branch重新加密并上传到 <em>S</em></li>
+</ol>
+<p>具体过程如下：<em>C</em> 从root开始扫描</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_15.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_15.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>第二个block非空，需要shuffle</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_16.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_16.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p><em>C</em> 从position map中找到对应的id</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_17.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_17.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>找到该block对应的leaf path，此时可以找到该leaf path与当前branch的最深公共节点，该节点一定在当前解密后的branch中，搜索该节点寻找一个空block</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_21.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_21.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>第一个block非空</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_22.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_22.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>第二个block也非空</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_23.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_23.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>第三个block为空</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_24.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_24.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>交换两个block，注意到此时空block被换到更接近root的位置</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_25.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_25.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p><em>C</em> 继续扫描和交换未被操作过的block</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_27.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_27.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>当 <em>C</em> 找到目标block，首先执行request中的op</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_32.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_32.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>然后 <em>C</em> 更新position map中对应block的leaf为新生成的随机leaf id</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_34.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_34.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>新的随机leaf id对应的branch会与当前branch有部分交集，同样，<em>C</em> 会查找最深公共节点，找寻空block来进行交换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_37.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_37.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>此时，若找不到空block，<em>C</em> 会搜索其父节点，找寻空block来进行交换</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_41.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_41.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>在scan的过程中若碰到一个block，无法找到能与它交换的空block，则将其暂存在stash中</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_50.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_50.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>同时将该block覆写为空block</p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_51.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_51.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+<p>stash中的block会周期性地写回到branch中空block的位置，并分配合适的leaf id；最后，branch重新加密并上传到 <em>S</em></p>
+<p><img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_54.jpg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oram/new.05_pathoram_54.jpg" srcset="data:image/png;base64,666" alt="img"></p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/08/16/paper-reading/paper-secure-mpc/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2022年5月7日</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
-    
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/oram/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>oram</p></a></div>
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/2022/04/28/learning-notes/mit-6.824/'>
+          <p class='title'>MIT 6.824 Distributed Systems 学习笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Paper Reading
+MapReduce
+一个编程模型，用于大规模并行计算，以及采用re-execution进行容错处理
+
+$Map$：输入键值对，输出一系列中间键值对，并将相同的中间键排...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
   
 
 
-	
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -451,303 +694,28 @@
     
     
 
-<section class="widget blogger shadow floatable desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Schenk</h2>
-        
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://github.com/Schenk75"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="https://cubingchina.com/results/person/2018SHEN04"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow floatable desktop">
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/C/" href="/categories/C/"
-            id="categoriesC"
-            ><div class='name'>C</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Cube/" href="/categories/Cube/"
-            id="categoriesCube"
-            ><div class='name'>Cube</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Go/" href="/categories/Go/"
-            id="categoriesGo"
-            ><div class='name'>Go</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Instruction/" href="/categories/Instruction/"
-            id="categoriesInstruction"
-            ><div class='name'>Instruction</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Lookup/" href="/categories/Lookup/"
-            id="categoriesLookup"
-            ><div class='name'>Lookup</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Notes/" href="/categories/Notes/"
-            id="categoriesNotes"
-            ><div class='name'>Notes</div><div class='badge'>(14)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/ORAM/" href="/categories/ORAM/"
-            id="categoriesORAM"
-            ><div class='name'>ORAM</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Paper-Reading/" href="/categories/Paper-Reading/"
-            id="categoriesPaper-Reading"
-            ><div class='name'>Paper Reading</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Rust/" href="/categories/Rust/"
-            id="categoriesRust"
-            ><div class='name'>Rust</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SGX/" href="/categories/SGX/"
-            id="categoriesSGX"
-            ><div class='name'>SGX</div><div class='badge'>(13)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Useful/" href="/categories/Useful/"
-            id="categoriesUseful"
-            ><div class='name'>Useful</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE%E6%9C%BA%E7%A0%94%E7%A9%B6%E7%BB%BC%E8%BF%B0"><span class="toc-text">不经意随机访问机研究综述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ORAM"><span class="toc-text">ORAM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ORAM%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96"><span class="toc-text">ORAM性能优化</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%B9%B3%E5%9D%87%E5%B8%A6%E5%AE%BD%E4%BC%98%E5%8C%96"><span class="toc-text">客户端与服务器平均带宽优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%9C%80%E5%9D%8F%E6%83%85%E5%86%B5%E5%B8%A6%E5%AE%BD%E4%BC%98%E5%8C%96"><span class="toc-text">客户端与服务器最坏情况带宽优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%AD%98%E5%82%A8%E5%BC%80%E9%94%80%E4%BC%98%E5%8C%96"><span class="toc-text">客户端存储开销优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%AD%98%E5%82%A8%E5%BC%80%E9%94%80%E4%BC%98%E5%8C%96"><span class="toc-text">服务器存储开销优化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E4%BA%A4%E4%BA%92%E8%BD%AE%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-text">客户端与服务器交互轮数优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-ORAM"><span class="toc-text">Path-ORAM</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow floatable desktop mobile">
-    
-  <header>
-    
-      <a href='tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/blockchain/" style="font-size: 18px; color: #7e7e7e">blockchain</a> <a href="/tags/c/" style="font-size: 14px; color: #999">c</a> <a href="/tags/cryptography/" style="font-size: 16px; color: #8b8b8b">cryptography</a> <a href="/tags/cube/" style="font-size: 14px; color: #999">cube</a> <a href="/tags/db/" style="font-size: 14px; color: #999">db</a> <a href="/tags/distributed-system/" style="font-size: 14px; color: #999">distributed system</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/eos/" style="font-size: 14px; color: #999">eos</a> <a href="/tags/git/" style="font-size: 16px; color: #8b8b8b">git</a> <a href="/tags/go/" style="font-size: 14px; color: #999">go</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/linux/" style="font-size: 20px; color: #707070">linux</a> <a href="/tags/makefile/" style="font-size: 14px; color: #999">makefile</a> <a href="/tags/markdown/" style="font-size: 14px; color: #999">markdown</a> <a href="/tags/oram/" style="font-size: 14px; color: #999">oram</a> <a href="/tags/reproduction/" style="font-size: 14px; color: #999">reproduction</a> <a href="/tags/rust/" style="font-size: 22px; color: #636363">rust</a> <a href="/tags/sgx/" style="font-size: 24px; color: #555">sgx</a> <a href="/tags/sq1/" style="font-size: 14px; color: #999">sq1</a> <a href="/tags/wasm/" style="font-size: 14px; color: #999">wasm</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow floatable desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>45 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/11/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>168.7k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Sun May 08 2022 10:58:34 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2022-05-08 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-05-08 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
         
@@ -757,14 +725,14 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="论文阅读-ORAM相关";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 

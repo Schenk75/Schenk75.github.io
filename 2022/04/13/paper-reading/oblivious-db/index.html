@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:41:56+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-07T14:43:08+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年4月28日</p>
+    <p>更新于：2022年5月7日</p>
   </a>
 </div>
 
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：1.8k字</p>
+      <p>字数：2.1k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：6分钟</p>
+      <p>时长：8分钟</p>
     </a>
   </div>
 
@@ -470,6 +470,7 @@
 
   
   <h2 id="不经意数据库相关研究">不经意数据库相关研究</h2>
+<p>抵抗inference attack</p>
 <p>关键是隐藏访问模式：隐藏访问内容+访问时间/访问次数/访问顺序等</p>
 <h3 id="ObliDB">ObliDB</h3>
 <h4 id="威胁模型：">威胁模型：</h4>
@@ -628,6 +629,58 @@ that uses only 4 shuffles, compared to O(nlog2n) shuffles for a sorting-network-
 <h4 id="算法">算法</h4>
 <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220409170313852.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220409170313852.png" srcset="data:image/png;base64,666" alt="image-20220409170313852" style="zoom:40%;" />
 <h3 id="ProDB">ProDB</h3>
+<ul>
+<li>使用enclave+ORAM的方案来优化硬件资源不足的问题</li>
+<li>提出SaP ORAM协议，用来实现enclave到不可信区的通信</li>
+<li>不支持并发控制，回滚机制，数据库日志</li>
+</ul>
+<h4 id="Overview-v4">Overview</h4>
+<ul>
+<li>
+<p>安全模型：Memory-secure DBMS<br>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507125041216.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507125041216.png" srcset="data:image/png;base64,666" alt="image-20220507125041216" style="zoom:67%;" /></p>
+</li>
+<li>
+<p>two-tier设计：<br>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507125121199.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507125121199.png" srcset="data:image/png;base64,666" alt="image-20220507125121199" style="zoom:67%;" /></p>
+<ul>
+<li>core（部署在TEE中）
+<ul>
+<li>SQL Decryptor：在TEE中解密SQL query</li>
+<li>Secure Query Processor (SQP)：与传统处理query的组件相同，除了I/O access</li>
+<li>ORAM Analyzer (OA)：利用SQL query历史信息的meta-data来规划最优的分配数据块到ORAM树path的方案</li>
+<li>ORAM Clients：每个client对应一个server，SQP通过client获取不可信内存中的数据</li>
+</ul>
+</li>
+<li>shield（部署在不可信内存）
+<ul>
+<li>DBMS Main Process：主程序</li>
+<li>ORAM Servers：树形结构，以ORAM-to-Disk机制将数据安全地写入磁盘</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>work-flow<br>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507131334471.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507131334471.png" srcset="data:image/png;base64,666" alt="image-20220507131334471" style="zoom:67%;" /></p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507131443081.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507131443081.png" srcset="data:image/png;base64,666" alt="image-20220507131443081" style="zoom:67%;" />
+</li>
+</ul>
+<h4 id="SaP-ORAM">SaP ORAM</h4>
+<p><strong>probabilistic lazy persistence</strong></p>
+<img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507132908310.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/notes/oblivious-db/image-20220507132908310.png" srcset="data:image/png;base64,666" alt="image-20220507132908310" style="zoom:67%;" />
+<ul>
+<li>Tagged position map：tag-address-path映射</li>
+<li>Update list：存储被SQL query更新的块（而不是被ORAM重加密更新的），不能被敌手知道哪些块在Update list中
+<ul>
+<li>probabilistic dirty-block-generation procedure</li>
+</ul>
+</li>
+</ul>
+<p><strong>SQL-aware path sharing</strong></p>
+<p>目的：减少查询内和查询间的ORAM轮数</p>
+<p>核心思想：在一轮ORAM中从树的path中获取多个块（ORAM Analyzer跟踪那些经常一起访问的块，并尽可能多地将它们放在同一ORAM树路径中）</p>
+<p>具体方案：没细看</p>
 <h3 id="Oblix">Oblix</h3>
 <blockquote>
 <p>POSUP [41] and Oblix [50] explore oblivious indexes over encrypted data using specialized ORAM constructions as building blocks, but do not support general queries.【ObliDB】</p>
@@ -681,9 +734,9 @@ that uses only 4 shuffles, compared to O(nlog2n) shuffles for a sorting-network-
 </tr>
 <tr>
 <td>ProDB</td>
+<td>DBMS(关系型)</td>
 <td></td>
-<td></td>
-<td></td>
+<td>SaP ORAM协议</td>
 <td>TEE+ORAM</td>
 </tr>
 <tr>
@@ -732,6 +785,8 @@ that uses only 4 shuffles, compared to O(nlog2n) shuffles for a sorting-network-
 <h3 id="Memory-trace-oblivious-program-execution">Memory trace oblivious program execution</h3>
 <h2 id="KV数据库">KV数据库</h2>
 <h3 id="EdgelessDB">EdgelessDB</h3>
+<p>开源项目，无相关论文，兼容MySQL</p>
+<h3 id="Authenticated-key-value-stores-with-hardware-enclaves">Authenticated key-value stores with hardware enclaves</h3>
 
   
   
@@ -829,7 +884,7 @@ Kerckhoffs’ principle：要求加密算法的安全性只依赖于密钥的安
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6"><span class="toc-text">不经意数据库相关研究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ObliDB"><span class="toc-text">ObliDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%EF%BC%9A"><span class="toc-text">威胁模型：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%BF%9D%E8%AF%81%EF%BC%9A"><span class="toc-text">安全保证：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview%EF%BC%9A"><span class="toc-text">Overview：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88"><span class="toc-text">存储方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Opaque"><span class="toc-text">Opaque</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%BF%9D%E8%AF%81"><span class="toc-text">安全保证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">不经意执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%92"><span class="toc-text">查询规划</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OCQ"><span class="toc-text">OCQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE%EF%BC%9A"><span class="toc-text">主要贡献：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="toc-text">不经意算法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v2"><span class="toc-text">Overview</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oblivious-join"><span class="toc-text">Oblivious join</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-text">在加密数据上进行计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%80%A7%E5%88%92%E5%88%86"><span class="toc-text">不经意性划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v3"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-text">算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ProDB"><span class="toc-text">ProDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oblix"><span class="toc-text">Oblix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Obladi"><span class="toc-text">Obladi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CODBS"><span class="toc-text">CODBS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Oblivious-Join"><span class="toc-text">Practical Oblivious Join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-text">对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POSUP"><span class="toc-text">POSUP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="toc-text">不经意性验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-trace-oblivious-program-execution"><span class="toc-text">Memory trace oblivious program execution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KV%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">KV数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EdgelessDB"><span class="toc-text">EdgelessDB</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9B%B8%E5%85%B3%E7%A0%94%E7%A9%B6"><span class="toc-text">不经意数据库相关研究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ObliDB"><span class="toc-text">ObliDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B%EF%BC%9A"><span class="toc-text">威胁模型：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%BF%9D%E8%AF%81%EF%BC%9A"><span class="toc-text">安全保证：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview%EF%BC%9A"><span class="toc-text">Overview：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E6%A1%88"><span class="toc-text">存储方案</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Opaque"><span class="toc-text">Opaque</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A8%81%E8%83%81%E6%A8%A1%E5%9E%8B"><span class="toc-text">威胁模型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E4%BF%9D%E8%AF%81"><span class="toc-text">安全保证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%89%A7%E8%A1%8C"><span class="toc-text">不经意执行</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E8%A7%84%E5%88%92"><span class="toc-text">查询规划</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#OCQ"><span class="toc-text">OCQ</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%BB%E8%A6%81%E8%B4%A1%E7%8C%AE%EF%BC%9A"><span class="toc-text">主要贡献：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E7%AE%97%E6%B3%95%EF%BC%9A"><span class="toc-text">不经意算法：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v2"><span class="toc-text">Overview</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oblivious-join"><span class="toc-text">Oblivious join</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9C%A8%E5%8A%A0%E5%AF%86%E6%95%B0%E6%8D%AE%E4%B8%8A%E8%BF%9B%E8%A1%8C%E8%AE%A1%E7%AE%97"><span class="toc-text">在加密数据上进行计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%80%A7%E5%88%92%E5%88%86"><span class="toc-text">不经意性划分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v3"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%AE%97%E6%B3%95"><span class="toc-text">算法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ProDB"><span class="toc-text">ProDB</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Overview-v4"><span class="toc-text">Overview</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SaP-ORAM"><span class="toc-text">SaP ORAM</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Oblix"><span class="toc-text">Oblix</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Obladi"><span class="toc-text">Obladi</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CODBS"><span class="toc-text">CODBS</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Practical-Oblivious-Join"><span class="toc-text">Practical Oblivious Join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AF%B9%E6%AF%94"><span class="toc-text">对比</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POSUP"><span class="toc-text">POSUP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E7%BB%8F%E6%84%8F%E6%80%A7%E9%AA%8C%E8%AF%81"><span class="toc-text">不经意性验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Memory-trace-oblivious-program-execution"><span class="toc-text">Memory trace oblivious program execution</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KV%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="toc-text">KV数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#EdgelessDB"><span class="toc-text">EdgelessDB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Authenticated-key-value-stores-with-hardware-enclaves"><span class="toc-text">Authenticated key-value stores with hardware enclaves</span></a></li></ol></li></ol>
     </div>
   </section>
 
