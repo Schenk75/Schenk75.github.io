@@ -58,6 +58,37 @@
     
     
     <entry>
+      <title>在任意位置运行Python脚本</title>
+      <link href="2022/05/03/instruction/python-execute-anywhere/"/>
+      <url>2022/05/03/instruction/python-execute-anywhere/</url>
+      
+        <content type="html"><![CDATA[<p>在Ubuntu上任意位置运行某一个python脚本的方法：</p><ul><li><p>首先在python文件开头加上：</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br></pre></td></tr></table></figure><p>说明该文件是python3脚本</p></li><li><p>为方便起见，可以将文件的.py后缀删去，并为文件添加可执行权限：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x &lt;pythonFile&gt;</span><br></pre></td></tr></table></figure></li><li><p>最后将python脚本所在的目录添加到 <code>PATH</code> 环境变量中，比如在 <em>~/.bashrc</em> 中添加：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=&lt;pathToPythonFile&gt;:<span class="variable">$P</span></span><br></pre></td></tr></table></figure></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Instruction </category>
+          
+          <category> Linux </category>
+          
+          <category> Python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> linux </tag>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>MIT 6.824 Distributed Systems 学习笔记</title>
       <link href="2022/04/28/learning-notes/mit-6.824/"/>
       <url>2022/04/28/learning-notes/mit-6.824/</url>

@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,13 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2020 - Schenk - Blog</title>
+  <title>在任意位置运行Python脚本 - Schenk - Blog</title>
+  
+    <meta name="keywords" content="linux,python">
   
 
+  
+    <meta name="description" content="在任意位置运行Python脚本">
   
 
   <!-- feed -->
@@ -58,7 +60,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur floatable " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -309,7 +311,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -380,433 +382,188 @@
         
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        在任意位置运行Python脚本
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/25/learning-notes/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/">
-        Internet安全协议与分析Notes
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Internet安全协议与分析期末复习
-    
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Instruction/">Instruction</a><span class="sep"></span><a class="category-link" href="/categories/Linux/">Linux</a><span class="sep"></span><a class="category-link" href="/categories/Python/">Python</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2020-11-25</time>
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-16T19:25:41+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年5月16日</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Notes/">Notes</a>
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：106字</p>
+    </a>
+  </div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：1分钟</p>
+    </a>
+  </div>
+
+
+          
+        
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="在任意位置运行Python脚本" data-path="/2022/05/03/instruction/python-execute-anywhere/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <p>在Ubuntu上任意位置运行某一个python脚本的方法：</p>
+<ul>
+<li>
+<p>首先在python文件开头加上：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python3</span></span><br></pre></td></tr></table></figure>
+<p>说明该文件是python3脚本</p>
+</li>
+<li>
+<p>为方便起见，可以将文件的.py后缀删去，并为文件添加可执行权限：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x &lt;pythonFile&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>最后将python脚本所在的目录添加到 <code>PATH</code> 环境变量中，比如在 <em>~/.bashrc</em> 中添加：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> PATH=&lt;pathToPythonFile&gt;:<span class="variable">$P</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2020/11/25/learning-notes/Internet%E5%AE%89%E5%85%A8%E5%8D%8F%E8%AE%AENotes/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2022年5月3日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/25/learning-notes/SGX-Developer-Guide-Notes/">
-        SGX Developer Guide - Reading Notes
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Intel SGX Developer Guide 学习笔记
-    
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/linux/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>linux</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/python/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>python</p></a></div>
+
+
+        
+      
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-25</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Notes/">Notes</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2020/11/25/learning-notes/SGX-Developer-Guide-Notes/'>
-            阅读全文
-          </a>
-        </div>
+        <a class='prev' href='/2022/05/07/paper-reading/oram/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>论文阅读-ORAM相关</p>
+          <p class='content'>不经意随机访问机研究综述
+敌手：
+
+通过用户的访问模式(access pattern)来推断存储数据的重要性
+可以通过匹配前后两个连续的访问模式来推断数据查询之间的关联关系，甚至是加密数据的内容...</p>
+        </a>
+      
+      
+        <a class='next' href='/2022/04/28/learning-notes/mit-6.824/'>
+          <p class='title'>MIT 6.824 Distributed Systems 学习笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Paper Reading
+MapReduce
+一个编程模型，用于大规模并行计算，以及采用re-execution进行容错处理
+
+$Map$：输入键值对，输出一系列中间键值对，并将相同的中间键排...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/24/instruction/sgx-programming/">
-        SGX程序基础
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Intel SGX程序SampleCode Notes
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-24</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Instruction/">Instruction</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/24/instruction/sgx-programming/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/23/instruction/ubuntu-show-application/">
-        Ubuntu将安装的应用固定到桌面
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Ubuntu20.04将国内版本的firefox固定到桌面
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-23</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Instruction/">Instruction</a><span class="sep"></span><a class="category-link" href="/categories/Linux/">Linux</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/23/instruction/ubuntu-show-application/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/16/learning-notes/Rust-notes/">
-        Rust - Learn
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Rust基础学习笔记
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-16</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Notes/">Notes</a><span class="sep"></span><a class="category-link" href="/categories/Rust/">Rust</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/16/learning-notes/Rust-notes/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/11/learning-notes/C%E5%92%8C%E6%8C%87%E9%92%88notes/">
-        Pointers on C - Learn
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      C学习记录
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-11</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/C/">C</a><span class="sep"></span><a class="category-link" href="/categories/Notes/">Notes</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/11/learning-notes/C%E5%92%8C%E6%8C%87%E9%92%88notes/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/04/learning-notes/Linux%E5%AD%A6%E4%B9%A0/">
-        Linux - Learn
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Linux学习记录
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-04</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Linux/">Linux</a><span class="sep"></span><a class="category-link" href="/categories/Notes/">Notes</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/04/learning-notes/Linux%E5%AD%A6%E4%B9%A0/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/11/03/instruction/Hexo-Volantis%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/">
-        Hexo+Volantis个人博客部署
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      个人博客配置心得
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-11-03</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Instruction/">Instruction</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/11/03/instruction/Hexo-Volantis%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2%E9%83%A8%E7%BD%B2/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2020/10/24/lookup/docker-notes/">
-        Docker - Learn
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Docker学习记录
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-10-24</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Lookup/">Lookup</a><span class="sep"></span><a class="category-link" href="/categories/Notes/">Notes</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2020/10/24/lookup/docker-notes/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/archives/2020/">
-            <section class="post prev white-box shadow floatable" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;上一页&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          2 / 2
-        </p>
-        
-      </div>
-    
   
 
 
-	
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -814,308 +571,14 @@
     
     
 
-<section class="widget blogger shadow floatable desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Schenk</h2>
-        
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://github.com/Schenk75"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="https://cubingchina.com/results/person/2018SHEN04"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow floatable desktop">
-    
-  <header>
-    
-      <a href='categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
-    
-  </header>
 
 
-    <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/C/" href="/categories/C/"
-            id="categoriesC"
-            ><div class='name'>C</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Cube/" href="/categories/Cube/"
-            id="categoriesCube"
-            ><div class='name'>Cube</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Go/" href="/categories/Go/"
-            id="categoriesGo"
-            ><div class='name'>Go</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Instruction/" href="/categories/Instruction/"
-            id="categoriesInstruction"
-            ><div class='name'>Instruction</div><div class='badge'>(14)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Lookup/" href="/categories/Lookup/"
-            id="categoriesLookup"
-            ><div class='name'>Lookup</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Notes/" href="/categories/Notes/"
-            id="categoriesNotes"
-            ><div class='name'>Notes</div><div class='badge'>(14)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/ORAM/" href="/categories/ORAM/"
-            id="categoriesORAM"
-            ><div class='name'>ORAM</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Paper-Reading/" href="/categories/Paper-Reading/"
-            id="categoriesPaper-Reading"
-            ><div class='name'>Paper Reading</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Python/" href="/categories/Python/"
-            id="categoriesPython"
-            ><div class='name'>Python</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Rust/" href="/categories/Rust/"
-            id="categoriesRust"
-            ><div class='name'>Rust</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SGX/" href="/categories/SGX/"
-            id="categoriesSGX"
-            ><div class='name'>SGX</div><div class='badge'>(13)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Useful/" href="/categories/Useful/"
-            id="categoriesUseful"
-            ><div class='name'>Useful</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow floatable desktop mobile">
-    
-  <header>
-    
-      <a href='tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/blockchain/" style="font-size: 19px; color: #777">blockchain</a> <a href="/tags/c/" style="font-size: 14px; color: #999">c</a> <a href="/tags/cryptography/" style="font-size: 16.5px; color: #888">cryptography</a> <a href="/tags/cube/" style="font-size: 14px; color: #999">cube</a> <a href="/tags/db/" style="font-size: 14px; color: #999">db</a> <a href="/tags/distributed-system/" style="font-size: 14px; color: #999">distributed system</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/eos/" style="font-size: 14px; color: #999">eos</a> <a href="/tags/git/" style="font-size: 16.5px; color: #888">git</a> <a href="/tags/go/" style="font-size: 14px; color: #999">go</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/linux/" style="font-size: 21.5px; color: #666">linux</a> <a href="/tags/makefile/" style="font-size: 14px; color: #999">makefile</a> <a href="/tags/markdown/" style="font-size: 14px; color: #999">markdown</a> <a href="/tags/oram/" style="font-size: 14px; color: #999">oram</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/reproduction/" style="font-size: 14px; color: #999">reproduction</a> <a href="/tags/rust/" style="font-size: 21.5px; color: #666">rust</a> <a href="/tags/rust-git/" style="font-size: 14px; color: #999">rust - git</a> <a href="/tags/sgx/" style="font-size: 24px; color: #555">sgx</a> <a href="/tags/sq1/" style="font-size: 14px; color: #999">sq1</a> <a href="/tags/wasm/" style="font-size: 14px; color: #999">wasm</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow floatable desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>47 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/11/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>171.3k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Mon May 16 2022 19:26:09 GMT+0800 (中国标准时间)</div>
-            <div id="last-update-show">2022-05-16 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-05-16 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
         
@@ -1125,14 +588,14 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="在任意位置运行Python脚本";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
