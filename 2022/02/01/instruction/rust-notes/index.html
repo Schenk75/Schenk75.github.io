@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-04-28T15:18:47+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-06-16T21:37:17+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年4月28日</p>
+    <p>更新于：2022年6月16日</p>
   </a>
 </div>
 
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：204字</p>
+      <p>字数：520字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：1分钟</p>
+      <p>时长：2分钟</p>
     </a>
   </div>
 
@@ -491,6 +491,59 @@
 <h4 id="slice复制">slice复制</h4>
 <p>使用copy_from_slice将一个slice的内容复制到另外一个slice时，要求两个slice的长度相同，因此对于要将[u8]转为[u8; usize]的场景，需要使用以下代码：</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> v: <span class="built_in">Vec</span>&lt;<span class="built_in">u8</span>&gt; = <span class="built_in">vec!</span>[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="keyword">let</span> vs: &amp;[<span class="built_in">u8</span>] = v.as_slice();</span><br><span class="line"><span class="keyword">let</span> <span class="keyword">mut</span> vs2: [<span class="built_in">u8</span>; <span class="number">32</span>] = [<span class="number">0</span>; <span class="number">32</span>];</span><br><span class="line">vs2[..<span class="number">3</span>].copy_from_slice(vs);</span><br></pre></td></tr></table></figure>
+<h4 id="关于所有权">关于所有权</h4>
+<ul>
+<li>
+<p>定长的变量存放在栈中，默认实现 <code>Copy</code> 特征，拷贝时直接在栈上复制一个副本，为浅拷贝</p>
+</li>
+<li>
+<p>不定长或可变的变量存放在堆中，并将其对应的指针压入栈中，拷贝时会转移所有权，若需要原变量也保持所有权，需要进行深拷贝，即将堆中存放的数据也拷贝一份</p>
+</li>
+</ul>
+<h4 id="循环">循环</h4>
+<table>
+<thead>
+<tr>
+<th>使用方法</th>
+<th>等价使用方式</th>
+<th>所有权</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>for item in collection</code></td>
+<td><code>for item in IntoIterator::into_iter(collection)</code></td>
+<td>转移所有权</td>
+</tr>
+<tr>
+<td><code>for item in &amp;collection</code></td>
+<td><code>for item in collection.iter()</code></td>
+<td>不可变借用</td>
+</tr>
+<tr>
+<td><code>for item in &amp;mut collection</code></td>
+<td><code>for item in collection.iter_mut()</code></td>
+<td>可变借用</td>
+</tr>
+</tbody>
+</table>
+<h4 id="Trait">Trait</h4>
+<ul>
+<li>
+<p>孤儿规则：<strong>如果你想要为类型 <code>A</code> 实现特征 <code>T</code>，那么 <code>A</code> 或者 <code>T</code> 至少有一个是在当前作用域中定义的</strong></p>
+<ul>
+<li>eg：无法在当前作用域中，为 <code>String</code> 类型实现 <code>Display</code> 特征，因为它们俩都定义在标准库中，其定义所在的位置都不在当前作用域</li>
+</ul>
+</li>
+<li>
+<p>调用方法需要引入特征：</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> std::convert::TryInto;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">fn</span> <span class="title">main</span></span>() &#123;</span><br><span class="line">  <span class="keyword">let</span> a: <span class="built_in">i32</span> = <span class="number">10</span>;</span><br><span class="line">  <span class="keyword">let</span> b: <span class="built_in">u16</span> = <span class="number">100</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">let</span> b_ = b.try_into()</span><br><span class="line">            .unwrap();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> a &lt; b_ &#123;</span><br><span class="line">    <span class="built_in">println!</span>(<span class="string">&quot;Ten is less than one hundred.&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p><strong>特征对象：</strong> <code>Box&lt;dyn Trait&gt;</code> 或 <code>&amp;dyn Trait</code></p>
+</li>
+</ul>
+
   
   
     
@@ -592,7 +645,7 @@ hash
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#slice%E5%A4%8D%E5%88%B6"><span class="toc-text">slice复制</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="toc-text">错误处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#slice%E5%A4%8D%E5%88%B6"><span class="toc-text">slice复制</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%89%80%E6%9C%89%E6%9D%83"><span class="toc-text">关于所有权</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BE%AA%E7%8E%AF"><span class="toc-text">循环</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Trait"><span class="toc-text">Trait</span></a></li></ol>
     </div>
   </section>
 
