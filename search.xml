@@ -858,7 +858,7 @@
       <link href="2020/12/03/lookup/Vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/"/>
       <url>2020/12/03/lookup/Vscode%E5%BF%AB%E6%8D%B7%E9%94%AE/</url>
       
-        <content type="html"><![CDATA[<p><code>Ctrl+J</code> : 隐藏(显示)底下的控制台/终端面板</p><p><code>Ctrl+Shift+P</code> : 调出搜索设置</p><p><code>Ctrl+Shift+C</code> : 在当前目录调出外部终端</p><p><code>Home</code> ：光标移动到行首</p><p><code>End</code> ：光标移动到行尾</p>]]></content>
+        <content type="html"><![CDATA[<p><code>Ctrl+J</code> : 隐藏(显示)底下的控制台/终端面板</p><p><code>Ctrl+Shift+P</code> : 调出搜索设置</p><p><code>Ctrl+Shift+C</code> : 在当前目录调出外部终端</p><p><code>Home</code> ：光标移动到行首</p><p><code>End</code> ：光标移动到行尾</p><p><code>Ctrl+L</code> ：选中一整行</p>]]></content>
       
       
       <categories>
