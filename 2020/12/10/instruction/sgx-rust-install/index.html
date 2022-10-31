@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-27T12:30:10+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-10-31T16:58:09+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年5月27日</p>
+    <p>更新于：2022年10月31日</p>
   </a>
 </div>
 
@@ -434,7 +434,7 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：487字</p>
+      <p>字数：537字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -497,6 +497,8 @@
 <h3 id="解决：-app-error-while-loading-shared-libraries-libsgx-uae-service-so-cannot-open-shared-object-file-No-such-file-or-directory">解决：./app: error while loading shared libraries: libsgx_uae_service.so: cannot open shared object file: No such file or directory</h3>
 <p>错误方案：当使用find命令查询文件之后发现在 <code>/opt/intel/sgxsdk/lib64</code> 中包含 <code>libsgx_uae_service.so</code> ，从而添加该路径到LD_LIBRARY_PATH。这样会导致新的error “Please use the correct uRTS library from PSW package.”，因为sgxsdk下的lib是用作开发环境的，而在 <code>/lib/x86_64-linux-gnu</code> 下的lib是用于生产环境的，相互不兼容</p>
 <p>**正确方案：**出现该问题的原因是psw安装不齐全，即libsgx-uae-service未安装，只要使用命令 <code>sudo apt-get install libsgx-uae-service</code> 就能成功将对应的库安装到 <code>/lib/x86_64-linux-gnu</code> 下</p>
+<h3 id="关于最新的Linux内核支持in-kernel-driver">关于最新的Linux内核支持in-kernel driver</h3>
+<p>不需要再进行额外的driver安装，若有之前版本的driver，应当先卸载，然后将所有psw的组件卸载重装</p>
 
   
   
@@ -593,7 +595,7 @@
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Intel-SGX"><span class="toc-text">安装Intel SGX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDRust-SGX-SDK"><span class="toc-text">下载Rust-SGX-SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%EF%BC%9AEnclave%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E5%87%BA%E9%94%99%EF%BC%88Invalid-SGX-Driver%EF%BC%89"><span class="toc-text">解决：Enclave代码运行出错（Invalid SGX Driver）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%EF%BC%9A-app-error-while-loading-shared-libraries-libsgx-uae-service-so-cannot-open-shared-object-file-No-such-file-or-directory"><span class="toc-text">解决：.&#x2F;app: error while loading shared libraries: libsgx_uae_service.so: cannot open shared object file: No such file or directory</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Intel-SGX"><span class="toc-text">安装Intel SGX</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BDRust-SGX-SDK"><span class="toc-text">下载Rust-SGX-SDK</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-text">添加环境变量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%EF%BC%9AEnclave%E4%BB%A3%E7%A0%81%E8%BF%90%E8%A1%8C%E5%87%BA%E9%94%99%EF%BC%88Invalid-SGX-Driver%EF%BC%89"><span class="toc-text">解决：Enclave代码运行出错（Invalid SGX Driver）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%A3%E5%86%B3%EF%BC%9A-app-error-while-loading-shared-libraries-libsgx-uae-service-so-cannot-open-shared-object-file-No-such-file-or-directory"><span class="toc-text">解决：.&#x2F;app: error while loading shared libraries: libsgx_uae_service.so: cannot open shared object file: No such file or directory</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%9C%80%E6%96%B0%E7%9A%84Linux%E5%86%85%E6%A0%B8%E6%94%AF%E6%8C%81in-kernel-driver"><span class="toc-text">关于最新的Linux内核支持in-kernel driver</span></a></li></ol>
     </div>
   </section>
 

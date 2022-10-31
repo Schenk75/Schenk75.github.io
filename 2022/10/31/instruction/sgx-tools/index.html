@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -21,9 +19,11 @@
 
   <!-- 页面元数据 -->
   
-  <title>归档：2021/4 - Schenk - Blog</title>
+  <title>SGX Tools - Schenk - Blog</title>
   
 
+  
+    <meta name="description" content="整理使用过的SGX相关工具">
   
 
   <!-- feed -->
@@ -58,7 +58,7 @@
 <body>
   
 
-<header id="l_header" class="l_header auto shadow blur floatable " style='opacity: 0' >
+<header id="l_header" class="l_header auto shadow blur floatable show" style='opacity: 0' >
   <div class='container'>
   <div id='wrapper'>
     <div class='nav-sub'>
@@ -309,7 +309,7 @@
     <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="full" class='cover-wrapper post dock' style="display: none;">
           
             <div class='cover-bg lazyload placeholder' data-bg="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/interstellar.jpg"></div>
           
@@ -380,162 +380,157 @@
         
 
 <div class='l_main'>
-	
-		
-  <section class="post-list">
+  <article class="article post white-box reveal md shadow floatable article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
     
-      
+    
+    
+      <h1 class="title">
+        SGX Tools
+      </h1>
+      <div class='new-meta-box'>
         
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg">
+    <p>Schenk</p>
+  </a>
+</div>
+
           
         
           
-        
+            
+
           
         
-      
-    
-    
-      
+          
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-10-31T17:12:02+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2022年10月31日</p>
+  </a>
+</div>
+
+          
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/04/15/learning-notes/substrate%E5%85%A5%E9%97%A8/">
-        Substrate入门
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      Substrate框架入门
-    
+          
+            
+  <div class="new-meta-item wordcount">
+    <a class='notlink'>
+      <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
+      <p>字数：81字</p>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+  <div class="new-meta-item readtime">
+    <a class='notlink'>
+      <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
+      <p>时长：1分钟</p>
+    </a>
+  </div>
+
+
+          
         
-        <time>2021-04-15</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Notes/">Notes</a>
+          
+            
+  <div class="new-meta-item browse leancloud">
+    <a class='notlink'>
+      
+      <div id="lc-pv" data-title="SGX Tools" data-path="/2022/10/31/instruction/sgx-tools/">
+        <i class="fas fa-eye fa-fw" aria-hidden="true"></i>
+        <span id='number'><i class="fas fa-circle-notch fa-spin fa-fw" aria-hidden="true"></i></span>
+        次浏览
+      </div>
+    </a>
+  </div>
+
+
+          
         
       </div>
+    
+  </div>
+
+
+  
+  <h4 id="sgx-emmt">sgx_emmt</h4>
+<p>测量一个sgx程序运行过程中使用的最大enclave内存，根据 <a target="_blank" rel="noopener" href="https://download.01.org/intel-sgx/latest/linux-latest/docs/">Developer Reference</a> 中的相关章节进行测量，主要使用工具 <code>sgx_gdb</code> 在sdk安装目录的bin目录下</p>
+<h4 id="查看当前计算机的EPC大小">查看当前计算机的EPC大小</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> git@github.com:ayeks/SGX-hardware.git</span><br><span class="line"><span class="built_in">cd</span> SGX-hardware</span><br><span class="line">gcc test-sgx.c -o test-sgx</span><br><span class="line">./test-sgx</span><br></pre></td></tr></table></figure>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/2021/04/15/learning-notes/substrate%E5%85%A5%E9%97%A8/'>
-            阅读全文
-          </a>
-        </div>
+      
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2022年10月31日</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/04/12/paper-reading/paper-twine/">
-        论文阅读-TWINE An Embedded Trusted Runtime
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      论文TWINE：An Embedded Trusted Runtime阅读笔记
-    
+          
+
+        
+      
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-04-12</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Paper-Reading/">Paper Reading</a><span class="sep"></span><a class="category-link" href="/categories/SGX/">SGX</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/2021/04/12/paper-reading/paper-twine/'>
-            阅读全文
-          </a>
-        </div>
+      
+        <a class='next' href='/2022/06/22/instruction/wsl/'>
+          <p class='title'>WSL配置<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>安装WSL
+管理员权限打开powershell
+1wsl --install
+默认安装WSL 2 + Ubuntu 20.04，详见安装 WSL | Microsoft Docs
+更新升级apt...</p>
+        </a>
       
     </div>
   
+</article>
 
-</div>
 
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow floatable">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/2021/04/09/learning-notes/eos%E5%85%A5%E9%97%A8/">
-        EOS入门
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      EOS开发入门
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-04-09</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/Notes/">Notes</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/2021/04/09/learning-notes/eos%E5%85%A5%E9%97%A8/'>
-            阅读全文
-          </a>
-        </div>
-      
-    </div>
   
 
-</div>
-
-          </div>
-        
-      
-    
-  </section>
-  
-    
   
 
 
-	
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -543,308 +538,28 @@
     
     
 
-<section class="widget blogger shadow floatable desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://cdn.jsdelivr.net/gh/Schenk75/Source@master/common/avatar.jpg'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-          <h2>Schenk</h2>
-        
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="https://github.com/Schenk75"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/github-icon.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@latest/logos/struts.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-          
-            <a href="https://cubingchina.com/results/person/2018SHEN04"
-              class="social  flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-                <img src="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/Schenk75/Source@master/logos/WCAlogo.svg" srcset="data:image/png;base64,666"/>
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
 
-  
-    
-    
-  
-
-  <section class="widget category shadow floatable desktop">
+  <section class="widget toc-wrapper shadow floatable desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/C/" href="/categories/C/"
-            id="categoriesC"
-            ><div class='name'>C</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Cube/" href="/categories/Cube/"
-            id="categoriesCube"
-            ><div class='name'>Cube</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Go/" href="/categories/Go/"
-            id="categoriesGo"
-            ><div class='name'>Go</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Instruction/" href="/categories/Instruction/"
-            id="categoriesInstruction"
-            ><div class='name'>Instruction</div><div class='badge'>(15)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Linux/" href="/categories/Linux/"
-            id="categoriesLinux"
-            ><div class='name'>Linux</div><div class='badge'>(9)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Lookup/" href="/categories/Lookup/"
-            id="categoriesLookup"
-            ><div class='name'>Lookup</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Notes/" href="/categories/Notes/"
-            id="categoriesNotes"
-            ><div class='name'>Notes</div><div class='badge'>(14)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/ORAM/" href="/categories/ORAM/"
-            id="categoriesORAM"
-            ><div class='name'>ORAM</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Paper-Reading/" href="/categories/Paper-Reading/"
-            id="categoriesPaper-Reading"
-            ><div class='name'>Paper Reading</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Python/" href="/categories/Python/"
-            id="categoriesPython"
-            ><div class='name'>Python</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Rust/" href="/categories/Rust/"
-            id="categoriesRust"
-            ><div class='name'>Rust</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/SGX/" href="/categories/SGX/"
-            id="categoriesSGX"
-            ><div class='name'>SGX</div><div class='badge'>(13)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Useful/" href="/categories/Useful/"
-            id="categoriesUseful"
-            ><div class='name'>Useful</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#sgx-emmt"><span class="toc-text">sgx_emmt</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%9A%84EPC%E5%A4%A7%E5%B0%8F"><span class="toc-text">查看当前计算机的EPC大小</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow floatable desktop mobile">
-    
-  <header>
-    
-      <a href='tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/blockchain/" style="font-size: 20px; color: #707070">blockchain</a> <a href="/tags/c/" style="font-size: 14px; color: #999">c</a> <a href="/tags/cryptography/" style="font-size: 16px; color: #8b8b8b">cryptography</a> <a href="/tags/cube/" style="font-size: 14px; color: #999">cube</a> <a href="/tags/db/" style="font-size: 14px; color: #999">db</a> <a href="/tags/distributed-system/" style="font-size: 14px; color: #999">distributed system</a> <a href="/tags/docker/" style="font-size: 14px; color: #999">docker</a> <a href="/tags/eos/" style="font-size: 14px; color: #999">eos</a> <a href="/tags/git/" style="font-size: 18px; color: #7e7e7e">git</a> <a href="/tags/go/" style="font-size: 14px; color: #999">go</a> <a href="/tags/hexo/" style="font-size: 14px; color: #999">hexo</a> <a href="/tags/linux/" style="font-size: 22px; color: #636363">linux</a> <a href="/tags/makefile/" style="font-size: 14px; color: #999">makefile</a> <a href="/tags/markdown/" style="font-size: 14px; color: #999">markdown</a> <a href="/tags/oram/" style="font-size: 14px; color: #999">oram</a> <a href="/tags/python/" style="font-size: 14px; color: #999">python</a> <a href="/tags/reproduction/" style="font-size: 14px; color: #999">reproduction</a> <a href="/tags/rust/" style="font-size: 22px; color: #636363">rust</a> <a href="/tags/sgx/" style="font-size: 24px; color: #555">sgx</a> <a href="/tags/sq1/" style="font-size: 14px; color: #999">sq1</a> <a href="/tags/wasm/" style="font-size: 14px; color: #999">wasm</a>
-    </div>
-  </section>
-
-
-  
-
-  
-    
-    
-
-<section class="widget shadow floatable desktop">
-  
-  <header>
-    
-      <i class="fas fa-award fa-fw" aria-hidden="true"></i><span class='name'>站点信息</span>
-    
-  </header>
-
-
-  <div class='content'>
-    <div class="webinfo">
-      
-        <div class="webinfo-item">
-          <div>文章数目：</div>
-          <div>49 篇</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>已运行时间：</div>
-          <div id="webinfo-runtime-count" publish_date="11/3/2020 00:00:00"></div>
-        </div>
-        <script>
-          var BirthDay = new Date(new Date('2020/11/01'));
-          var today = new Date();
-          var timeold = (today.getTime() - BirthDay.getTime());
-          var daysold = Math.floor(timeold / (24 * 60 * 60 * 1000));
-          document.getElementById('webinfo-runtime-count').innerHTML = daysold + ' 天';
-        </script>
-      
-
-
-      
-        <div class="webinfo-item">
-          <div>本站总字数：</div>
-          <div>173.4k 字</div>
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站访客数：</div>
-          
-          <div><span id="busuanzi_value_site_uv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 人</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>本站总访问量：</div>
-          
-          <div><span id="busuanzi_value_site_pv"><i class="fas fa-fan fa-spin fa-fw" aria-hidden="true"></i></span> 次</div>
-          
-        </div>
-      
-
-      
-        <div class="webinfo-item">
-          <div>最后活动时间：</div>
-          
-            <div id="last-update" style="display: none;">Mon Oct 31 2022 17:13:09 GMT+0800 (GMT+08:00)</div>
-            <div id="last-update-show">2022-10-31 日</div>
-          
-        </div>
-        
-        <script>
-          function timeago(dateTimeStamp) {
-              var minute = 1000 * 60; //把分，时，天，周，半个月，一个月用毫秒表示
-              var hour = minute * 60;
-              var day = hour * 24;
-              var week = day * 7;
-              var month = day * 30;
-              var now = new Date().getTime(); //获取当前时间毫秒
-              var diffValue = now - dateTimeStamp; //时间差
-              if (diffValue < 0) {
-                  return;
-              }
-              var minC = diffValue / minute; //计算时间差的分，时，天，周，月
-              var hourC = diffValue / hour;
-              var dayC = diffValue / day;
-              var weekC = diffValue / week;
-              var monthC = diffValue / month;
-              if (monthC >= 1 && monthC <= 3) {
-                  result = " " + parseInt(monthC) + " 月前"
-              } else if (weekC >= 1 && weekC <= 3) {
-                  result = " " + parseInt(weekC) + " 周前"
-              } else if (dayC >= 1 && dayC <= 6) {
-                  result = " " + parseInt(dayC) + " 天前"
-              } else if (hourC >= 1 && hourC <= 23) {
-                  result = " " + parseInt(hourC) + " 小时前"
-              } else if (minC >= 1 && minC <= 59) {
-                  result = " " + parseInt(minC) + " 分钟前"
-              } else if (diffValue >= 0 && diffValue <= minute) {
-                  result = "刚刚"
-              } else {
-                  var datetime = new Date();
-                  datetime.setTime(dateTimeStamp);
-                  var Nyear = datetime.getFullYear();
-                  var Nmonth = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;
-                  var Ndate = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();
-                  var Nhour = datetime.getHours() < 10 ? "0" + datetime.getHours() : datetime.getHours();
-                  var Nminute = datetime.getMinutes() < 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();
-                  var Nsecond = datetime.getSeconds() < 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();
-                  result = Nyear + "-" + Nmonth + "-" + Ndate
-              }
-              return result;
-          }
-          var lastUpDate = document.getElementById('last-update').innerHTML;
-          try {
-            document.getElementById('last-update-show').innerHTML = timeago(new Date(lastUpDate));
-          } catch (error) {
-            document.getElementById('last-update-show').innerHTML = '2022-10-31 日';
-          }
-        </script>
-        
-      
-    </div>
-  </div>
-</section>
 
   
 
 
 </aside>
+
 
 
         
@@ -854,14 +569,14 @@
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="SGX Tools";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
 
   var l_header=document.getElementById("l_header");
   
-  l_header.classList.remove("show");
+  l_header.classList.add("show");
   
 </script>
 
