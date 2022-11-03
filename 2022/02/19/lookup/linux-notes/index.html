@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-11-01T15:37:14+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-11-03T14:09:18+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年11月1日</p>
+    <p>更新于：2022年11月3日</p>
   </a>
 </div>
 
@@ -434,7 +434,7 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：149字</p>
+      <p>字数：169字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
@@ -480,7 +480,9 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ln -s ~/chainmaker/chainmaker-go/tools/cmc/cmc /usr/</span><br></pre></td></tr></table></figure>
 <h3 id="测试命令">测试命令</h3>
 <h4 id="查看进程的内存占用">查看进程的内存占用</h4>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先使用top命令找到指定进程的pid（top命令只显示了进程占用内存的百分比，没有具体数值）</span></span><br><span class="line">top</span><br><span class="line"><span class="comment"># 根据pid打印进程所占内存，每2秒打印一次</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span> pmap -d &lt;pid&gt; | tail -1; sleep 2; <span class="keyword">done</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首先使用top命令找到指定进程的pid（top命令只显示了进程占用内存的百分比，没有具体数值）</span></span><br><span class="line">top</span><br><span class="line"><span class="comment"># 根据pid打印进程所占内存，每2秒打印一次</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span>; <span class="keyword">do</span> pmap -d &lt;pid&gt; | tail -1; sleep 2; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+<h4 id="查看当前目录下所有文件大小">查看当前目录下所有文件大小</h4>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">du -lh --max-depth=1 | sort -n</span><br></pre></td></tr></table></figure>
 
   
   
@@ -583,7 +585,7 @@
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Debug%E5%91%BD%E4%BB%A4"><span class="toc-text">Debug命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE"><span class="toc-text">查找文件位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A8%8B%E5%BA%8F%E4%BE%9D%E8%B5%96%E7%9A%84%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-text">查看程序依赖的动态链接库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup%E5%91%BD%E4%BB%A4"><span class="toc-text">Setup命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">命令行工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-text">测试命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8"><span class="toc-text">查看进程的内存占用</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Debug%E5%91%BD%E4%BB%A4"><span class="toc-text">Debug命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%96%87%E4%BB%B6%E4%BD%8D%E7%BD%AE"><span class="toc-text">查找文件位置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E7%A8%8B%E5%BA%8F%E4%BE%9D%E8%B5%96%E7%9A%84%E5%8A%A8%E6%80%81%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="toc-text">查看程序依赖的动态链接库</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Setup%E5%91%BD%E4%BB%A4"><span class="toc-text">Setup命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7"><span class="toc-text">命令行工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E5%91%BD%E4%BB%A4"><span class="toc-text">测试命令</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%86%85%E5%AD%98%E5%8D%A0%E7%94%A8"><span class="toc-text">查看进程的内存占用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E7%9B%AE%E5%BD%95%E4%B8%8B%E6%89%80%E6%9C%89%E6%96%87%E4%BB%B6%E5%A4%A7%E5%B0%8F"><span class="toc-text">查看当前目录下所有文件大小</span></a></li></ol></li></ol>
     </div>
   </section>
 
