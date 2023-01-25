@@ -420,10 +420,10 @@
           
         
           
-            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2022-05-02T14:35:08+08:00">
+            <div class="new-meta-item date" itemprop="dateUpdated" datetime="2023-01-25T12:26:12+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2022年5月2日</p>
+    <p>更新于：2023年1月25日</p>
   </a>
 </div>
 
@@ -434,13 +434,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：899字</p>
+      <p>字数：1k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：3分钟</p>
+      <p>时长：4分钟</p>
     </a>
   </div>
 
@@ -501,6 +501,12 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">m := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;<span class="number">1</span>: <span class="string">&quot;a&quot;</span>, <span class="number">2</span>: <span class="string">&quot;b&quot;</span>, <span class="number">3</span>: <span class="string">&quot;c&quot;</span>&#125;</span><br><span class="line">mCopy := <span class="keyword">map</span>[<span class="keyword">int</span>]<span class="keyword">string</span>&#123;&#125;</span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> m &#123;</span><br><span class="line">    mCopy[k] = v</span><br><span class="line">&#125;</span><br><span class="line">m[<span class="number">4</span>] = <span class="string">&quot;d&quot;</span></span><br><span class="line">fmt.Println(m)</span><br><span class="line">fmt.Println(mCopy)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出：map[1:a 2:b 3:c 4:d]</span></span><br><span class="line"><span class="comment">//		map[1:a 2:b 3:c]</span></span><br></pre></td></tr></table></figure>
 <h3 id="package">package</h3>
 <p>同一目录下的同级文件属于一个包，main.go可以直接调用其他文件中的函数，但是在运行的时候需要使用 <code>go run .</code></p>
+<h3 id="SQL">SQL</h3>
+<h4 id="动态条件">动态条件</h4>
+<p>SQL查询时存在不定长的 <code>WHERE</code> 子句，例如定义这样一个查询条件的结构体：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Query <span class="keyword">struct</span> &#123;</span><br><span class="line">    Id               *<span class="keyword">int64</span></span><br><span class="line">    FirstName        *<span class="keyword">string</span></span><br><span class="line">    MiddleName       *<span class="keyword">string</span></span><br><span class="line">    LastName         *<span class="keyword">string</span></span><br><span class="line">    AreaId           *<span class="keyword">int64</span></span><br><span class="line">    Birthday         *time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中的每一个字段都不是必须存在于 <code>WHERE</code> 子句中的，这样就需要动态构造SQL语句，通过类似这种方式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Query <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> model Query&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> values []<span class="keyword">interface</span>&#123;&#125;</span><br><span class="line"><span class="keyword">var</span> where []<span class="keyword">string</span></span><br><span class="line"><span class="keyword">for</span> k, v := <span class="keyword">range</span> model &#123;</span><br><span class="line">    values = <span class="built_in">append</span>(values, v)</span><br><span class="line">    where = <span class="built_in">append</span>(where, fmt.Sprintf(<span class="string">&quot;%s = ?&quot;</span>, k))</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">string</span> := (<span class="string">&quot;SELECT name FROM users WHERE &quot;</span> + strings.Join(where, <span class="string">&quot; AND &quot;</span>))</span><br></pre></td></tr></table></figure>
 
   
   
@@ -606,7 +612,7 @@ Setup命令
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#json"><span class="toc-text">json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D"><span class="toc-text">拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-text">垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-text">map</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D-v2"><span class="toc-text">拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#hash"><span class="toc-text">hash</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#json"><span class="toc-text">json</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slice"><span class="toc-text">slice</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D"><span class="toc-text">拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="toc-text">垃圾回收</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#map"><span class="toc-text">map</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8B%B7%E8%B4%9D-v2"><span class="toc-text">拷贝</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#package"><span class="toc-text">package</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL"><span class="toc-text">SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E6%9D%A1%E4%BB%B6"><span class="toc-text">动态条件</span></a></li></ol></li></ol>
     </div>
   </section>
 
